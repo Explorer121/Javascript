@@ -1,0 +1,21 @@
+body {
+  background-color: #ffffff;
+  font-family: Arial;
+  font-weight: bold;
+}
+
+.headline {
+  font-size: 36px;
+  font-weight: 900;
+}
+
+.subheading {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.subsub {
+  font-size: 24px;
+  font-weight: 700;
+}
+

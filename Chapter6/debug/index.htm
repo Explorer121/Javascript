@@ -1,0 +1,270 @@
+<html>
+
+<head>
+
+<title>Family Tree</title>
+
+<script language="JavaScript" src="debug.js"></script>
+
+<script language="JavaScript"><!--
+if (window.debug) debug('Starting...');
+
+function pad(num, size) {
+  num = '' + num;
+  while (num.length < size) num = '0' + num;
+  return num;
+}
+
+function y2k(num) {
+if (window.debug) debug(num + ' to ' + (num < 1000) ? num + 1900 : num);
+  return (num < 1000) ? num + 1900 : num;
+}
+
+var months = new Array(
+  'Jan','Feb','Mar','Apr', 'May','Jun',
+  'Jul','Aug','Sep','Oct','Nov','Dec'
+);
+
+var today     = new Date();
+var thisYear  = y2k(today.getYear());
+var thisMonth = today.getMonth()+1;
+var thisDay   = today.getDate();
+
+function HowOld(day,month,year,Day,Month,Year) {
+if (window.debug) startDebug();
+  var years = Year - year, months = days = 0;
+
+  if (Month >= month) months = Month - month;
+  else { years--; months = Month + 12 - month; }
+
+  if (Day >= day) days = Day - day;
+  else {
+    if (months > 0) months--;
+    else { years--; months+=11; }
+    days = Day + 31 - day;
+  }
+
+  if (years < 0) return '';
+  if ((years == 0) && (months == 0) && (days == 0)) return '';
+
+if (window.debug) endDebug();
+  return years  + ' years, ' +
+         months + ' months, ' +
+         days   + ' days';
+}
+
+function show(index) {
+if (window.debug) startDebug();
+  if (index != 0) {
+    PersonToShow = index;
+    window.topFrame.location.href = 'topframe.htm';
+    window.botFrame.location.href = 'botframe.htm';
+  }
+if (window.debug) endDebug();
+}
+
+function showTree(index) {
+if (window.debug) startDebug();
+  var fatherNo = PersonArray[index].fatherNo;
+  var motherNo = PersonArray[index].motherNo;
+  var spouseNo = PersonArray[index].spouseNo;
+
+  var output = '';
+
+  output +=
+    '<center>' +
+    '<table height="100%"><tr><td>' +
+
+    '<table>' +
+
+    '<tr><td align="center"><strong>Father:</strong><br>' +
+    '<a href="javascript:parent.show(' + fatherNo + ')" ' +
+    'onMouseover="updateDetails(' + fatherNo + ')">' +
+    PersonArray[index].father + '</a></td>' +
+
+    '<td>_</td>' +
+
+    '<td align="center"><strong>Mother:</strong><br>' +
+    '<a href="javascript:parent.show(' + motherNo + ')" ' +
+    'onMouseover="updateDetails(' + motherNo + ')">' +
+    PersonArray[index].mother + '</a></td></tr>' +
+
+    '<tr><td align="center">|<td></td></td><td></td></tr>' +
+
+    '<tr><td align="center">' +
+    '<a href="javascript:parent.show(0)" ' +
+    'onMouseover="updateDetails(' + index + ')" ><strong>' +
+    PersonArray[index].name + '</strong></a></td>' +
+
+    '<td>_</td>' +
+
+    '<td align="center"><strong>Spouse:</strong><br>' +
+    '<a href="javascript:parent.show(' + spouseNo + ')" ' +
+    'onMouseover="updateDetails(' + spouseNo + ')">' +
+    PersonArray[index].spouse + '</a></td></tr>' +
+
+    '<tr><td align="center">|</td><td></td><td></td></tr>' +
+
+    '<tr><td align="center"><strong>Children</strong>:<br>';
+
+  for (var i=0; i<PersonArray[index].children; i++) {
+    var childNo = PersonArray[index]['child' + i + 'No'];
+
+    output +=
+      '<a href="javascript:parent.show(' + childNo + ')" ' +
+      'onMouseover="updateDetails(' + childNo + ')">' +
+      PersonArray[index]['child' + i] + '</a><br>';
+  }
+
+  output +=
+    '</td><td></td><td></td></tr></table>' +
+    '</td></tr></table>' +
+    '</center>';
+
+if (window.debug) endDebug();
+  return output;
+}
+
+function setPerson(
+  name, dobDay, dobMonth, dobYear, dobLocation,
+        dodDay, dodMonth, dodYear, dodLocation) {
+if (window.debug) startDebug();
+if (window.debug) endDebug();
+  return PersonArray[PersonArrayIndex++] =
+    new Person(name, dobDay, dobMonth, dobYear, dobLocation,
+               dodDay, dodMonth, dodYear, dodLocation);
+}
+
+function Person(
+  name, dobDay, dobMonth, dobYear, dobLocation,
+        dodDay, dodMonth, dodYear, dodLocation) {
+if (window.debug) startDebug();
+  this.No = PersonArrayIndex - 1;
+  this.name = name;
+
+  if (dobDay != 0 && dobMonth !=0 && dobYear !=0)
+    this.birth =
+      pad(dobDay,2) + '-' + months[dobMonth] + '-' +
+      y2k(dobYear) + ' <strong>in</strong> ' + dobLocation;
+  else
+    this.birth = 'unknown';
+
+  if (dodDay != 0 && dodMonth !=0 && dodYear !=0) {
+    this.death =
+      pad(dodDay,2) + '-' + months[dodMonth] + '-' +
+      y2k(dodYear) + ' <strong>in</strong> ' + dodLocation;
+    if (this.birth != 'unknown')
+      this.age = HowOld(dobDay, dobMonth, dobYear,
+                        dodDay, dodMonth, dodYear);
+    else
+      this.age = 'unknown';
+  }
+  else {
+    this.death = 'N/A';
+    if (this.birth != 'unknown')
+      this.age = HowOld(dobDay, dobMonth, dobYear,
+                        thisDay, thisMonth, thisYear);
+    else
+      this.age = 'unknown';
+  }
+
+if (window.debug) debug('age = ' + this.age);
+
+  // The following details will all be resolved later:
+
+  this.father = ''; this.fatherNo = 0;
+  this.mother = ''; this.motherNo = 0;
+  this.spouse = ''; this.spouseNo = 0;
+  this.children = 0;
+  this.details = '<body bgcolor="papayawhip"></body>';
+
+  this.setRelations = resolveRelations;
+if (window.debug) endDebug();
+}
+
+function resolveRelations(father, mother, spouse) {
+if (window.debug) startDebug();
+  this.father   = father.name;
+  this.fatherNo = father.No;
+  this.mother   = mother.name;
+  this.motherNo = mother.No;
+  if (spouse) {
+    this.spouse = spouse.name;
+    this.spouseNo = spouse.No;
+  }
+
+  var length = resolveRelations.arguments.length;
+  for (var i = 3; i < length; i++, this.children++) {
+    this['child' + this.children] =
+      resolveRelations.arguments[i].name;
+    this['child' + this.children + 'No'] =
+      resolveRelations.arguments[i].No;
+  }
+
+  var details =
+    '<center><h1><font face="Arial">' +
+    this.name + '</font></h1><hr><table>' +
+
+    '<tr><td valign="top"><font face="Arial">' +
+    '<strong>Date&nbsp;of&nbsp;Birth:</strong>' +
+    '</font></td><td valign="top"><font face="Arial">' +
+    this.birth +
+    '</font></td></tr>' +
+
+    '<tr><td valign="top"><font face="Arial">' +
+    '<strong>Date&nbsp;of&nbsp;Death:</strong>' +
+    '</font></td><td valign="top"><font face="Arial">' +
+    this.death +
+    '</font></td></tr>' +
+
+    '<tr><td valign="top"><font face="Arial">' +
+    '<strong>Age:</strong>' +
+    '</font></td><td valign="top"><font face="Arial">' +
+    this.age +
+    '</font></td></tr>' +
+
+    '<tr><td valign="top"><font face="Arial">' +
+    '<strong>Spouse:</strong>' +
+    '</font></td><td valign="top"><font face="Arial">' +
+    this.spouse +
+    '</font></td></tr>' +
+
+    '<tr><td valign="top"><font face="Arial">' +
+    '<strong>Children:</strong>' +
+    '</font></td><td valign="top"><font face="Arial">';
+
+  for (var i=0; i<this.children; i++)
+    details += this['child' + i] + '<br>';
+
+  details += '</font></td></tr></table></center><hr>';
+
+  this.details =
+    '<body bgcolor="papayawhip">' + details + '</body>';
+
+if (window.debug) forinDebug(this);
+if (window.debug) endDebug();
+}
+
+var Jan=1, Feb=2, Mar=3, Apr=4, May=5, Jun=6,
+    Jul=7, Aug=8, Sep=9, Oct=10, Nov=11, Dec=12;
+
+var PersonArrayIndex = 0;
+var PersonArray = new Array();
+
+// Define an unknown person:
+
+var anon = setPerson('','',0,0,0,'',0,0,0,'','','');
+//--></script>
+
+<script language="JavaScript" src="royal.js"></script>
+
+</head>
+
+<frameset rows="50%,*" frameborder="0" border="0">
+<frame src="topframe.htm" name="topFrame" scrolling="auto"
+  marginwidth="1" marginheight="1" noresize>
+<frame src="botframe.htm" name="botFrame" scrolling="auto"
+  marginwidth="1" marginheight="1" noresize>
+</frameset>
+
+</html>

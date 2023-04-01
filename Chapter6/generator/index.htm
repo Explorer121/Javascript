@@ -1,0 +1,147 @@
+<html>
+
+<head>
+
+<style><!--
+td   { background-color: #CCFFCC; text-align: right; }
+.nn4 { background-color: #FFFF99; }
+.ie4 { background-color: #9999FF; }
+.ubw { background-color: #FF9999; }
+//--></style>
+
+<title>Pop-up Window Generator</title>
+
+<script language="JavaScript"><!--
+var windowHandle;
+
+function createWindow(input, output) {
+  var url = input.url.value;
+  var name = input.name.value;
+
+  var features = '';
+  for (var i=0; i<input.elements.length; i++) {
+    if (input.elements[i].type == 'checkbox')
+      features += ',' + input.elements[i].name + '=' +
+                       (input.elements[i].checked - 0);
+
+    if (input.elements[i].type == 'text' &&
+        input.elements[i].name != 'url' &&
+        input.elements[i].name != 'name')
+      features += ',' + input.elements[i].name + '=' +
+                       (input.elements[i].value);
+  }
+
+  features = features.substring(1);
+
+  if (windowHandle && !windowHandle.closed)
+    windowHandle.close();
+
+  windowHandle = window.open(url, name, features);
+
+  output.debug.value =
+    'window.open(\'' + url + '\', \'' +
+    name + '\', \'' + features + '\')';
+}
+//--></script>
+
+</head>
+
+<body>
+
+<p>
+<form name="input">
+<table border="0" cellpadding="3" cellspacing="1">
+
+<tr><td colspan="2">url
+<input type="text" size="35" name="url" value="testpage.htm">
+</td><td colspan="2">name
+<input type="text" size="35" name="name" value="myWindow">
+</td></tr>
+
+<tr><td>width
+<input type="text" size="4" name="width" value="200">
+</td><td>height
+<input type="text" size="4" name="height" value="200">
+</td><td>menubar
+<input type="checkbox" name="menubar">
+</td><td>toolbar
+<input type="checkbox" name="toolbar">
+</td></tr>
+
+<tr><td>location
+<input type="checkbox" name="location">
+</td><td>directories
+<input type="checkbox" name="directories">
+</td><td>status
+<input type="checkbox" name="status">
+</td><td>scrollbars
+<input type="checkbox" name="scrollbars">
+</td></tr>
+
+<tr><td>resizable
+<input type="checkbox" name="resizable">
+</td><td class="nn4">dependent
+<input type="checkbox" name="dependent">
+</td><td class="nn4">screenX
+<input type="text" size="4" name="screenX" value="200">
+</td><td class="nn4">screenY
+<input type="text" size="4" name="screenY" value="200">
+</td></tr>
+
+<tr><td class="nn4">innerWidth
+<input type="text" size="4" name="innerWidth" value="200">
+</td><td class="nn4">innerHeight
+<input type="text" size="4" name="innerHeight" value="200">
+</td><td class="nn4">outerWidth
+<input type="text" size="4" name="outerWidth" value="200">
+</td><td class="nn4">outerHeight
+<input type="text" size="4" name="outerHeight" value="200">
+</td></tr>
+
+<tr><td class="ie4">fullscreen
+<input type="checkbox" name="fullscreen">
+</td><td class="ie4">channelmode
+<input type="checkbox" name="channelmode">
+</td><td class="ie4">left
+<input type="text" size="4" name="left" value="200">
+</td><td class="ie4">top
+<input type="text" size="4" name="top" value="200">
+</td>
+</tr><tr>
+
+<td class="ubw">alwaysLowered
+<input type="checkbox" name="alwaysLowered">
+</td><td class="ubw">alwaysRaised
+<input type="checkbox" name="alwaysRaised">
+</td><td class="ubw">hotkeys
+<input type="checkbox" name="hotkeys">
+</td><td class="ubw">z-lock
+<input type="checkbox" name="z-lock">
+</td></tr>
+
+
+<td class="ubw">titlebar
+<input type="checkbox" name="titlebar">
+</td><td>&nbsp;
+</td><td>&nbsp;
+</td><td>&nbsp;
+</td></tr>
+
+</form>
+
+<form name="output">
+<tr><td colspan="4">
+<textarea name="debug" rows="10" cols="80" wrap="virtual">
+</textarea>
+<br>
+<input type="button" value=" Create It "
+ onClick="createWindow(document.input, this.form)">
+</td></tr>
+
+</table>
+</form>
+</p>
+
+</body>
+
+</html>

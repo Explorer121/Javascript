@@ -1,0 +1,30 @@
+<html>
+
+<head>
+
+<title>Monday's child is fair of face</title>
+
+<script src="current.js" language="JavaScript"></script>
+<script src="monday.js" language="JavaScript"></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+if (window.formatFullDate && window.dayOfWeek) {
+  var today = new Date();
+  var day   = today.getDate();
+  var month = today.getMonth() + 1;
+  var year  = today.getFullYear();
+
+  document.write(
+    'Today - ' + formatFullDate(day,month,year) + '<br>' +
+    childOfWeek(dayOfWeek(day,month,year)) + '<br>'
+  );
+}
+//--></script>
+
+</body>
+
+</html>

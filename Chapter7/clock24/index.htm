@@ -1,0 +1,166 @@
+<html>
+
+<head>
+
+<title>Time around the world</title>
+
+</head>
+
+<body>
+
+<form name="zone">
+<select name="offset">
+<option value="4">Abu Dhabi</option>
+<option value="9.5">Adelaide</option>
+<option value="-9">Alaska</option>
+<option value="6">Almaty</option>
+<option value="1">Amsterdam</option>
+<option value="-7">Arizona</option>
+<option value="2">Athens</option>
+<option value="12">Aukland</option>
+<option value="-1">Azores</option>
+<option value="3">Baghdad</option>
+<option value="7">Bangkok</option>
+<option value="8">Beijing</option>
+<option value="1">Berlin</option>
+<option value="1">Bern</option>
+<option value="-5">Bogota</option>
+<option value="5.5">Bombay</option>
+<option value="-3">Brasilia</option>
+<option value="10">Brisbane</option>
+<option value="1">Brussels</option>
+<option value="-3">Buenos Aires</option>
+<option value="2">Cairo</option>
+<option value="5.5">Calcutta</option>
+<option value="-4">Canada - Atlantic Time</option>
+<option value="-1">Cape Verde Is.</option>
+<option value="-4">Caracas</option>
+<option value="0">Casablanca</option>
+<option value="8">Chongqing</option>
+<option value="5.5">Colombo</option>
+<option value="9.5">Darwin</option>
+<option value="6">Dhaka</option>
+<option value="0">Dublin</option>
+<option value="2">Eastern Europe</option>
+<option value="0">Edingburgh</option>
+<option value="5">Ekaterinburg</option>
+<option value="-12">Eniwetok</option>
+<option value="12">Fiji</option>
+<option value="-3">Georgetown</option>
+<option value="10">Guam</option>
+<option value="7">Hanoi</option>
+<option value="2">Harare</option>
+<option value="-10">Hawaii</option>
+<option value="2">Helsinki</option>
+<option value="10">Hobart</option>
+<option value="8">Hong Kong</option>
+<option value="-5">Indiana (East)</option>
+<option value="5">Islamabad</option>
+<option value="2">Israel</option>
+<option value="2">Istanbul</option>
+<option value="7">Jakarta</option>
+<option value="4.5">Kabul</option>
+<option value="12">Kamchatka</option>
+<option value="5">Karachi</option>
+<option value="4">Kazan</option>
+<option value="3">Kuwait</option>
+<option value="-12">Kwajalein</option>
+<option value="-4">La Paz</option>
+<option value="-5">Lima</option>
+<option value="1">Lisbon</option>
+<option value="0">London</option>
+<option value="5.5">Madras</option>
+<option value="1">Madrid</option>
+<option value="11">Magadan</option>
+<option value="12">Marshall Is.</option>
+<option value="10">Melbourne</option>
+<option value="-6">Mexico City</option>
+<option value="-2">Mid-Atlantic</option>
+<option value="-11">Midway Island</option>
+<option value="0">Monrovia</option>
+<option value="3">Moscow</option>
+<option value="4">Muscat</option>
+<option value="3">Nairobi</option>
+<option value="11">New Caledonia</option>
+<option value="5.5">New Delhi</option>
+<option value="-3.5">Newfoundland</option>
+<option value="9">Osaka</option>
+<option value="1">Paris</option>
+<option value="8">Perth</option>
+<option value="10">Port Moresby</option>
+<option value="1">Prague</option>
+<option value="2">Pretoria</option>
+<option value="3">Riyadh</option>
+<option value="1">Rome</option>
+<option value="-11">Samoa</option>
+<option value="9">Sapporo</option>
+<option value="-6">Saskatchewan</option>
+<option value="9">Seoul</option>
+<option value="8">Singapore</option>
+<option value="11">Solomon Is.</option>
+<option value="3">St. Petersburg</option>
+<option value="1">Stockholm</option>
+<option value="10">Sydney</option>
+<option value="8">Taipei</option>
+<option value="5">Tashkent</option>
+<option value="4">Tbilisi</option>
+<option value="-6">Tegucigalpa</option>
+<option value="3">Tehran</option>
+<option value="-8">Tijuana</option>
+<option value="9">Tokyo</option>
+<option value="-6">US & Canada - Central Time</option>
+<option value="-5">US & Canada - Eastern Time</option>
+<option value="-7">US & Canada - Mountain Time</option>
+<option value="-8">US & Canada - Pacific Time</option>
+<option value="8">Urumqi</option>
+<option value="1">Vienna</option>
+<option value="10">Vladivostok</option>
+<option value="4">Volgograd</option>
+<option value="1">Warsaw</option>
+<option value="12">Wellington</option>
+<option value="9">Yakutsk</option>
+</select>
+<input type="text" size="8" name="time">
+Summer Time: <input type="checkbox" name="summer">
+</form>
+
+<script language="JavaScript"><!--
+function padout(num) {
+  return (num < 10) ? '0' + num : num;
+}
+
+function getAnOptionValue(what) {
+  return what.options[what.options.selectedIndex].value;
+}
+
+function ampm(h, m) {
+  var a = (h==0)?12:((h<13)?h:h-12);
+  var output =
+    ((a<10)?' ':'')+a+':'+padout(m)+((h<12)?' am':' pm');
+  return output;
+}
+
+function updateForm() {
+  var date = new Date();
+  var TimezoneOffset = date.getTimezoneOffset();
+
+  var gmt = getAnOptionValue(document.zone.offset) - 0;
+
+  date.setTime(
+    date.getTime() + TimezoneOffset*60*1000 + gmt*60*60*1000 +
+    ((document.zone.summer.checked) ? 60*60*1000 : 0)
+  );
+
+  var time = ampm(date.getHours(), date.getMinutes());
+  if (document.zone.time.value != time)
+    document.zone.time.value = time;
+
+  setTimeout("updateForm()",500);
+}
+
+updateForm();
+//--></script>
+
+</body>
+
+</html>

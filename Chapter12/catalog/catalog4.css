@@ -1,0 +1,45 @@
+root, book, title, synopsis, author, pages, price, publisher {
+  display: block;
+}
+
+isbn, image {
+  display: none;
+}
+
+root {
+  margin: 1em;
+}
+
+book {
+  margin: 10px; 
+}
+
+title {
+  font-size: x-large;
+  color: #009900;
+}
+
+synopsis {
+  color: #999900;
+  margin: 10px; 
+}
+
+author {
+  text-align: right;
+  color: #009999;
+}
+
+pages {
+  text-align: right;
+  font-style: italic;
+}
+
+price {
+  text-align: right;
+  font-weight: bold;
+}
+
+publisher {
+  text-align: right;
+  font-style: italic;
+}

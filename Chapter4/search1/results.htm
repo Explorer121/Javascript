@@ -1,0 +1,116 @@
+<html>
+<body>
+
+<script language="JavaScript"><!--
+function find() {
+  var string = out.substring(old+searchtext.length,position) +
+      '<i><font color="#0000FF" size="+1">' +
+      out.substring(position,position+searchtext.length) +
+      '<\/font><\/i>';
+
+  old = position;
+
+  position = OUT.indexOf(searchtext,position+searchtext.length);
+
+  if ((position != -1) && (old != last))
+    string += find();
+  else
+    string += out.substring(old+searchtext.length,out.length);
+
+  return string;
+}
+
+function show(property) {
+  if (searchtext == '')
+    return property;
+
+  out = property;
+  OUT = property.toUpperCase();
+
+  position = OUT.indexOf(searchtext);
+  last = OUT.lastIndexOf(searchtext);
+
+  old = -(property.length);
+
+  if (position != -1) return find(); else return property;
+}
+
+function output() {
+  var href = parent.articleArray[i].href;
+  var desc = parent.articleArray[i].desc;
+  var text = parent.articleArray[i].text;
+  var tech = parent.articleArray[i].tech;
+  var date = parent.articleArray[i].date;
+
+  var output = '';
+  output += '<tr>';
+  output += '<td valign="top">';
+  output += '<font face="arial, helvetica" size="4">';
+
+  output += '<a href="' + href + '" target="_parent">';
+  output += show(text)+'<\/a>';
+
+  output += '<\/font>';
+
+  if (parent.vdate)
+    output += '<font size="2"><br>'+show(date)+'<\/font>';
+
+  output += '<\/td>';
+  output += '<td valign="top">';
+  output += '<font face="Arial" size="3">';
+
+  if (parent.vhref)
+    output += '<font size="2">' +
+              '<a href="' + href + '" target="_parent">' +
+              show(href) +
+              '<\/a>' +
+              '<\/font>';
+
+  if (parent.vdesc)
+    output += '<p>' +show(desc) + '<\/p>';
+
+  if (parent.vtech)
+    output += '<p><b>Techniques:<\/b> ' + show(tech) + '<\/p>';
+
+  output += '<\/font>';
+  output += '<\/td>';
+  output += '<\/tr>';
+
+  document.write(output);
+}
+
+var position = 0;
+var old = 0;
+var last = 0;
+var out = '';
+var OUT = '';
+
+var searchtext = parent.searchtext;
+
+if (parent.searchtext != '') {
+  document.write('<h1>Search Results<\/h1>');
+  document.write('<h2>Search string = "'+searchtext+'"<\/h2>');
+}
+else {
+  document.write('<h1>Articles<\/h1>');
+}
+
+searchtext = searchtext.toUpperCase();
+
+document.write('<table>');
+
+for (var i=0; i < parent.articleIndex; i++) {
+  if (
+    (parent.articleArray[i].HREF.indexOf(searchtext) != -1) ||
+    (parent.articleArray[i].TEXT.indexOf(searchtext) != -1) ||
+    (parent.articleArray[i].DESC.indexOf(searchtext) != -1) ||
+    (parent.articleArray[i].TECH.indexOf(searchtext) != -1) ||
+    (parent.articleArray[i].DATE.indexOf(searchtext) != -1)
+  ) output();
+}
+
+document.write('<\/table>');
+//--></script>
+
+</body>
+</html>

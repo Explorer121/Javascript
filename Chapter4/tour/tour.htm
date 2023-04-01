@@ -1,0 +1,92 @@
+<html>
+
+<head>
+<title>Touring Web Sites</title>
+</head>
+
+<script language = 'JavaScript'><!--
+var usePopup = false;
+
+function Link(href,text,commentary) {
+  this.commentary = commentary;
+  this.href = href;
+  this.text = text;
+}
+
+function setLink(href,text,commentary) {
+  myLink[item++] = new Link(href,text,commentary);
+}
+
+var item = 0;
+
+var myLink = new Array();
+
+setLink(
+  'http://www.amazon.com/exec/obidos/ISBN=0764532677/',
+  'Building Dynamic HTML GUIs',
+  'comment1.htm'
+);
+setLink(
+  'http://www.amazon.com/exec/obidos/ISBN=1565923928/',
+  'JavaScript : The Definitive Guide 3rd Edition',
+  'comment2.htm'
+);
+setLink(
+  'http://www.amazon.com/exec/obidos/ISBN=0201442078/',
+  'Creating Dynamic Web Sites',
+  'comment3.htm'
+);
+setLink(
+  'http://www.amazon.com/exec/obidos/ISBN=1565925157/',
+  'Web Design in a Nutshell',
+  'comment4.htm'
+);
+setLink(
+  'http://www.amazon.com/exec/obidos/ISBN=1565921496/',
+  'Programming Perl, 2nd Edition',
+  'comment5.htm'
+);
+
+var n = 0;
+
+function go() {
+  if (usePopup) {
+    window.open(myLink[n].href,'myPopup','width=640,height=480');
+    self.workarea.location.href = myLink[n].commentary;
+  }
+  else {
+    self.workarea.location.href = 'tour-comment.htm?' + n;
+  }
+}
+
+function goFirst() {
+  if (n != 0) { n = 0; go(); }
+}
+
+function goBack() {
+  if (n != 0) { n--; go(); }
+}
+
+function goForward() {
+  if (n != (item - 1)) { n++; go(); }
+}
+
+function goLast() {
+  if (n != item -1) { n = item - 1; go(); }
+}
+
+function goTo(object) {
+  if (n != object.selectedIndex) { n = object.selectedIndex; go(); }
+  return false;
+}
+//--></script>
+
+<frameset frameborder="0" framespacing="0" rows="50,*" onLoad="go()">
+
+<frame scrolling="no" frameborder="0" name="nav" noresize src="tour-nav.htm">
+
+<frame frameborder="0" name="workarea" noresize src="about:blank">
+
+</frameset>
+
+</html>

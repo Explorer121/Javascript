@@ -1,0 +1,97 @@
+<html>
+
+<head>
+
+<title>Jump Box</title>
+
+<script language="JavaScript"><!--
+function loadPage(url) {
+  location.href = url;
+}
+
+function loadFrame(url, frame) {
+  parent.frames[frame].location.href = url;
+}
+
+function loadPopup(url, name) {
+  window.open(url, name, 'width=640,height=480,scrollbars=1');
+}
+
+function getAnOptionValue(what) {
+  return what.options[what.options.selectedIndex].value;
+}
+
+function getAnOptionText(what) {
+  return what.options[what.options.selectedIndex].text;
+}
+
+function mouseOver(what) {
+  if (getAnOptionValue(what.places) != '') {
+    var text = getAnOptionText(what.places);
+    window.status = text;
+  }
+}
+
+function mouseOut() {
+  window.status = '';
+}
+
+function go(what) {
+  var URL = getAnOptionValue(what.places);
+
+  if (URL != '') {
+
+    if (what.where[0].checked)
+      loadFrame(URL, what.where[0].value);
+
+    else if (what.where[1].checked)
+      loadFrame(URL, what.where[1].value);
+
+    else if (what.where[2].checked)
+      loadPopup(URL, what.where[2].value);
+
+    else
+      loadPage(URL);
+
+  }
+
+  return false;
+}
+//--></script>
+
+</head>
+
+<body>
+
+<form name="jump">
+
+<input type="radio" name="where" value="frame1"> - Frame 1
+<br>
+<input type="radio" name="where" value="frame2"> - Frame 2
+<br>
+<input type="radio" name="where" value="popup"> - New window
+<br>
+
+<select name="places">
+<option>Select:
+<option>===========
+<option value="http://www.irt.org/">irt.org
+<option value="http://msdn.microsoft.com/">MSDN
+<option value="http://developer.netscape.com/">DevEdge
+<option value="http://www.w3.org/">W3C
+<option>===========
+<option value="http://webreview.com/">webreview.com
+<option value="http://developer.earthweb.com/">developer.com
+</select>
+
+<input type="button" value="Go" onClick="go(this.form)">
+</form>
+
+<a href="#" onClick="return go(document.jump)"
+  onMouseOver="mouseOver(document.jump);return true"
+  onMouseOut="mouseOut();return true"
+><img src="go.gif" border="0"></a>
+
+</body>
+
+</html>

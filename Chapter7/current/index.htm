@@ -1,0 +1,32 @@
+<html>
+
+<head>
+
+<title>Current Date</title>
+
+<script src="current.js" language="JavaScript"></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+if (window.formatFullDate) {
+  var date = new Date();
+  var day = date.getDate();
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear();
+
+  document.write(
+    'Today is:<br>' +
+    date + '<br>' +
+    formatFullDate(day,month,year) + '<br>' +
+    formatShortDate(day,month,year) + '<br>' +
+    formatShortDateUS(day,month,year) + '<br>'
+  );
+}
+//--></script>
+
+</body>
+
+</html>

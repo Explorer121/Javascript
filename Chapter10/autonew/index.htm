@@ -1,0 +1,242 @@
+<html>
+
+<head>
+
+<title>Cookies and Auto New</title>
+
+<style><!--
+p { font-family: arial; }
+//--></style>
+
+<script language="JavaScript" src="cookie.js"></script>
+<script language="JavaScript" src="current.js"></script>
+
+<script language ="JavaScript"><!--
+function formatValue(today,last,visit) {
+  return today + ',' + last + ',' + visit;
+}
+
+function getLastHere(delay) {
+  var now = new Date();
+  var today = now.getTime();
+  var expires = new Date(today + delay);
+  var autoNew = getCookie('autoNew');
+
+  if (!autoNew) {
+    var last = today - delay;
+    var value = formatValue(today, last, visit=1);
+    setCookie('autoNew', value, expires);
+    return new Date(last);
+  }
+  else {
+    var comma1 = autoNew.indexOf(',');
+    var comma2 = autoNew.lastIndexOf(',');
+
+    var last = autoNew.substring(0,comma1) - 0;
+    var previous = autoNew.substring(comma1 + 1,comma2) - 0;
+    visit = autoNew.substring(comma2 + 1,autoNew.length) - 0;
+
+    if (today != last) {
+      var value = formatValue(today, last, ++visit);
+      setCookie('autoNew', value, expires);
+    }
+    return new Date(previous);
+  }
+}
+
+function isNew(date1, date2) {
+  if (date1.getTime() >= date2.getTime())
+    return true;
+  return false;
+}
+
+function formatDate(date) {
+  if (window.formatFullDate)
+    return '<b>' +
+      formatFullDate(
+        date.getDate(),
+        date.getMonth()+1,
+        date.getFullYear()) +
+      '</b>';
+  return '';
+}
+
+var visit = 0;
+var autoNewDate = null;
+
+if (window.Cookie)
+  autoNewDate = getLastHere(14 * Cookie.day);
+//--></script>
+
+<p>
+<script language ="JavaScript"><!--
+var itemDate = new Date(2001,12-1,25);
+if (isNew(itemDate, autoNewDate)) {
+  document.write('<img src="new.gif" valign="bottom">');
+}
+document.write(formatDate(itemDate));
+//--></script>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+<p>
+<script language ="JavaScript"><!--
+var itemDate = new Date(2001,11-1,25);
+if (isNew(itemDate, autoNewDate)) {
+  document.write('<img src="new.gif" valign="bottom">');
+}
+document.write(formatDate(itemDate));
+//--></script>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+<p>
+<script language ="JavaScript"><!--
+var itemDate = new Date(2001,10-1,25);
+if (isNew(itemDate, autoNewDate)) {
+  document.write('<img src="new.gif" valign="bottom">');
+}
+document.write(formatDate(itemDate));
+//--></script>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+<form>
+<p>
+<script language ="JavaScript"><!--
+var itemDate = new Date(2001,9-1,25);
+if (isNew(itemDate, autoNewDate)) {
+  document.write('<img src="new.gif" valign="bottom">');
+}
+document.write(formatDate(itemDate));
+//--></script>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+<p>
+<script language ="JavaScript"><!--
+var itemDate = new Date(2001,8-1,25);
+if (isNew(itemDate, autoNewDate)) {
+  document.write('<img src="new.gif" valign="bottom">');
+}
+document.write(formatDate(itemDate));
+//--></script>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+<p>
+<script language ="JavaScript"><!--
+var itemDate = new Date(2001,7-1,25);
+if (isNew(itemDate, autoNewDate)) {
+  document.write('<img src="new.gif" valign="bottom">');
+}
+document.write(formatDate(itemDate));
+//--></script>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+<p>
+<script language ="JavaScript"><!--
+var itemDate = new Date(2001,6-1,25);
+if (isNew(itemDate, autoNewDate)) {
+  document.write('<img src="new.gif" valign="bottom">');
+}
+document.write(formatDate(itemDate));
+//--></script>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+<p>
+<script language ="JavaScript"><!--
+var itemDate = new Date(2001,5-1,25);
+if (isNew(itemDate, autoNewDate)) {
+  document.write('<img src="new.gif" valign="bottom">');
+}
+document.write(formatDate(itemDate));
+//--></script>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+<p>
+<script language ="JavaScript"><!--
+var itemDate = new Date(2001,4-1,25);
+if (isNew(itemDate, autoNewDate)) {
+  document.write('<img src="new.gif" valign="bottom">');
+}
+document.write(formatDate(itemDate));
+//--></script>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+<p>
+<script language ="JavaScript"><!--
+var itemDate = new Date(2001,3-1,25);
+if (isNew(itemDate, autoNewDate)) {
+  document.write('<img src="new.gif" valign="bottom">');
+}
+document.write(formatDate(itemDate));
+//--></script>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+<p>
+<script language ="JavaScript"><!--
+var itemDate = new Date(2001,2-1,25);
+if (isNew(itemDate, autoNewDate)) {
+  document.write('<img src="new.gif" valign="bottom">');
+}
+document.write(formatDate(itemDate));
+//--></script>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+<p>
+<script language ="JavaScript"><!--
+var itemDate = new Date(2001,1-1,25);
+if (isNew(itemDate, autoNewDate)) {
+  document.write('<img src="new.gif" valign="bottom">');
+}
+document.write(formatDate(itemDate));
+//--></script>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+</body>
+
+</html>

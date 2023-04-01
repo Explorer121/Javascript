@@ -1,0 +1,57 @@
+<html>
+
+<head>
+
+<title>Controlling Data Entry Using Form Fields</title>
+
+<script language="JavaScript"><!--
+var currentField, nextField;
+
+function advance(c,n) {
+  currentField = c, nextField = n;
+  document.myForm['f11'].focus();
+  setTimeout('effect()',1);
+}
+
+function effect() {
+  if (currentField.value.length == 1)
+    document.myForm[nextField].focus();
+  else currentField.focus();
+}
+//--></script>
+
+</head>
+
+<body>
+
+<form name="myForm">
+
+<input type="text" maxlength="1" name="f1" size="1"
+  onKeyUp="advance(this,'f2')"
+><input type="text" maxlength="1" name="f2" size="1"
+  onKeyUp="advance(this,'f3')"
+><input type="text" maxlength="1" name="f3" size="1"
+  onKeyUp="advance(this,'f4')">
+
+<input type="text" maxlength="1" name="f4" size="1"
+  onKeyUp="advance(this,'f5')"
+><input type="text" maxlength="1" name="f5" size="1"
+  onKeyUp="advance(this,'f6')"
+><input type="text" maxlength="1" name="f6" size="1"
+  onKeyUp="advance(this,'f7')"
+><input type="text" maxlength="1" name="f7" size="1"
+  onKeyUp="advance(this,'f8')">
+
+<input type="text" maxlength="1" name="f8" size="1"
+  onKeyUp="advance(this,'f9')"
+><input type="text" maxlength="1" name="f9" size="1"
+  onKeyUp="advance(this,'f10')"
+><input type="text" maxlength="1" name="f10" size="1"
+  onKeyUp="advance(this,'f11')"
+><input type="text" maxlength="1" name="f11" size="1">
+
+</form>
+
+</body>
+
+</html>

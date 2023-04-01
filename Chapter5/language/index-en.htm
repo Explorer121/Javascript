@@ -1,0 +1,81 @@
+<html lang="en">
+
+<head>
+<title>What is your language?</title>
+</head>
+
+<body>
+
+<script language="JavaScript1.2"><!--
+function getFileName(s) {
+  if (s.indexOf('/') != -1)
+    return s.substring(s.lastIndexOf('/') + 1, s.length);
+  else
+    return s.substring(s.lastIndexOf('\\') + 1, s.length);
+}
+
+function showpage(code) {
+  var file = getFileName(window.location.href);
+
+  var dash = file.indexOf('-');
+
+  var prefix = '';
+  var suffix = '';
+
+  if (dash > -1) {
+    prefix = file.substring(0, dash + 1);
+  }
+  else {
+    prefix = file.substring(0, file.indexOf('.')) + '-';
+  }
+
+  suffix = file.substring(file.indexOf('.'), file.length);
+
+  window.location.href = prefix + code + suffix;
+}
+
+if (navigator.appName == 'Netscape')
+  var language = navigator.language;
+else
+  var language = navigator.browserLanguage;
+
+var l = language.substring(0,2);
+
+if (l=='fr' || l=='de' || l=='it' || l=='es' || l=='pt')
+  showpage(l);
+
+//--></script>
+
+<center>
+
+<h1>English</h1>
+
+<p>
+The remainder of the Web Site is in English, however you may
+be able to use the AltaVista Translation Service to translate
+either a complete page or portions of text.
+</p>
+
+<p>
+The AltaVista Translation Service can be located at
+<a href="http://babelfish.altavista.digital.com"
+>http://babelfish.altavista.digital.com</a>
+</p>
+
+<p>
+I hope you find this site useful.
+</p>
+
+<p>
+<a href="index-fr.htm">French</a>
+<a href="index-de.htm">German</a>
+<a href="index-it.htm">Italian</a>
+<a href="index-pt.htm">Portuguese</a>
+<a href="index-es.htm">Spanish</a>
+</p>
+
+</center>
+
+</body>
+
+</html>

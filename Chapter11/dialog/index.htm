@@ -1,0 +1,229 @@
+<html>
+
+<head>
+
+<title>Multi-Dialog Forms</title>
+
+<script language="JavaScript" src="dom.js"></script>
+
+<script language="JavaScript"><!--
+function copyForm(fRef1, fRef2) {
+
+  for (var e=0; e<fRef1.elements.length; e++) {
+    var name = fRef1.elements[e].name;
+
+    switch (fRef1.elements[e].type) {
+
+      case 'text':
+      case 'textarea':
+      case 'password':
+      case 'hidden':
+        fRef2[name].value = fRef1.elements[e].value;
+        break;
+
+      case 'checkbox':
+        if (fRef1.elements[e].checked)
+          fRef2[name].value = fRef1.elements[e].name;
+        break;
+
+      case 'radio':
+        for (var i=0; i<fRef1[name].length; i++)
+          if (fRef1[name][i].checked)
+            fRef2[name].value = fRef1[name][i].value;
+        break;
+
+      case 'select-one':
+        fRef2[name].value =
+          fRef1[name].options[fRef1[name].selectedIndex].text;
+        break;
+
+      case 'select-multiple':
+        var output = '';
+        for (var i=0; i<fRef1[name].length; i++)
+          if (fRef1[name][i].selected)
+            fRef2[name].value = fRef1[name][i].text + ',';
+        fRef2[name].value = output;
+        break;
+    }
+  }
+}
+
+function change(o,n) {
+  update(o);
+  show(n);
+  swapOff(o);
+  swapOn(n);
+  tab = n;
+
+  return false;
+}
+
+function submit(o,n) {
+  update(o);
+  swapOff(o);
+  swapOn(n);
+  tab = n;
+
+  document.hiddenForm.submit();
+
+  return false;
+}
+
+function update(o) {
+  if (document.layers)
+    copyForm(document['div' + o].document['form' + o],
+             document.hiddenForm);
+  else
+    copyForm(document['form' + o],document.hiddenForm);
+}
+
+function show(n) {
+  if (window.DOMObjects) {
+    for (var i=0; i<DOMObjects.length; i++)
+      DOMElementHide(DOMObjects[i]);
+
+    DOMElementShow(DOMObjects['div' + n]);
+  }
+}
+
+function swapOn(n) {
+  if (document.images) {
+    document.images['tab' + n].src = 'tab' + n + '-on.gif';
+  }
+}
+
+function swapOff(n) {
+  if (document.images) {
+    document.images['tab' + n].src = 'tab' + n + '-off.gif';
+  }
+}
+
+var tab = 1;
+
+function start() {
+  if (window.DOMObjects)
+    DOMInitialize('div');
+
+  if (window.DOMObjects)
+    show(1);
+}
+//--></script>
+
+<style><!--
+.l { position: absolute; visibility: hidden; display: block; }
+
+p { font-family: Arial; }
+//--></style>
+
+</head>
+
+<body bgcolor="#cccccc" onLoad="start()">
+
+<form name="hiddenForm" method="get">
+<input type="hidden" value="" name="username">
+<input type="hidden" value="" name="email">
+<input type="hidden" value="" name="userid">
+<input type="hidden" value="" name="password">
+
+<input type="hidden" value="" name="address1">
+<input type="hidden" value="" name="address2">
+<input type="hidden" value="" name="address3">
+<input type="hidden" value="" name="country">
+
+<input type="hidden" value="" name="age">
+
+<input type="hidden" value="" name="Java">
+<input type="hidden" value="" name="JavaScript">
+<input type="hidden" value="" name="VBScript">
+<input type="hidden" value="" name="ASP">
+<input type="hidden" value="" name="HTML">
+</form>
+
+<table border="0" cellspacing="0" cellpadding="0">
+<tr><td width="50"></td><td
+><a href="" onClick="return change(tab,1)"><img src="tab1-on.gif" name="tab1" width="77" height="18" border="0"
+><a href="" onClick="return change(tab,2)"><img src="tab2-off.gif" name="tab2" width="77" height="18" border="0"
+><a href="" onClick="return change(tab,3)"><img src="tab3-off.gif" name="tab3" width="77" height="18" border="0"
+><a href="" onClick="return change(tab,4)"><img src="tab4-off.gif" name="tab4" width="77" height="18" border="0"
+><a href="" onClick="return submit(tab,5)"><img src="tab5-off.gif" name="tab5" width="77" height="18" border="0"
+></td><td width="50"></td></tr>
+</table>
+
+<div id="div1" class="l">
+<table bgcolor="#ffffff" border="0" cellspacing="0" cellpadding="0">
+<tr><td><img src="tl.gif" width="50" height="50"></td><td>&nbsp;</td><td><img src="tr.gif" width="50" height="50"></td></tr>
+<tr><td>&nbsp;</td><td width="385">
+<form name="form1">
+<p>Name:<br>
+<input type="text" name="username" value="" size="30">
+<p>Email Address:<br>
+<input type="text" name="email" value="" size="30">
+<p>Userid:<br>
+<input type="text" name="userid" value="" size="30">
+<p>Password:<br>
+<input type="password" name="password" value="" size="30">
+</form>
+</td><td>&nbsp;</td></tr>
+<tr><td><img src="bl.gif" width="50" height="50"></td><td>&nbsp;</td><td><img src="br.gif" width="50" height="50"></td></tr>
+</table>
+</div>
+
+<div id="div2" class="l">
+<table bgcolor="#ffffff" border="0" cellspacing="0" cellpadding="0">
+<tr><td><img src="tl.gif" width="50" height="50"></td><td>&nbsp;</td><td><img src="tr.gif" width="50" height="50"></td></tr>
+<tr><td>&nbsp;</td><td width="385">
+<form name="form2">
+<p>Address1:<br>
+<input type="text" name="address1" value="" size="30">
+<p>Address2:<br>
+<input type="text" name="address2" value="" size="30">
+<p>Address3:<br>
+<input type="text" name="address3" value="" size="30">
+<p>Country:
+<br><select name="country">
+<option>United States
+<option>United Kingdom
+<option>Canada
+</select>
+</form>
+</td><td>&nbsp;</td></tr>
+<tr><td><img src="bl.gif" width="50" height="50"></td><td>&nbsp;</td><td><img src="br.gif" width="50" height="50"></td></tr>
+</table>
+</div>
+
+<div id="div3" class="l">
+<table bgcolor="#ffffff" border="0" cellspacing="0" cellpadding="0">
+<tr><td><img src="tl.gif" width="50" height="50"></td><td>&nbsp;</td><td><img src="tr.gif" width="50" height="50"></td></tr>
+<tr><td>&nbsp;</td><td width="385">
+<form name="form3">
+<p><input type="radio" name="age" value="0 - 17"> 0 - 17
+<p><input type="radio" name="age" value="16 - 21"> 16 - 21
+<p><input type="radio" name="age" value="22 - 30"> 22 - 30
+<p><input type="radio" name="age" value="30 - 45"> 30 - 45
+<p><input type="radio" name="age" value="45 - 60"> 45 - 60
+<p><input type="radio" name="age" value="60+"> 60+
+</p>
+</form>
+</td><td>&nbsp;</td></tr>
+<tr><td><img src="bl.gif" width="50" height="50"></td><td>&nbsp;</td><td><img src="br.gif" width="50" height="50"></td></tr>
+</table>
+</div>
+
+<div id="div4" class="l">
+<table bgcolor="#ffffff" border="0" cellspacing="0" cellpadding="0">
+<tr><td><img src="tl.gif" width="50" height="50"></td><td>&nbsp;</td><td><img src="tr.gif" width="50" height="50"></td></tr>
+<tr><td>&nbsp;</td><td width="385">
+<form name="form4">
+<p><input type="checkbox" name="Java"> - Java
+<p><input type="checkbox" name="JavaScript"> - JavaScript
+<p><input type="checkbox" name="VBScript"> - VBScript
+<p><input type="checkbox" name="ASP"> - ASP
+<p><input type="checkbox" name="HTML"> - HTML
+</form>
+</td><td>&nbsp;</td></tr>
+<tr><td><img src="bl.gif" width="50" height="50"></td><td>&nbsp;</td><td><img src="br.gif" width="50" height="50"></td></tr>
+</table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,464 @@
+<html>
+
+<head>
+
+<title>Columns</title>
+
+<script language="JavaScript"><!--
+var running = 0;
+var paused = 0;
+var width = 8;
+var height = 16;
+var tilex = tiley = 24;
+
+var heap = new Array(width * height);
+var remove = new Array(width * height);
+var id;
+
+var keychoice = 1;
+var DOWN = 50;
+var LEFT = 52;
+var RIGHT = 54;
+var ROTATE_C = 56;
+var ROTATE_A = 53;
+
+var interval;
+var level = 0;
+var lev = new Array(0,10,70,140,210,270,340,410);
+
+function preload() {
+  if (document.images) {
+    color = new makeArray(9);
+    color[0].src = 'images/blank.gif';
+    color[1].src = 'images/orange.gif';
+    color[2].src = 'images/red.gif';
+    color[3].src = 'images/grey.gif';
+    color[4].src = 'images/green.gif';
+    color[5].src = 'images/purple.gif';
+    color[6].src = 'images/lblue.gif';
+    color[7].src = 'images/yellow.gif';
+    color[8].src = 'images/notblank.gif';
+
+  }
+  else
+    alert(
+      'Sorry, this game needs to run on a browser\n' +
+      'which supports JavaScript 1.2\n' +
+      'eg. MSIE4+ or NS4+'
+    );
+}
+
+function keyPress(e, event) {
+  if (running) {
+    if (window.event && window.event.keyCode)
+      play(window.event.keyCode);
+    else if (e && e.which)
+      play(e.which);
+    else if (event && event.which)
+      play(event.which);
+  }
+}
+
+function play(key) {
+  if (key == LEFT) move(-1);
+  if (key == RIGHT) move(1);
+  if (key == DOWN) move_down();
+  if (key == ROTATE_C) rotate(1);
+  if (key == ROTATE_A) rotate(-1);
+}
+
+function rotate(dir) {
+  if (block[0] == -1) return(0);
+
+  if (dir == 1) {
+    var temp  = cblock[0];
+    cblock[0] = cblock[1];
+    cblock[1] = cblock[2];
+    cblock[2] = temp;
+  }
+  else {
+    var temp  = cblock[2];
+    cblock[2] = cblock[1];
+    cblock[1] = cblock[0];
+    cblock[0] = temp;
+  }
+
+  display(0);
+  return(1);
+}
+
+function move(dir) {
+  if (block[0] == -1) return(0);
+
+  for (var i = 0; i < 3; i++) {
+    edge = (dir == 1) ? ((block[i] % width) == width - 1) : ((block[i] % width) == 0)
+    if (edge || heap[block[i] + dir]) return(0);
+  }
+
+  display(dir);
+  return(1);
+}
+
+function move_down() {
+  if (block[0] == -1) return(0);
+
+  for (var i = 0; i < 3; i++) {
+    if ((block[i] >= (height - 1) * width) || (heap[block[i] + width])) {
+      merge();
+      return(0);
+    }
+  }
+
+  display(width);
+  return(1);
+}
+
+function display(modifier) {
+  for (var i = 0; i < 3; i++)
+    document.images['' + block[i]].src = color[0].src;
+
+  for (i = 0; i < 3; i++) {
+    block[i] += modifier;
+    document.images['' + block[i]].src = color[cblock[i]].src;
+  }
+}
+
+function merge() {
+  for (var i = 0; i < 3; i++) {
+    heap[block[i]] = cblock[i];
+    block[i] = -1;
+    cblock[i] = -1;
+  }
+
+  paused = 1;
+  setTimeout('mycheck()', 100);
+}
+
+function mycheck() {
+  var howmany = check();
+  if (howmany > 0) {
+    del();
+    score(howmany);
+    setTimeout('mycheck()', 100);
+  }
+  else
+    paused = 0;
+}
+
+function check() {
+  var pos; var diff;
+  var count = 0;
+
+  diff = 1;
+  for (var y = 0; y < height; y++) {
+    for (var x = 2; x < width; x++) {
+      pos = (y * width) + x;
+      count += chk(pos, diff);
+    }
+  }
+
+  diff = 1 + width;
+  for (var i = 1; i < width - 2; i++) {
+    for (var j = 2; j < Math.min(width, width - i); j++) {
+      pos = i + (j * diff);
+    	count += chk(pos, diff);
+    }
+  }
+  for (var i = 0; i <= (height - 1) * width; i += width) {
+    for (var j = 2; j < Math.min(width, height - (i / width)); j++) {
+      pos = i + (j * diff);
+      count += chk(pos, diff);
+    }
+  }
+
+  diff = width;
+  for (var x = 0; x < width; x++) {
+    for (var y = 2; y < height; y++) {
+      pos = (y * width) + x;
+      count += chk(pos, diff);
+    }
+  }
+
+  diff = width - 1;
+  for (var i = 2; i < width; i++) {
+    for (var j = 2; j < Math.min(width, width - i); j++) {
+      pos = i + (j * diff);
+  	  count += chk(pos, diff);
+    }
+  }
+  for (var i = width - 1; i < height * width; i += width) {
+    for (var j = 2; j < Math.min(width, height - (i / width)); j++) {
+      pos = i + (j * diff);
+      count += chk(pos, diff);
+    }
+  }
+
+  return (count);
+}
+
+function chk(p, d) {
+  var c = 0;
+  if (heap[p] == heap[p - d] && heap[p - d] == heap[p - (2 * d)] && heap[p] != 0) {
+    if (remove[p] != 1)
+      remove[p] = 1;
+    c++;
+    if (remove[p - d] != 1)
+      remove[p - d] = 1;
+    c++;
+    if (remove[p - (2 * d)]!= 1)
+      remove[p -(2 * d)] = 1;
+    c++;
+  }
+
+  return (c);
+}
+
+function del() {
+  pause(200);
+  for (i = 0; i < (width * height); i++) {
+    if (remove[i] == 1) {
+      document.images['' + i].src = color[0].src;
+      remove[i] = 0;
+      heap[i] = 0;
+    }
+  }
+  gravity();
+}
+
+function gravity() {
+  var mark, pos, oldpos;
+
+  for (var x = 0; x < width; x++) {
+    mark = -1;
+
+    for (var y = (height - 1); y >= 0; y--) {
+  	  pos = (y * width) + x;
+
+  	  if (mark == -1 && heap[pos] == 0)
+        mark = y;
+      else if (mark > -1 && heap[pos] > 0) {
+        oldpos = (mark * width) + x;
+        document.images['' + oldpos].src = document.images['' + pos].src;
+  	    heap[oldpos] = heap[pos];
+        mark--;
+        document.images['' + pos].src = color[0].src;
+        heap[pos] = 0;
+  	  }
+    }
+  }
+}
+
+function score(modifier) {
+  var cs = (document.user.score.value) * 1;
+  cs += modifier;
+
+  if (cs >= lev[level] && level < 8)
+    level++;
+
+  document.user.score.value = cs;
+  document.user.level.value = level;
+
+  interval = 300 - (20 * level);
+}
+
+function step() {
+  if (block[0] != -1) {
+    move_down();
+    id = setTimeout('step()', interval);
+  }
+  else {
+    if (newpiece())
+      id = setTimeout('step()', interval);
+    else {
+      var c_color = rand(7);
+      for (var c = 0; c < (width * height); c++)
+        if (heap[c])
+          document.images['' + c].src = color[c_color].src;
+
+      document.user.b.value = ' New Game ';
+      running = 0;
+      block = null;
+      cblock = null;
+    }
+  }
+}
+
+function pause(ms) {
+  var when = new Date();
+  var then = when.getTime() + ms;
+  var now;
+  do {
+    var when = new Date();
+    now = when.getTime();
+  } while (now < then);
+}
+
+function newpiece() {
+  var m = rand(width);
+
+  block[0] = 8;
+  block[1] = 8 + width;
+  block[2] = 8 + (2 * width);
+
+  for (var i = 0; i < 3; i++) {
+    block[i] -= m;
+    if (heap[block[i]]) return(0);
+  }
+
+  cblock[0] = rand(7);
+  cblock[1] = rand(7);
+  cblock[2] = rand(7);
+
+  for (var i = 0; i < 3; i++)
+    document.images['' + block[i]].src = color[cblock[i]].src;
+
+  return(1);
+}
+
+function newgame() {
+  if (!running) {
+    if (!paused) {
+      keychoice = document.user.keychoices.selectedIndex + 1;
+      if (keychoice == 1) {
+        DOWN = 50;
+        LEFT = 52;
+        RIGHT = 54;
+        ROTATE_C = 56;
+        ROTATE_A = 53;
+      }
+      else if (keychoice == 2) {
+        DOWN = 120;
+        LEFT = 97;
+        RIGHT = 100;
+        ROTATE_C = 119;
+        ROTATE_A = 115;
+      }
+      else if (keychoice == 3) {
+        DOWN = 109;
+        LEFT = 106;
+        RIGHT = 108;
+        ROTATE_C = 105;
+        ROTATE_A = 107;
+      }
+      document.user.score.value = 0;
+      document.user.level.value = 1;
+      block = new Array(2);
+      cblock = new Array(2);
+      for (var i = 0; i < 3; i++) {
+        block[i] = -1;
+        cblock[i] = -1;
+      }
+      for (var c = 0; c < (width * height); c++) {
+        document.images['' + c].src = color[0].src;
+        heap[c] = 0;
+        remove[c] = 0;
+      }
+      newpiece();
+      level = 1;
+      interval = 300;
+    }
+    running = 1;
+    paused = 0;
+    document.user.b.value = ' Pause ';
+    id = setTimeout('step()', interval * 2);
+  }
+  else {
+    running = 0;
+    paused = 1;
+    document.user.b.value = ' Continue ';
+    clearTimeout(id);
+  }
+}
+
+function help() {
+  var desc_sure = "Use the keypad (make sure the ";
+  if (keychoice == 1) {
+    desc_sure += "'Num Lock' is on";
+    var desc_move =  "Move left=4, right=6, down=2";
+    var desc_rotate = "Rotate colors up=8, down=5";
+  }
+  else if (keychoice == 2) {
+    desc_sure += "'Caps Lock' is off";
+    var desc_move =  "Move left=a, right=d, down=x";
+    var desc_rotate = "Rotate colors up=w, down=s";
+  }
+  else if (keychoice == 3) {
+    desc_sure += "'Caps Lock' is off";
+    var desc_move =  "Move left=j, right=l, down=m";
+    var desc_rotate = "Rotate colors up=i, down=k";
+  }
+  alert("Keys:\t"+desc_sure+") -\n\t"+desc_move+"\n\t"+desc_rotate+"\n\nTo Play:\tJoin together colors to form lines of 3 or more. You do this by guiding the various\n\tpieces falling from the top into suitable positions at the bottom.\n\tAs your score increases, so does the rate at which the pieces fall...\n\n");
+}
+
+function rand(n) {
+  return Math.ceil(Math.random() * n);
+}
+
+function makeArray(n) {
+  this.length = n;
+  for (i = 0; i < n; i++)
+    this[i] = new Image();
+  return this;
+}
+
+if (navigator.appName == 'Netscape' && !document.getElementById) {
+  window.captureEvents(Event.KEYPRESS);
+  window.onKeyPress = keyPress;
+}
+//--></script>
+
+</head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#888888" alink="#ff0000" onKeyPress="keyPress(window.event, event)">
+
+<center>
+
+<font face="Arial, Helvetica, sans-serif">
+
+<script language="JavaScript"><!--
+var output = '';
+output += '<form name="user">';
+output += '<table align="center" cellspacing="0" cellpadding="0" border="0">\n';
+
+output += '<tr><td colspan="3" align="center"><h1>Columns</h1></td></tr>\n';
+output += '<tr><td bgcolor="#663399"><table cellpadding="8" border="0">\n';
+output += '<tr><td><table bgcolor="#330066" cellspacing="0" cellpadding="0" border="0">\n';
+for (y = 0; y < height; y++) {
+  for (x = 0; x < width; x++) {
+    if (x == 0)
+      output += '<tr>';
+    output += '<td><img src="images/blank.gif"';
+    output += ' name="' + ((y * width) + x ) + '" width="' + tilex + '" height="' + tiley + '" alt="" border="0"></td>';
+    if (x == width - 1)
+      output += '</tr>\n';
+  }
+}
+output+='</table></td></tr></table></td><td>&nbsp;&nbsp;&nbsp;</td>\n';
+
+output += '<td bgcolor="#663399" valign="top" align="center"><font color="#ffffff"><br>\nScore:&nbsp;';
+output += '<input type="text" size="4" name="score" VALUE="0" onFocus="blur()"><br><br>\nLevel:&nbsp;';
+output += '<input type="text" size="2" name="level" VALUE="1" onFocus="blur()"><br><br>\n&nbsp;<input type="button" name="b"';
+output += ' value=" New Game " onClick="newgame()" onFocus="blur()">&nbsp;<br><br>\nKeys:&nbsp;';
+output += '<select name="keychoices"><option value="1" ';
+output += (keychoice == 1) ? 'SELECTED>' : '>'
+output += 'numpad';
+output += '<option value="2" '; output+=(keychoice == 2) ? 'SELECTED>' : '>'
+output += 'a-x-d-s-w';
+output += '<option value="3" '; output+=(keychoice == 3) ? 'SELECTED>' : '>'
+output += 'j-m-l-k-i</select></font><br><img src="images/blank.gif" width="130" height="1" alt="" border="0"></td></tr>\n';
+
+output+='</table></form>\n';
+
+output+='<b><a href="javascript:help()">INSTRUCTIONS</a></b>\n';
+
+document.write(output);
+preload();
+//--></script>
+
+</font>
+
+</center>
+
+</body>
+
+</html>

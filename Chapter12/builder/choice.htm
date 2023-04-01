@@ -1,0 +1,79 @@
+<html>
+
+<head>
+
+<title>Builder</title>
+
+<style><!--
+select { width: 300; }
+input { text-align: right; }
+h1, td, p { font-family: Arial; }
+.l { position: absolute; visibility: hidden; display: block; }
+//--></style>
+
+<script language="JavaScript" src="builder.js"></script>
+
+<script language="JavaScript" src="database.js"></script>
+
+<script language="JavaScript" src="dom.js"></script>
+
+<script language="JavaScript" src="money.js"></script>
+
+<script language="JavaScript" src="windows.js"></script>
+<script language="JavaScript" src="redhat.js"></script>
+<script language="JavaScript" src="cobalt.js"></script>
+<script language="JavaScript" src="solaris.js"></script>
+
+<script language="JavaScript"><!--
+var passed = location.search.substring(1);
+
+if (window.Select) {
+  if (passed == "choice=osNT4.0" && window.buildWindows)
+    var form = buildWindows();
+  else if (passed == "choice=osRH7.0" && window.buildRedHat)
+    var form = buildRedHat();
+  else if (passed == "choice=osRAQ4" && window.buildCobalt)
+    var form = buildCobalt();
+  else if (passed == "choice=osSOL7" && window.buildSolaris)
+    var form = buildSolaris();
+  else if (window.buildSolaris)
+    var form = buildWindows();
+}
+
+function start() {
+  if (window.DOMObjects)
+    DOMInitialize('div');
+
+  if (window.form && window.total)
+    total(document.forms[form.name]);
+}
+//--></script>
+
+</head>
+
+<body onLoad="start()">
+
+<h1>Configure Server</h1>
+
+<center>
+
+<script language="JavaScript"><!--
+if (window.form) document.write(showHTML(form));
+//--></script>
+
+</center>
+
+<div id="dynamicArea" class="l" style="width: 100%;">
+<form name="outputForm">
+<table>
+<tr><td>Monthly</td><td><input type="text" name="monthly" size="10"></td></tr>
+<tr><td>Setup</td><td><input type="text" name="setup" size="10"></td></tr>
+<tr><td>Total</td><td><input type="text" name="total" size="10"></td></tr>
+</table>
+</form>
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<html>
+
+<head>
+
+<title>Password Verification</title>
+
+<script language="JavaScript"><!--
+var request = false;
+
+var useImage = false;
+var useFrame = false;
+
+if (document.images)
+  useImage = true;
+else
+  if (navigator.appVersion.indexOf('MSIE 3') > -1)
+    useFrame = true;
+
+function testForIt() {
+  if (document.logon.identity.value != '' &&
+      document.logon.password.value != '') {
+    if (useImage) {
+      request = true;
+      document.images["testImage"].src =
+        document.logon.identity.value + '/' +
+        document.logon.password.value + '.gif';
+    }
+    else if (useFrame) {
+      document.frames[0].location.href =
+        document.logon.identity.value + '/' +
+        'e' + document.logon.password.value + '.htm';
+    }
+    else {
+      location.href =
+        document.logon.identity.value + '/' +
+        document.logon.password.value + '.htm';
+    }
+  }
+  return false;
+}
+
+function loadIt() {
+  if (request) {
+    request = false;
+
+    window.location.href =
+      document.logon.identity.value + '/' +
+      document.logon.password.value + '.htm';
+  }
+}
+
+function failIt() {
+  if (request) {
+    request = false;
+    document.bgColor = '#FFCCCC';
+    window.location.href = 'error.htm';
+  }
+
+  document.logon.identity.value = '';
+  document.logon.password.value = '';
+}
+//--></script>
+</head>
+
+<body bgcolor="#CCCCFF">
+
+<table height="100%" width="100%" border="1">
+<tr>
+<td height="95%" align="center">
+
+<form name="logon" onSubmit="return testForIt()">
+<table>
+<tr><td>
+User Identity:
+</td><td>
+<input type="password" name="identity" value="">
+</td></tr>
+<tr><td>
+Password:
+</td><td>
+<input type="password" name="password" value="">
+</td></tr>
+<tr><td colspan="2" align="center">
+<input type="submit" value="Submit">
+</td></tr>
+</table>
+</form>
+
+</td>
+</tr>
+<tr><td><b>&nbsp;</b></td></tr>
+</table>
+
+<script language="JavaScript"><!--
+if (useImage)
+  document.write(
+    '<img src="blank.gif" name="testImage" alt="." width="1"' +
+    ' height="1" onLoad="loadIt()" onError="failIt()">'
+  );
+else if (useFrame)
+  document.write(
+    '<iframe src="blank.htm" marginheight="0" marginwidth="0"' +
+    ' frameborder="0" width="1" height="1"><\/iframe>'
+  );
+//--></script>
+
+</body>
+</html>

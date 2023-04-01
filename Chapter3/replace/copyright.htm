@@ -1,0 +1,39 @@
+<script language="JavaScript"><!--
+function replace(string,text,by) {
+  var strLength = string.length;
+  var txtLength = text.length;
+
+  if ((strLength == 0) || (txtLength == 0))
+    return string;
+
+  var i = string.indexOf(text);
+
+  if (i == -1)
+    return string;
+
+  var newstr = string.substring(0,i) + by;
+
+  newstr +=
+    replace(string.substring(i+txtLength,strLength),text,by);
+
+  return newstr;
+}
+
+var copyright =
+  '\n\nCopyright (c) $YEAR by $NAME\n\n' +
+  'Please freely copy and distribute $PRODUCT.\n\n' +
+  '$PRODUCT is distributed on an "AS IS" basis, WITHOUT ' +
+  'WARRANTY OF ANY KIND, either express or implied.\n\n' +
+  'The Original is $PRODUCT.';
+
+var year = 2000;
+var name = 'ABC Company';
+var product = 'This Copyright Statement';
+
+copyright = replace(copyright,'$YEAR',year);
+copyright = replace(copyright,'$NAME',name);
+copyright = replace(copyright,'$PRODUCT',product.bold());
+copyright = replace(copyright,'\n','<br>');
+
+document.write(copyright);
+//--></script>

@@ -1,0 +1,116 @@
+<html>
+
+<head>
+<title>Sales Order Form</title>
+
+<style><!--
+input { font-family:courier; }
+//--></style>
+
+<script language="JavaScript"><!--
+function round(number,x) {
+  return Math.round(number * Math.pow(10,x)) / Math.pow(10,x);
+}
+
+function cents(amount) {
+  amount -= 0;
+
+  amount = round(amount, 2);
+
+  if (amount == 0)
+    amount += '.00';
+  else if (amount == Math.floor(amount))
+    amount += '.00';
+  else if (amount*10 == Math.floor(amount*10))
+    amount += '0';
+
+  return '' + amount;
+}
+
+function padwith(num, size, chr) {
+  num = '' + num;
+  while (num.length < size) num = chr + num;
+  return num;
+}
+
+function calc(what) {
+  var subTotal = 0;
+  for (var i=0;i<products.length/2;i++) {
+    var quantity = what.elements['quantity' + i].value - 0;
+    var price = what.elements['price' + i].value - 0;
+    var total = quantity * price;
+    total = cents(total);
+    what['total' + i].value = padwith(total,9,' ');
+    subTotal += total - 0;
+  }
+  subTotal = cents(subTotal);
+  what.subTotal.value = padwith(subTotal,9,' ');
+  var taxrate = what.tax.value - 0
+  var taxTotal = cents((subTotal - 0) / 100 * taxrate);
+  what.taxTotal.value = padwith(taxTotal,9,' ');
+  var grandTotal = cents((subTotal - 0) + (taxTotal - 0));
+  what.grandTotal.value = padwith(grandTotal,9,' ');
+}
+
+var products = new Array(
+  'Pencil', 0.50,
+  'Notepad', 1.99,
+  'Diary (Week per Page)', 2.99,
+  'Diary (Day per Page)', 3.99,
+  'Desk Diary', 4.99,
+  'Realm of paper', 2.55,
+  'Dictionary', 9.98
+);
+//--></script>
+
+</head>
+
+<body>
+
+<table>
+<form>
+<tr>
+<th>Description</th><th>Qty</th><th>Price</th><th>Total</th>
+</tr>
+
+<script language="JavaScript"><!--
+var output = '';
+
+for (var i=0, j=0; i<products.length; i+=2, j++) {
+  output +=
+    '<tr><td>' + products[i] + '</td><td>' +
+    '<input type="text" name="quantity' + j + '" ' +
+    'size="2" maxlength="2" onChange="calc(this.form)">' +
+    '</td><td>$' + cents(products[i+1]) +
+    '<input type="hidden" name="price' + j + '" value="' +
+    products[i+1] + '">' +
+    '</td><td>' +
+    '$<input type="text" name="total' + j +
+    '" size="9" disabled>' +
+    '</td></tr>';
+}
+
+document.write(output);
+//--></script>
+
+<tr><td></td><td></td><td></td><td>
+$<input type="text" name="subTotal" size="9" disabled>
+</td><td>Sub-Total</td></tr>
+
+<tr><td></td><td>Tax</td><td>
+<input type="text" name="tax" value="7" size="4" maxlength="4"
+  onChange="calc(this.form)">%
+</td><td>
+$<input type="text" name="taxTotal" size="9" disabled>
+</td><td>Tax</td></tr>
+
+<tr><td></td><td></td><td></td><td>
+$<input type="text" name="grandTotal" size="9" disabled>
+</td><td>Grand-Total</td></tr>
+
+</form>
+</table>
+
+</body>
+
+</html>

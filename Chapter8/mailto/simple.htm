@@ -1,0 +1,32 @@
+<html>
+
+<head>
+
+<title>Sending Mail from Forms</title>
+
+<script language="JavaScript"><!--
+function alter(object,where) {
+  object.encoding = 'text/plain';
+  object.action = where;
+  object.method = 'POST';
+}
+//--></script>
+
+</head>
+
+<body>
+
+<form action="" method="" enctype="">
+<p>
+Comments:
+<br>
+<textarea name="comments" cols="72" ROWS="10"></textarea>
+<br>
+<input type="submit" value="Sales"
+  onClick="alter(this.form,'mailto:yy@yy.yy.yy')">
+<input type="submit" value="Support"
+  onClick="alter(this.form,'mailto:zz@zz.zz.zz')">
+</p>
+</form>
+
+</body>

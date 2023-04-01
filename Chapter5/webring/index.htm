@@ -1,0 +1,156 @@
+<html>
+
+<head>
+<title>The XYZ Web-Ring Home Page</title>
+</head>
+
+<body>
+
+<h1>The XYZ Web-Ring:</h1>
+
+<h2>The following people are in the XYZ Web-Ring:</h2>
+
+<script language="JavaScript"><!--
+function WebRingObject(href,name,text,logo) {
+  this.href = href;
+  this.name = name;
+  this.text = text;
+}
+
+function Add(href,name,text,logo)  {
+  WebRing[++NumInWebRing] =
+    new WebRingObject(href,name,text,logo);
+  if (location.href.indexOf(href) > -1)
+    WhereInRing = NumInWebRing;
+}
+
+var WhereInRing = 0, NumInWebRing = 0, WebRing = new Array();
+
+Add(
+'http://www.btinternet.com/~aredfern/',
+'Ashley Redfern',
+'All the latest news and information from Fulham football Club'
+);
+
+Add(
+'http://www.legolas.com/',
+'Mike Coppins',
+'The ongoing Project'
+);
+
+Add(
+'http://www.btinternet.com/~red.dragon/',
+'Lawrence Elliott',
+'Visit South Wales, Visual Basic, Your Cat Page'
+);
+
+Add(
+'http://www.btinternet.com/~markrsmith/',
+'Mark Smith',
+'Mark\'s Leisure Zone'
+);
+
+function outputList() {
+  var output = '';
+
+  output += '<table>';
+
+  for (var i=1; i<=NumInWebRing; i++) {
+    output +=
+      '<tr>' +
+      '<td valign="top">' +
+      '<a href="' + WebRing[i].href + '">' +
+        WebRing[i].name + '<\/a>' +
+      '<\/td>' +
+      '<td valign="top">' +
+      WebRing[i].text +
+      '<\/td>' +
+      '<\/tr>' +
+      '<tr><td colspan="3"><\/td><\/tr>';
+  }
+
+  output += '<\/table>';
+
+  document.write(output);
+}
+
+function validateForm() {
+  var output = '';
+  if (document.addForm.href.value == '')
+    output += '\tHomepage URL\n';
+
+  if (document.addForm.email.value == '')
+    output += '\tEmail Address\n';
+
+  if (document.addForm.myname.value == '')
+    output += '\tName\n';
+
+  if (document.addForm.text.value == '')
+    output += '\tShort Description\n';
+
+  if (output != '') {
+    alert('Please enter the following details:\n\r' + output);
+    return false;
+  }
+
+  return true;
+}
+
+outputList();
+//--></script>
+
+<h2>Add your site to the XYZ Web-Ring:</h2>
+
+<center>
+
+<form action="mailto:martin.webb@btinternet.com"
+  name="addForm" onSubmit="validateForm()">
+
+<p>
+Your Homepage URL
+<br>
+(e.g. http://www.xyz.com/):
+<br>
+<input type="text" size="40" name="href">
+</p>
+
+<p>
+Your Email Address
+<br>
+(e.g. xxxx@yyyyyyyy.zzz):
+<br>
+<input type="text" size="40" name="email">
+</p>
+
+<p>
+Your Name
+<br>
+(e.g. Martin Webb):
+<br>
+<input type="text" size="40" name="myname">
+</p>
+
+<p>
+Your Short Description:
+<br>
+<textarea name="text" rows="3" cols="40" wrap="virtual">
+</textarea>
+
+<p>
+Your banner URL
+<br>
+(e.g. http://www.xyz.com/image.gif):
+<br>
+<input type="text" size="40" name="banner">
+
+<p>
+<input type="reset" value="Reset">
+<input type="submit" value="Submit">
+
+</form>
+
+</center>
+
+</body>
+
+</html>

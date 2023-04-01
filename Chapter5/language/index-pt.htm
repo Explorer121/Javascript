@@ -1,0 +1,86 @@
+<html lang="pt">
+
+<head>
+<title>Português</title>
+</head>
+
+<body>
+
+<script language="JavaScript1.2"><!--
+function getFileName(s) {
+  if (s.indexOf('/') != -1)
+    return s.substring(s.lastIndexOf('/') + 1, s.length);
+  else
+    return s.substring(s.lastIndexOf('\\') + 1, s.length);
+}
+
+function showpage(code) {
+  var file = getFileName(window.location.href);
+
+  var dash = file.indexOf('-');
+
+  var prefix = '';
+  var suffix = '';
+
+  if (dash > -1) {
+    prefix = file.substring(0, dash + 1);
+  }
+  else {
+    prefix = file.substring(0, file.indexOf('.')) + '-';
+  }
+
+  suffix = file.substring(file.indexOf('.'), file.length);
+
+  window.location.href = prefix + code + suffix;
+}
+
+if (navigator.appName == 'Netscape')
+  var language = navigator.language;
+else
+  var language = navigator.browserLanguage;
+
+var l = language.substring(0,2);
+
+if (l=='fr' || l=='de' || l=='it' || l=='es' || l=='en')
+  showpage(l);
+
+//--></script>
+
+<center>
+
+<h1>Português</h1>
+
+<p>
+Esta página detectou que seu browser não está usando o inglês.
+O restante do Web site está em inglês, porém você pode poder
+usar o serviço de tradução de AltaVista traduzir uma página
+completa ou parcelas do texto.
+</p>
+
+<p>
+O serviço de tradução de AltaVista pode ser ficado situado em
+<a href="http://babelfish.altavista.digital.com"
+>http://babelfish.altavista.digital.com</a>
+</p>
+
+<p>
+Eu espero que você encontre este local útil.
+</p>
+
+<p>
+<a href="index-en.htm">Inglê</a>
+<a href="index-fr.htm">Francês</a>
+<a href="index-de.htm">Alemão</a>
+<a href="index-it.htm">Italiano</a>
+<a href="index-es.htm">Espanhol</a>
+</p>
+
+<p>
+<img src="pt.gif" width="100" height="65">
+</p>
+
+</center>
+
+</body>
+
+</html>

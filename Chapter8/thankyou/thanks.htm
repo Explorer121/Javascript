@@ -1,0 +1,55 @@
+<html>
+
+<head>
+<title>Dynamic Thank You Page</title>
+</head>
+
+<body>
+
+<font face="Arial, Helvetica">
+
+<h1>...Message Received</h1>
+
+<p>Contents of Dynamic Thank You email</p>
+
+<script language="JavaScript"><!--
+var input = output = name = value = equal = ampersand = '';
+
+if (location.search.length > 0)
+  input = location.search.substring(1);
+
+input = input.replace(/\+/g,' ');
+
+while (input.length > 0) {
+  equal = input.indexOf('=');
+  name = unescape(input.substring(0,equal));
+  input = input.substring(input.indexOf('=')+1);
+
+  ampersand = input.indexOf('&');
+  value = input.substring(0,ampersand);
+  input = input.substring(input.indexOf('&')+1);
+
+  if (value == '' && ampersand == -1) {
+    value = input;
+    input = '';
+  }
+
+  value = unescape(value);
+  value = value.replace(/&/g,'&amp');
+  value = value.replace(/</g,'&lt;');
+  value = value.replace(/>/g,'&gt;');
+
+  if (name != 'redirect')
+    output += '<p><b>' + name + '=</b>' + value + '</p>';
+}
+
+document.write(output);
+//--></script>
+
+<h2>Thank you!</h2>
+
+</font>
+
+</body>
+
+</html>

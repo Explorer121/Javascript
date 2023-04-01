@@ -1,0 +1,82 @@
+<html>
+
+<head>
+<title>Dynamic Thank You Page</title>
+</head>
+
+<body>
+
+<font face="Arial, Helvetica">
+
+<h1>Dynamic Thank You Page</h1>
+
+<form method="GET"
+  action="/cgi-bin/userform.cgi">
+
+<p>
+Your name:
+<br>
+<input type="text" size="38" name="name">
+</p>
+
+<p>
+Your e-mail:
+<br>
+<input type="text" size="38" name="email">
+</p>
+
+<p>
+Comments:
+<br>
+<textarea name="comments" cols="38" rows="4" wrap="virtual">
+</textarea>
+</p>
+
+<p>
+Your age:
+<br>
+<input type="radio" name="age" value="5-15">  5-15
+<input type="radio" name="age" value="16-25"> 15-25
+<input type="radio" name="age" value="26-35"> 26-35
+<input type="radio" name="age" value="36-45"> 36-45
+<input type="radio" name="age" value="46-55"> 46-55
+<input type="radio" name="age" value="56-65"> 55-65
+</p>
+
+<p>
+Your favourite colors:
+<select name="color" multiple size="3">
+<option>Red
+<option>Orange
+<option>Yellow
+<option>Green
+<option>Blue
+<option>Indigo
+<option>Violet
+</select>
+</p>
+
+<p>
+Your Hobbies:
+<br>
+<input type="checkbox" name="hobbies" value="Computing">
+ - Computing
+<input type="checkbox" name="hobbies" value="Carpentry">
+ - Carpentry
+<input type="checkbox" name="hobbies" value="Drawing">
+ - Drawing
+<input type="checkbox" name="hobbies" value="Reading">
+ - Reading
+</p>
+
+<input type="hidden" name="redirect" value="/thanks.htm">
+
+<p>
+<input type="submit" value="Submit">
+</p>
+
+</form>
+
+</body>
+
+</html>

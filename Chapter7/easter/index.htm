@@ -1,0 +1,78 @@
+<html>
+
+<head>
+
+<title>Easter</title>
+
+<script src="current.js" language="JavaScript"></script>
+<script src="easter.js" language="JavaScript"></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+if (window.formatFullDate && window.Easter) {
+  var today = new Date();
+  var day   = today.getDate();
+  var month = today.getMonth() + 1;
+  var year  = today.getFullYear();
+
+  var easter = new Easter(year);
+  document.write('Easter Sunday - ' + easter.date + '<br>');
+
+  var when = new addDays(easter.day,easter.month,year,-63);
+  document.write('Septuagesima Sunday - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,-56);
+  document.write('Sexagesima Sunday - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,-49);
+  document.write('Shrove Sunday - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,-47);
+  document.write('Shrove Tuesday - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,-46);
+  document.write('Ash Wednesday - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,-14);
+  document.write('Passion Sunday - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,-7);
+  document.write('Palm Sunday - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,-3);
+  document.write('Maundy Thursday - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,-2);
+  document.write('Good Friday - ' + when.date +'<br>');
+
+  document.write('Easter Sunday - ' + easter.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,35);
+  document.write('Rogation Sunday - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,39);
+  document.write('Ascension Day - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,49);
+  document.write('Pentecost - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,50);
+  document.write('Whitmundy - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,56);
+  document.write('Trinity Sunday - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,60);
+  document.write('Corpus Christi - ' + when.date +'<br>');
+
+  var when = new addDays(easter.day,easter.month,year,63);
+  document.write('Corpus Christi (US) - ' + when.date +'<br>');
+}
+//--></script>
+
+</body>
+
+</html>

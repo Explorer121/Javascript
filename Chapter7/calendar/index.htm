@@ -1,0 +1,67 @@
+<html>
+
+<head>
+
+<title>Calendar</title>
+
+<link rel="stylesheet" href="calendar.css" type="text/css">
+
+<script language="JavaScript" src="current.js"></script>
+<script language="JavaScript" src="calendar.js"></script>
+
+</head>
+
+<body bgcolor="#ffffff">
+
+<center>
+
+<script language="JavaScript"><!--
+size = '';
+border = 'border="0"';
+dow = new Array('S','M','T','W','T','F','S',
+                'S','M','T','W','T','F');
+moy = new Array(
+  'Jan','Feb','Mar','Apr','May','Jun',
+  'Jul','Aug','Sep','Oct','Nov','Dec'
+);
+
+function changeDay(day, month, year) {
+  alert(new Date(year, month, day));
+}
+
+var output = '';
+
+if (window.formatFullDate && window.CalendarSelect) {
+  var today = new Date();
+  var day   = today.getDate();
+  var month = today.getMonth() + 1;
+  var year  = today.getFullYear();
+
+  output +=
+    '<table class="cal" border="1"><tr><td valign="top">';
+
+  for (var i = 1; i <= 12; i++) {
+    output += '<table><tr><td>' +
+      CalendarHead(i,year) +
+      CalendarMonth(i,year,1) +
+      '</td></tr></table>';
+
+    if (i != 12) {
+      if (i % 3 == 0)
+        output += '</td></tr><tr><td valign="top">';
+      else
+        output += '</td><td valign="top">';
+    }
+  }
+
+  output += '</td></tr></table>';
+}
+
+document.write(output);
+//--></script>
+
+</center>
+
+</body>
+
+</html>

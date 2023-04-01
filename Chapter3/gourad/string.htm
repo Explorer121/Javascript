@@ -1,0 +1,62 @@
+<html>
+
+<head>
+<title>String Gourad Shading</title>
+
+<script language="JavaScript"><!--
+function gradient(string, startcolor, endcolor) {
+  var len = string.length;
+  var output = '';
+
+  var red    = startcolor >> 16;
+  var green  = (startcolor & 0x00FF00) >> 8;
+  var blue   = startcolor & 0x0000FF;
+
+  var ered   = endcolor >> 16;
+  var egreen = (endcolor & 0x00FF00) >> 8;
+  var eblue  = endcolor & 0x0000FF;
+
+  var ired   = Math.round((ered - red) / (len - 1));
+  var igreen = Math.round((egreen - green) / (len - 1));
+  var iblue  = Math.round((eblue - blue) / (len - 1));
+
+  for (var x=0; x<len; x++) {
+
+    var color = (red << 16 | green << 8 | blue).toString(16);
+
+    color = ('000000').substring(0, 6 - color.length) + color;
+
+    output += '<font color="#' + color + '">' +
+              string.charAt(x) +
+              '<\/font>';
+
+    red   = fix(red + ired);
+    green = fix(green + igreen);
+    blue  = fix(blue + iblue);
+  }
+
+  return output;
+}
+
+function fix(color) {
+  if (color < 0) return 0;
+  if (color > 255) return 255;
+  return color;
+}
+//--></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+var text = 'String created with Gourad Shading ';
+
+for (var i=0; i<text.length; i++) {
+  document.write(gradient(text, 0x000000, 0xFFFFFF) + '<br>');
+  text = text.substring(1) + text.substring(0,1);
+}
+//--></script>
+
+</body>
+</html>

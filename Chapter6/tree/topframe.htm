@@ -1,0 +1,30 @@
+<html>
+
+<head>
+
+<link rel="stylesheet" href="family.css" type="text/css">
+
+<title>Family Tree</title>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+function updateDetails(index) {
+  if (index != parent.details) {
+    parent.botFrame.document.open();
+    parent.botFrame.document.write(
+      parent.PersonArray[index].details
+    );
+    parent.botFrame.document.close();
+    parent.details = index;
+  }
+}
+
+document.write(parent.showTree(parent.PersonToShow));
+//--></script>
+
+</body>
+
+</html>

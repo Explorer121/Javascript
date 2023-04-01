@@ -1,0 +1,44 @@
+.top {
+  background-color: #c0c0c0;
+}
+
+.cal {
+  background-color: #c0c0c0;
+}
+
+.head {
+  color: #0000BB;
+  font-family: Arial;
+  font-weight: bold;
+  text-align: left;
+}
+
+.days {
+  color: #000000;
+  font-family: Arial;
+  font-weight: bold;
+  text-align: center;
+}
+
+.grey {
+  color: #808080;
+  font-family: Arial;
+  font-size: small;
+  text-align: center;
+}
+
+.links {
+  color: #0000FF;
+  font-family: Arial;
+  font-size: small;
+  text-align: center;
+}
+
+.cookie {
+  color: #0000FF;
+  font-family: Arial;
+  font-size: large;
+  text-align: center;
+}
+
+p { font-family: Arial; }

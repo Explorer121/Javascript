@@ -1,0 +1,92 @@
+<html>
+
+<head>
+
+<script language="JavaScript"><!--
+function Birthday(dob,who) {
+  this.dob = dob;
+  this.who = who;
+
+  this.firstname =
+    who.substring(0,who.lastIndexOf(' '));
+  this.lastname =
+    who.substring(who.lastIndexOf(' '),who.length);
+
+  this.year = dob.toString().substring(0,4);
+  this.month = dob.toString().substring(4,6);
+  this.day = dob.toString().substring(6,8);
+}
+
+function setBirthday(dob,who) {
+  myBirthday[birthdayIndex++] = new Birthday(dob,who);
+}
+
+var birthdayIndex = 0;
+
+var myBirthday = new Array();
+//--></script>
+
+<script language="JavaScript" src="birthdays.js"></script>
+
+<style type="TEXT/CSS"><!--
+h1, td, th { font-family: Arial; }
+tr.color0 { background: #ccffcc; }
+tr.color1 { background: #ccccff; }
+tr.color2 { background: #ffcccc; }
+//--></style>
+
+</head>
+
+<body>
+
+<center>
+
+<h1>Dates of birth</h1>
+
+<table border="0" cellspacing="0" cellpadding="5" width="100%">
+
+<tr class="color2">
+<th><a href="sort.htm?firstname">First Name</a></th>
+<th><a href="sort.htm?lastname">Last Name</a></th>
+<th><a href="sort.htm?year">Year</a></th>
+<th><a href="sort.htm?month">Month</a></th>
+<th><a href="sort.htm?day">Day</a></th>
+<th><a href="sort.htm?dob">Date of Birth</a></th>
+</tr>
+
+<script language="JavaScript"><!--
+var output = '';
+
+var searchtext = location.search.substring(1);
+
+if (searchtext == '')
+  Birthday.prototype.toString = new Function('return this.who');
+else
+  Birthday.prototype.toString =
+    new Function('return this.' + searchtext + ';');
+
+function mySort(a,b) { return a>b; }
+
+myBirthday.sort(mySort);
+
+for (var i=0; i < birthdayIndex; i++) {
+  output += '<tr class="color' + i%3 + '">';
+  output += '<td>' + myBirthday[i].firstname + '&nbsp;<\/td>';
+  output += '<td>' + myBirthday[i].lastname + '&nbsp;<\/td>';
+  output += '<td>' + myBirthday[i].year + '&nbsp;<\/td>';
+  output += '<td>' + myBirthday[i].month + '&nbsp;<\/td>';
+  output += '<td>' + myBirthday[i].day + '&nbsp;<\/td>';
+  output += '<td>' + myBirthday[i].dob  + '&nbsp;<\/td>';
+  output += '<\/tr>';
+}
+
+document.write(output);
+//--></script>
+
+</table>
+
+<center>
+
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<html>
+
+<head>
+
+<title>The 3rd Saturday in November</title>
+
+<script src="current.js" language="JavaScript"></script>
+<script src="validate.js" language="JavaScript"></script>
+<script src="saturday.js" language="JavaScript"></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+if (window.formatFullDate && window.nthDay
+  && window.isLeapYear) {
+  var today = new Date();
+  var day   = today.getDate();
+  var month = today.getMonth() + 1;
+  var year  = today.getFullYear();
+
+  document.write(
+    'Martin Luther King Day - ' +
+    formatFullDate(nthDay(third,mon,jan,year),jan,year) +
+    '<br>'
+  );
+
+  document.write(
+    'Daylight Savings time begins - ' +
+    formatFullDate(nthDay(first,sun,apr,year),apr,year) +
+    '<br>'
+  );
+
+  document.write(
+    'Mother\'s Day - ' +
+    formatFullDate(nthDay(second,sun,may,year),may,year) +
+    '<br>'
+  );
+
+  document.write(
+    'Armed Forces Day - ' +
+    formatFullDate(nthDay(third,sat,may,year),may,year) +
+    '<br>'
+  );
+
+  document.write(
+    'Thanksgiving Day - ' +
+    formatFullDate(nthDay(fourth,thu,nov,year),nov,year) +
+    '<br>'
+  );
+
+  document.write(
+    'Daylight Savings Time ends - ' +
+    formatFullDate(nthDay(last,sun,oct,year),oct,year) +
+    '<br>'
+  );
+}
+//--></script>
+
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<html>
+
+<head>
+
+<title>Mouse Trails</title>
+
+<script language="JavaScript" src="dom.js"></script>
+
+<style><!--
+.l { position: absolute; visibility: hidden; display: block; }
+//--></style>
+
+<script language="JavaScript"><!--
+var masterscale = scale = 50;
+var timer;
+var x, y;
+
+if (document.layers) document.captureEvents(Event.MOUSEMOVE);
+document.onmousemove = trackMouse;
+
+function trackMouse(e) {
+  if (window.DOMObjects) {
+    x = DOMEventGetX(e);
+    y = DOMEventGetY(e);
+
+    if (timer) {
+      clearTimeout(timer);
+      scale = masterscale;
+    }
+
+    mouseTrail(x, y);
+  }
+}
+
+function mouseTrail(x, y) {
+  for (var i = 0; i < DOMObjects.length; i++) {
+    var rndX = Math.floor(Math.random() * 2 * scale) - scale;
+    var rndY = Math.floor(Math.random() * 2 * scale) - scale;
+
+    DOMElementSetLeft(DOMObjects['star' + i], x + rndX);
+    DOMElementSetTop(DOMObjects['star' + i], y + rndY);
+
+    if (!timer)
+      DOMElementShow(DOMObjects['star' + i]);
+  }
+
+  timer = setTimeout('clusterTrail()',100);
+}
+
+function clusterTrail() {
+  if (scale >= 1) {
+    scale = scale / 2;
+    mouseTrail(x, y);
+  }
+  else {
+    scale = masterscale;
+    timer = null;
+
+    for (var i = 0; i < DOMObjects.length; i++) {
+      DOMElementHide(DOMObjects['star' + i]);
+    }
+  }
+}
+
+function start() {
+  if (window.DOMObjects) DOMInitialize('div');
+}
+//--></script>
+
+</head>
+
+<body onLoad="start()">
+
+<div id="star0" class="l"><img src="star.gif" width="8" height="8"></div>
+<div id="star1" class="l"><img src="star.gif" width="10" height="10"></div>
+<div id="star2" class="l"><img src="star.gif" width="12" height="12"></div>
+<div id="star3" class="l"><img src="star.gif" width="14" height="14"></div>
+<div id="star4" class="l"><img src="star.gif" width="16" height="16"></div>
+<div id="star5" class="l"><img src="star.gif" width="18" height="18"></div>
+
+</body>
+
+</html>

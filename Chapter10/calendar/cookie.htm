@@ -1,0 +1,81 @@
+<html>
+
+<head>
+
+<title>Personal Calendar</title>
+
+<script language="JavaScript"><!--
+if (opener) {
+  var Cookie = opener.Cookie;
+  var setCookie = opener.setCookie;
+
+  var entries = opener.entries;
+
+  var pad = opener.pad;
+
+  var year  = opener.year;
+  var month = opener.month;
+  var day   = opener.day;
+}
+
+function setPersonal(year,month,value) {
+  entries[day] = value;
+
+  var monthValue = '';
+  for (var i=1; i<=31; i++) {
+    if (entries[i] != '')
+      monthValue += '@@' + i + '=' + entries[i];
+  }
+
+  if (window.Cookie) {
+    var today = new Date()
+    var expires = new Date(today.getTime() + Cookie.year);
+
+    setCookie(year + '' + pad(month,2), monthValue, expires);
+  }
+}
+
+function showEntry(day) {
+  if (opener && entries)
+    document.form1.data.value = entries[day];
+}
+
+function saveEntry(year,month) {
+  if (opener&& entries &&
+     entries[day] != document.form1.data.value) {
+    setPersonal(year,month,document.form1.data.value);
+    opener.location.href = opener.location.href;
+  }
+  self.close();
+}
+
+function deleteEntry(year,month) {
+  if (opener && entries[day] != '') {
+    setPersonal(year,month,'');
+    opener.location.href = opener.location.href;
+  }
+  self.close();
+}
+//--></script>
+
+</head>
+
+<body onLoad="showEntry(day)" onBlur="this.focus()">
+
+<center>
+<form name="form1">
+<script language="JavaScript"><!--
+if (opener)
+  document.write('<b>' + pad(day,2) + '/' + pad(month,2) + '/' + year + '</b>');
+//--></script>
+<textarea name="data" cols="20" rows="3" wrap="virtual"></textarea>
+<br>
+<input type="button" value="Cancel" onClick="self.close()">
+<input type="button" value="Delete" onClick="deleteEntry(year,month,day)">
+<input type="button" value="Save" onClick="saveEntry(year,month,day)">
+</form>
+</center>
+
+</body>
+
+</html>

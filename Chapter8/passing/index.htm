@@ -1,0 +1,41 @@
+<html>
+
+<head>
+<title>Passing data from one form to another</title>
+</head>
+
+<body>
+
+<form name="formname" action="output.htm">
+<table>
+<tr><td>Text</td><td><input type="text" name="textname"></td></tr>
+<tr><td>Textarea</td><td><textarea name="textareaname"></textarea></td></tr>
+<tr><td>Password</td><td><input type="password" name="passwordname"></td></tr>
+<tr><td>Select</td><td>
+<select name="selectname">
+<option value="a">First Choice
+<option value="b">Second Choice
+<option value="c">Third Choice
+</select>
+</td></tr>
+<tr><td>Multiple Select</td><td>
+<select multiple name="multipleselectname">
+<option value="x">First Choice
+<option value="y">Second Choice
+<option value="z">Third Choice
+</select>
+</td></tr>
+<tr><td>Checkbox</td><td><input type="checkbox" name="checkboxname"></td></tr>
+<tr><td>Radio</td><td>
+<input type="radio" name="radioname" value="yes" onClick="0">
+<input type="radio" name="radioname" value="no" onClick="0">
+</td></tr>
+<tr><td>Hidden</td><td><input type="hidden" name="hiddenname" value="hidden value"></td></tr>
+</table>
+<input type="submit">
+<input type="reset">
+</form>
+
+</body>
+
+</html>

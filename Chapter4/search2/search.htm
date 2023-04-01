@@ -1,0 +1,190 @@
+<html>
+
+<head>
+<script language="JavaScript1.2"><!--
+var days = new Array(
+  'Sunday','Monday','Tuesday','Wednesday','Thursday',
+  'Friday','Saturday'
+);
+
+var months = new Array(
+  'January','February','March','April','May','June','July',
+  'August','September','October','November','December'
+);
+
+function nths(day) {
+  if (day == 1 || day == 21 || day == 31)
+    return 'st';
+  else
+    if (day == 2 || day == 22)
+      return 'nd';
+    if (day == 3 || day == 23)
+      return 'rd';
+    else return 'th';
+}
+
+function y2k(number) {
+  return (number < 1000) ? number + 1900 : number;
+}
+
+function fullDate(date) {
+  return days[date.getDay()] + ' ' +
+         date.getDate() +
+         nths(date.getDate()) + ' ' +
+         months[date.getMonth()] + ' ' +
+         (y2k(date.getYear()));
+}
+
+function convert_date(string) {
+  var date = new Date(string.substring(0,4),
+                      (string.substring(4,6)-1),
+                      string.substring(6,8));
+  return fullDate(date);
+}
+
+function articleObject(href,text,desc,tech,date) {
+  this.href = href;
+  this.text = text;
+  this.desc = desc;
+  this.tech = tech;
+  this.date = convert_date(date);
+
+  this.HREF = href.toUpperCase();
+  this.TEXT = text.toUpperCase();
+  this.DESC = desc.toUpperCase();
+  this.TECH = tech.toUpperCase();
+  this.DATE = this.date.toUpperCase();
+}
+
+var articleIndex = 0;
+
+var articleArray = new Array();
+
+function setArticle(href,text,desc,tech,date) {
+  articleArray[articleIndex++] =
+    new articleObject(href,text,desc,tech,date);
+}
+//--></script>
+
+<script language="JavaScript1.2" src="database.js"></script>
+
+<script language="JavaScript1.2"><!--
+function show(property) {
+  for (var j=0; j < splitUp.length; j++) {
+    property = property.replace(
+                 new RegExp(splitUp[j], 'g'),
+                 '{' + splitUp[j] + '}'
+               );
+  }
+
+  property = property.replace(
+               new RegExp('{','g'),
+               '<i><font color="#0000FF" size="+1">'
+             );
+  property = property.replace(
+               new RegExp('}','g'),
+               '<\/font><\/i>'
+             );
+
+  return property;
+}
+
+function output() {
+  var href = articleArray[i].href;
+  var desc = articleArray[i].desc;
+  var text = articleArray[i].text;
+  var tech = articleArray[i].tech;
+  var date = articleArray[i].date;
+
+  var output = '';
+  output += '<tr>';
+  output += '<td valign="top">';
+  output += '<font face="Arial, Helvetica" size="4">';
+
+  output += '<a href="' + href + '" target="_parent">';
+  output += show(text)+'<\/a>';
+
+  output += '<\/font>';
+
+  output += '<font size="2"><br>'+show(date)+'<\/font>';
+
+  output += '<\/td>';
+  output += '<td valign="top">';
+  output += '<font face="Arial" size="3">';
+
+  output += '<font size="2">' +
+            '<a href="' + href + '" target="_parent">' +
+            show(href) +
+            '<\/a>' +
+            '<\/font>';
+
+  output += '<p>' +show(desc) + '<\/p>';
+
+  output += '<p><b>Techniques:<\/b> ' + show(tech) + '<\/p>';
+
+  output += '<\/font>';
+  output += '<\/td>';
+  output += '<\/tr>';
+
+  document.write(output);
+}
+
+var searchtext = window.location.search;
+searchtext = unescape(searchtext);
+searchtext = searchtext.substring(12);
+// The next line fails in Internet Explorer 5
+//searchtext = searchtext.replace(new RegExp(plus,'g'),' ');
+// Following works okay:
+while (searchtext.indexOf('+') > -1)
+  searchtext = searchtext.replace('+',' ');
+
+var splitUp = searchtext.toUpperCase().split(' ');
+//--></script>
+
+</head>
+<body>
+
+<form name="form1" method="get">
+<input type="text" name="searchtext" value="">
+<input type="submit" value="Search">
+</form>
+
+<script language="JavaScript1.2"><!--
+document.form1.searchtext.value = searchtext;
+
+if (searchtext != '') {
+  document.write('<h1>Search Results<\/h1>');
+  document.write('<h2>Search string = "'+searchtext+'"<\/h2>');
+}
+else {
+  document.write('<h1>Articles<\/h1>');
+}
+
+document.write('<table>');
+
+for (var i=0; i < articleIndex; i++) {
+  var Found = true;
+
+  if (searchtext != '') {
+    Found = false;
+    for (var j=0; j < splitUp.length; j++) {
+      if (
+        (articleArray[i].HREF.indexOf(splitUp[j]) != -1) ||
+        (articleArray[i].DESC.indexOf(splitUp[j]) != -1) ||
+        (articleArray[i].TEXT.indexOf(splitUp[j]) != -1) ||
+        (articleArray[i].TECH.indexOf(splitUp[j]) != -1) ||
+        (articleArray[i].DATE.indexOf(splitUp[j]) != -1)
+      ) {
+        Found = true;
+        continue;
+      }
+    }
+  }
+  if (Found) output()
+}
+
+document.write('</table>');
+//--></script>
+
+</body>
+</html>

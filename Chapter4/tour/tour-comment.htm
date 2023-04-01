@@ -1,0 +1,21 @@
+<html>
+
+<head>
+<script language="JavaScript"><!--
+function load() {
+  var n = location.search.substring(1);
+  self.comment.location.href = top.myLink[n].commentary;
+  self.tour.location.href = top.myLink[n].href;
+}
+//--></script>
+</head>
+
+<frameset frameborder="0" framespacing="0" rows="200,*" onLoad="load()">
+
+<frame scrolling="yes" frameborder="0" name="comment" noresize src="about:blank">
+
+<frame frameborder="0" name="tour" noresize src="about:blank">
+
+</frameset>
+
+</html>

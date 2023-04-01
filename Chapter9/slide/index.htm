@@ -1,0 +1,111 @@
+<html>
+
+<head>
+
+<title>Slide Show</title>
+
+<script language="JavaScript"><!--
+function myImage(url,last) {
+  if (document.images) {
+    var img = new Image();
+    img.url = url;
+    img.onload = imageLoaded;
+    img.next = null;
+    if (last) last.next = img;
+    return img;
+  }
+  return null;
+}
+
+function imageLoaded(e) {
+  if (this.next != null) this.next.src = this.next.url;
+}
+
+var image = new Array();
+
+image[0] = myImage('image1.jpg',null);
+image[1] = myImage('image2.jpg',image[0]);
+image[2] = myImage('image3.jpg',image[1]);
+image[3] = myImage('image4.jpg',image[2]);
+image[4] = myImage('image5.jpg',image[3]);
+
+if (document.images)
+  image[0].src = image[0].url;
+
+var search = location.search.substring(1);
+var number = 0;
+if (search != '') number = search - 1;
+
+function loadImage(name) {
+  if (document.images) {
+    number = name;
+    document.images['slide'].src = image[name].src;
+    for (var i=0; i<image.length; i++)
+      document.images['d' + i].src = 'off.gif';
+    document.images['d' + name].src = 'on.gif';
+    return false;
+  }
+  return true;
+}
+
+var playing = false;
+var timeout = null;
+
+function show() {
+  playing = !playing;
+  if (document.images) {
+    if (playing) {
+      document.images['play'].src = 'play-on.gif';
+      nextSlide();
+    }
+    else {
+      document.images['play'].src = 'play-off.gif';
+      clearTimeout(timeout);
+    }
+  }
+  return false;
+}
+
+function nextSlide() {
+  number++;
+  if (number == image.length) number = 0;
+  loadImage(number);
+  timeout = setTimeout('nextSlide()',1000);
+}
+
+//--></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+document.write(
+  '<img src="' + image[number].url + '" name="slide" width="320" height="240">'
+);
+//--></script>
+
+<br>
+
+<script language="JavaScript"><!--
+var output = '';
+
+for (var i=0; i<image.length; i++) {
+  (i == number) ? img = 'on.gif': img = 'off.gif';
+  output +=
+    '<a href="index.htm?' +i+ '" ' +
+    'onClick="return loadImage(' +i+ ')" onFocus="this.blur()">' +
+    '<img src="' +img+ '" name="d' +i+ '" width="35" height="35" border="0"></a>';
+}
+
+if (document.images)
+  output +=
+    '<a href="#" onClick="return show()" onFocus="this.blur()">' +
+    '<img src="play-off.gif" name="play" width="35" height="35" border="0"></a>';
+
+document.write(output);
+//--></script>
+
+</body>
+
+</html>

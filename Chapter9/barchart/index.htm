@@ -1,0 +1,75 @@
+<html>
+
+<head>
+
+<title>Barcharts</title>
+
+<style><!--
+.t { font-size:xx-small; }
+--></style>
+
+<script language="JavaScript" src="barchart.js"></script>
+
+<h2>
+Horizontal chart using default parameters
+</h2>
+
+<script language="JavaScript"><!--
+if (window.setParms)
+  var parms = new setParms();
+
+var chartValues = new Array(12,2,3,5,14);
+
+if (window.hChart)
+  document.write(hChart(chartValues,20,new Array()));
+//--></script>
+
+<h2>
+Horizontal chart with changed parameters and different colors
+</h2>
+
+<script language="JavaScript"><!--
+if (window.setParms)
+  var parms = new setParms(2,200,null,'w','beige');
+
+var barColor = new Array(
+  'Red','ForestGreen','Blue','SandyBrown','DeepPink','lightgrey'
+);
+
+var chartValues = new Array(120,5,81,114,150,136);
+
+if (window.hChart)
+  document.write(hChart(chartValues,170,barColor));
+//--></script>
+
+<h2>
+Vertical chart using image with default parameters
+</h2>
+
+<script language="JavaScript"><!--
+if (window.setParms)
+  var parms = new setParms();
+
+var chartValues = new Array(120,5,81,114,150,136,119);
+
+if (window.hChart)
+  document.write(vChart(chartValues,200,1,false,true));
+//--></script>
+
+<h2>
+Vertical Chart with changed parameters
+</h2>
+
+<script language="JavaScript"><!--
+if (window.setParms)
+  var parms = new setParms(2,30,null,null,'lightgrey');
+
+var chartValues = new Array(120,5,81,114,150,136,119);
+
+if (window.vChart)
+  document.write(vChart(chartValues,200,2,false,true));
+//--></script>
+
+</body>
+
+</html>

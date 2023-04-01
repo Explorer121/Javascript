@@ -1,0 +1,79 @@
+<html>
+
+<head>
+
+<title>Valid Date</title>
+
+<script src="current.js" language="JavaScript"></script>
+<script src="validate.js" language="JavaScript"></script>
+
+<script language="JavaScript"><!--
+var mnthsOfYear = new Array(
+  'Jan','Feb','Mar','Apr','May','Jun',
+  'Jul','Aug','Sep','Oct','Nov','Dec'
+);
+
+var output = '';
+
+if (window.formatFullDate && window.isValidDate) {
+  var today = new Date();
+  var month = today.getMonth();
+  var day   = today.getDate();
+  var year  = today.getFullYear();
+
+  output += '<form>';
+  output += '<select name="day">';
+  for (var days=1; days <= 31; days++) {
+    output += '<option value="' + padout(days) + '"';
+    if (days == day) output += ' selected';
+    output += '>' + days;
+  }
+  output += '</select>';
+
+  output += '<select name="month">';
+  for (var months=0; months<12; months++) {
+    output += '<option value="' + padout(months+1) + '"';
+    if (months == month) output += ' selected';
+    output += '>' + mnthsOfYear[months];
+  }
+  output += '</select>';
+
+  output += '<select name="year">';
+  for (var years=year-50; years<year+50; years++) {
+    output += '<option value="' + years + '"';
+    if (years == year) output += ' selected';
+    output += '>' + years;
+  }
+  output += '</select>';
+
+  output += '<input type="button" value="Valid?" ' +
+    'onClick="valid(this.form)">';
+  output += '</form>';
+}
+
+function getAnOptionValue(what) {
+  return what.options[what.options.selectedIndex].value;
+}
+
+function valid(what) {
+  var day = getAnOptionValue(what.day);
+  var month = getAnOptionValue(what.month);
+  var year = getAnOptionValue(what.year);
+  if (isValidDate(day, month, year))
+    alert('Valid date');
+  else
+    alert('Invalid date');
+}
+//--></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+document.write(output);
+//--></script>
+
+</body>
+
+</html>

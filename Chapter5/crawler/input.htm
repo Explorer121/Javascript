@@ -1,0 +1,225 @@
+<html>
+
+<head>
+<script language="JavaScript"><!--
+var startat = 'test/page1.htm';
+
+var of = parent.outputFrame;
+var cf = parent.contentFrame;
+
+var myEntry = new Array();
+var entryIndex = 0;
+
+var rejected = 0;
+var duplicate = 0;
+
+var rejectList = new Array(
+  'res:',
+  'javascript:',
+  'about:',
+  'mailto:'
+);
+
+var acceptList = new Array(
+  '.htm'
+);
+
+function getFullPath(s) {
+  if (s.indexOf('/') != -1)
+    return s.substring(0,s.lastIndexOf('/') + 1);
+  else
+    return s.substring(0,s.lastIndexOf('\\') + 1);
+}
+
+function startcrawl(url) {
+  of.document.open();
+
+  form.url.value =
+    form.visible.value;
+
+  if (entryIndex != 0)
+    for (var i=0; i<entryIndex; i++)
+      myEntry[i] = null;
+
+  entryIndex = 0;
+  rejected = 0;
+  duplicate = 0;
+
+  crawl(url);
+}
+
+function crawl(url) {
+  cf.location.href = 'frame.htm';
+}
+
+function addEntry(url, title, links, searched) {
+  url = tidyupURL(url)
+
+  if (unAcceptable(url)) {
+    rejectEntry();
+    return;
+  }
+
+  for (var entry=0; entry<entryIndex; entry++) {
+    if (myEntry[entry].url == url) {
+      if (myEntry[entry].links == 0) {
+        myEntry[entry].title = title;
+        myEntry[entry].links = links;
+      }
+
+      if (!myEntry[entry].searched) {
+        myEntry[entry].searched = searched;
+      }
+
+      if (!searched) {
+        myEntry[entry].referURLs[myEntry[entry].referrers++] =
+          form.url.value;
+        duplicateEntry();
+      }
+
+      return;
+    }
+  }
+
+  of.document.write('<BR>');
+
+  setEntry(url, title, links, searched)
+}
+
+function tidyupURL(url) {
+  var hash = url.indexOf('#');
+  var question = url.indexOf('?');
+
+  if (hash > -1) url = url.substring(0, hash);
+
+  if (question > -1) url = url.substring(0, question);
+
+  return url;
+}
+
+function unAcceptable(url) {
+  if (url.indexOf(form.mask.value) != 0)
+    return true;
+
+  for (var i=0; i<rejectList.length; i++)
+    if (url.indexOf(rejectList[i]) > -1)
+      return true;
+
+  for (var i=0; i<acceptList.length; i++)
+    if (url.indexOf(acceptList[i]) > -1)
+      return false;
+
+  return true;
+}
+
+function rejectEntry() {
+  of.document.write(
+    '<font color="#FF0000"><b> - Rejected<\/b><\/font><br>'
+  );
+  form.rejected.value = ++rejected;
+}
+
+function duplicateEntry() {
+  of.document.write(
+    '<font color="#FF9933"><b> - Duplicate<\/b><\/font><br>'
+  );
+  form.duplicate.value = ++duplicate;
+}
+
+function finishedSearch() {
+  var entry=0;
+
+  while (entry<entryIndex && myEntry[entry].searched)
+    entry++;
+
+  form.done.value = entry;
+  form.todo.value = entryIndex - entry;
+
+  if (entry<entryIndex) {
+    form.url.value = myEntry[entry].url;
+    crawl(myEntry[entry].url);
+  }
+  else {
+    displayEntries();
+  }
+}
+
+function displayEntries() {
+  var output = '<h1>Results:<\/h1>';
+
+  for (var entry=0; entry<entryIndex; entry++) {
+    output += '<p>';
+
+    output +=
+      '<b>URL:<\/b> ' + myEntry[entry].url + '<br>' +
+      '<b>TITLE:<\/b> ' + myEntry[entry].title + '<br>' +
+      '<b>LINKS:<\/b> ' + myEntry[entry].links + ', ' +
+      '<b>REFERRERS:<\/b> ' + myEntry[entry].referrers + ':<br>';
+
+    for (var i=0; i<myEntry[entry].referrers; i++)
+      output += '<i>' + myEntry[entry].referURLs[i] + '</i><br>';
+
+    output += '<\/p>';
+  }
+
+  cf.document.open();
+  cf.document.write('<h1>Finished<\/h1>');
+  cf.document.close();
+
+  of.document.write(output);
+  of.document.close();
+}
+
+function Entry(url, title, links, searched) {
+  this.url = url;
+  this.title = title;
+  this.links = links;
+  this.searched = searched;
+  this.referrers = 0;
+  this.referURLs = new Array();
+  this.referURLs[this.referrers++] = form.url.value;
+}
+
+function setEntry(url, title, links, searched) {
+  myEntry[entryIndex++] =
+    new Entry(url, title, links, searched);
+  form.total.value = entryIndex;
+}
+//--></script>
+</head>
+
+<body>
+
+<form name="inputForm" onSubmit="return false">
+<input name="url" type="hidden">
+<input name="visible" type="text" size="70"> - URL
+<br>
+<input name="mask" type="text" size="70"> - Mask
+<br>
+<input type="button" value="Crawl"
+  onClick="startcrawl(this.form.visible.value)">
+
+Total: <input type="text" name="total" size="4"
+  onFocus="this.blur()">
+Done: <input type="text" name="done" size="4"
+  onFocus="this.blur()">
+To do: <input type="text" name="todo" size="4"
+  onFocus="this.blur()">
+Rejected: <input type="text" name="rejected" size="4"
+  onFocus="this.blur()">
+Duplicate: <input type="text" name="duplicate" size="4"
+  onFocus="this.blur()">
+</form>
+
+<script language="JavaScript"><!--
+var form = document.inputForm;
+
+var mask = getFullPath(window.location.href);
+
+form.mask.value = mask;
+form.visible.value = mask + startat;
+//--></script>
+
+</body>
+
+</html>

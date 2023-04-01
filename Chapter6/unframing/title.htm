@@ -1,0 +1,56 @@
+<html>
+
+<head>
+
+<base target="ergi87143548_main">
+
+<script language="JavaScript"><!--
+var search = 'menu=menu.htm&title=title.htm&main=main.htm';
+
+function loadtop(url) {
+  if (document.images)
+    top.location.replace(url);
+  else
+    top.location.href = url;
+}
+
+function getFullPath(s) {
+  if (s.indexOf('/') != -1)
+    return s.substring(0,s.lastIndexOf('/') + 1);
+  else
+    return s.substring(0,s.lastIndexOf('\\') + 1);
+}
+
+function redirect() {
+  loadtop(
+    self.location.protocol + '//' + self.location.host +
+    getFullPath(self.location.pathname) + 'frameset.htm?' +
+    search
+  );
+}
+
+function checkforframe() {
+  if (document.images && document.layers)
+    if (self.innerHeight == 0 && self.innerWidth == 0)
+      return;
+
+  if (top == self) redirect();
+}
+//--></script>
+
+</head>
+
+<body onLoad="checkforframe()">
+
+<h2>Title</h2>
+
+<p>
+main.htm
+<a href="main1.htm">main1.htm</a>
+<a href="main2.htm">main2.htm</a>
+<a href="main3.htm">main3.htm</a>
+</p>
+
+</body>
+
+</html>

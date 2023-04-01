@@ -1,0 +1,155 @@
+<html>
+
+<head>
+
+<title>Automated Scrolling</title>
+
+<script language="JavaScript" src="dom.js"></script>
+
+<style><!--
+.l { position: absolute; display: block; }
+//--></style>
+
+<script language="JavaScript"><!--
+var yLength;
+var yPosition = 0;
+var scrollAmount = 15;
+var scrollInterval = 100;
+
+function myScroll() {
+  yPosition += scrollAmount;
+  window.scroll(0,yPosition);
+  if (yPosition > yLength || yPosition == 0)
+    scrollAmount *= -1;
+  setTimeout('myScroll()',scrollInterval);
+}
+
+function start() {
+  if (window.DOMObjects) DOMInitialize('div');
+
+  if (window.DOMObjects) {
+    yLength = DOMElementGetHeight(DOMObjects['bodyArea']) -
+      DOMWindowGetInnerHeight();
+    myScroll();
+  }
+}
+//--></script>
+
+</head>
+
+<body onLoad="start()">
+
+<div id="bodyArea" class="l" style="width: 100%;">
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque ipsa ab
+illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
+odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+voluptatem sequi nesciunt.
+</p>
+
+<p>
+Neque porro quisquam est qui do lorem ipsum quia dolor sit amet,
+consectetur, adipisci velit, sed quia nonnumquam eiusmodi tempora
+incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+</p>
+
+<p>
+Ut enim ad minima veniam, quia nostrum exercitationem ullam corporis
+suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis
+autem vel eum iure reprehenderit qui in ea voluptate velit esse quam
+nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur?  At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+atque corrupti quos dolores et quas molestias excepturi sint occaccati
+cupiditate non provident, similique sunt in culpa qui officia deserunt
+mollitia animi, id est laborum et dolorum fuga.
+</p>
+
+<p>
+Et harum quidem rerum facilis est et expedita distinctio.
+</p>
+
+<p>
+Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil
+impedit quo minus id quod maxime placeat facere possimus, omnis dolor
+repellendus.
+</p>
+
+<p>
+Temporibus autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint et
+molestiae non recusandae.
+</p>
+
+<p>
+Itaque earum rerum hic tenetur a sapiente delectus ut aut reiciendis
+voluptatibus maiores alias consequatur aut perferendis doloribus
+asperiores repellat.
+</p>
+
+<p>
+Ridebis, et licet rideas.
+</p>
+
+<p>
+Ego, ille quem nosti, apros tres et quidem pulcherrimos cepi.
+</p>
+
+<p>
+``Ipse?'' inquis.
+</p>
+
+<p>
+Ipse; non tamen ut omnina ab inertia mea et quiete discederem.
+</p>
+
+<p>
+Ad retia sedebam; erat in proximo non venabulum aut lancea, sed stilus
+et pugillares; meditabar aliquid enotabamque, ut si manus vacuas,
+pleans tamen ceras reportarem.
+</p>
+
+<p>
+Non est quod contemnas hoc studendi genus; mirum est ut animus
+agitatione motuque corporis excitetur; iam undique silvae et solitudo
+ipsuraque illud silentium quod venationi datur, magna cogitationis
+incitamenta sunt.
+</p>
+
+<p>
+Proinde cum venabere, licebit auctore me ut panarium et lagunculam sic
+etiam pugillares feras: experieris non Dianam magis quam Minervam
+inerrare.  Vale.
+</p>
+
+<p>
+Quousque tandem abutere, Catalina, patientia nostra?  quam diu etiam
+furor iste tuus nos eludet?  quem ad finem sese effrenata iactabit
+audacia?  Nihilne te nocturnum praesidium Palatii, nihil urbis
+vigiliae, nihil timor populi, nihil concursus bonorum omnium, nihil
+hic munitissimus habendi senatus locus, nihil horum ora vultusque
+moverunt?  Patere tua consilia non sentis?  constrictam iam horum
+omnium scientia teneri coniurationem tuam non vides?  Quid proxima,
+quid superiore nocte egeris, ubi fueris, quos convocaveris, quid
+consilii ceperis, quem nostrum ignorare arbitraris?  O tempora, o
+mores!  senatus haec intellegit, consul videt: hic tamen vivit.
+</p>
+
+<p>
+Vivit?  immo vero etiam in senatum venit, fit publici consilii
+particeps, notat et designat oculis ad eaedem unum quemque nostrum.
+</p>
+
+<p>
+Nos autem, fortes viri, satis facere rei publicae videmur, si istius
+furorem ac tela videmus.
+</p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,453 @@
+<html>
+
+<head>
+
+<title>Tetris</title>
+
+<script language="JavaScript"><!--
+var running = 0;
+var paused = 0;
+var width = 10;
+var height = 21;
+var tilex = tiley = 18;
+var c_color;
+var nextp;
+var nextc;
+var heap = new Array(width * height);
+var id;
+
+var DOWN = 50;
+var LEFT = 52;
+var RIGHT = 54;
+var ROTATE_C = 56;
+var ROTATE_A = 53;
+
+var interval;
+var level = 1;
+var lev = new Array(0,20,45,90,200,400,800,1600,3200,6400,9800);
+
+function preload() {
+  if (document.images) {
+    color = new makeArray(8);
+    color[0].src = 'images/blank.gif';
+    color[1].src = 'images/grey.gif';
+    color[2].src = 'images/red.gif';
+    color[3].src = 'images/orange.gif';
+    color[4].src = 'images/green.gif';
+    color[5].src = 'images/purple.gif';
+    color[6].src = 'images/lblue.gif';
+    color[7].src = 'images/yellow.gif';
+
+  }
+  else
+    alert(
+      'Sorry, this game needs to run on a browser\n' +
+      'which supports JavaScript 1.2\n' +
+      'eg. MSIE4+ or NS4+'
+    );
+}
+
+function keyPress(e, event) {
+  if (running) {
+    if (window.event && window.event.keyCode)
+      play(window.event.keyCode);
+    else if (e && e.which)
+      play(e.which);
+    else if (event && event.which)
+      play(event.which);
+  }
+}
+
+function play(key) {
+  if (key == LEFT) move(-1);
+  if (key == RIGHT) move(1);
+  if (key == DOWN) move_down();
+  if (key == ROTATE_C) rotate(1);
+  if (key == ROTATE_A) rotate(-1);
+}
+
+function rotate(dir) {
+  if (block[0] == -1) return(0);
+
+  var x = new Array(3);
+  var y = new Array(3);
+  var xt = 0;
+  var xp;
+  var xn;
+  var yt = 0;
+  var yp;
+  var yn;
+  var pos;
+  var newpos = new Array(3);
+
+  for (var i = 0; i < 4; i++) {
+    x[i] = (block[i] % width);
+    xt += x[i];
+    y[i] = Math.floor(block[i] / width);
+    yt += y[i];
+  }
+
+  xp = Math.floor((xt / 4) + 0.5);
+  yp = Math.floor((yt / 4) + 0.5);
+
+  for (i = 0; i < 4; i++) {
+    xn = (dir == 1) ? (xp - (y[i] - yp)) : (xp + (y[i] - yp))
+    yn = (dir == 1) ? (yp + (x[i] - xp)) : (yp - (x[i] - xp));
+    pos = (yn * width) + xn;
+
+    if ((xn < 0 || xn >= width) || (yn < 0 || yn >= height) || heap[pos]) return(0);
+
+    newpos[i] = pos;
+  }
+
+  for (var i = 0; i < 4; i++)
+    document.images['' + block[i]].src = color[0].src;
+
+  for (i=0; i < 4; i++) {
+    block[i] = newpos[i];
+    document.images['' + newpos[i]].src = color[c_color].src;
+  }
+
+  return(1);
+}
+
+function move(dir) {
+  if (block[0] == -1) return(0);
+
+  for (var i = 0; i < 4; i++) {
+    edge = (dir == 1) ? ((block[i] % width) == width - 1) : ((block[i] % width) == 0)
+    if (edge || heap[block[i] + dir]) return(0);
+  }
+
+  display(dir);
+  return(1);
+}
+
+function move_down() {
+  if (block[0] == -1) return(0);
+
+  for (var i = 0; i < 4; i++) {
+    if ((block[i] >= (height - 1) * width) || (heap[block[i] + width])) {
+      if (document.user.scoring.checked)
+        document.user.score.value = document.user.score.value * 1 + level;
+
+      merge();
+      return(0);
+    }
+  }
+
+  display(width);
+  return(1);
+}
+
+function display(modifier) {
+  for (var i = 0; i < 4; i++)
+    document.images['' + block[i]].src = color[0].src;
+
+  for (i = 0; i < 4; i++) {
+    block[i] += modifier;
+    document.images['' + block[i]].src = color[c_color].src;
+  }
+}
+
+function merge() {
+  var count;
+  var x = 0;
+
+  for (i = 0; i < 4; i++) {
+    heap[block[i]] = 1;
+    block[i] = -1;
+  }
+  for (y = 0; y < height; y++) {
+    count = 0;
+    while (heap[(y * width) + x]) { count++; x++; }
+
+    if (count >= width) {
+      for (x = (y * width); x < (y * width) + width; x++)
+        document.images['' + x].src = color[c_color].src;
+
+      score(height - y);
+      setTimeout('del(' + y + ')', 50);
+    }
+    x = 0;
+  }
+}
+
+function del(y) {
+  var ymod;
+
+  for (var x = (y * width); x < (y * width) + width; x++) {
+    document.images['' + x].src = color[0].src;
+    heap[x] = 0;
+  }
+
+  for (var c = (width * y) - 1; c >= 0; c--) {
+    if (heap[c]) {
+      while (!heap[c+width]) {
+        document.images['' + (c + width)].src = document.images['' + c].src;
+        document.images['' + c].src = color[0].src;
+        heap[c + width] = 1;
+        heap[c] = 0;
+      }
+    }
+  }
+}
+
+function score(modifier) {
+  var cs = (document.user.score.value) * 1;
+
+  if (document.user.scoring.checked) {
+    var score = (Math.floor(modifier / 5) + 1) * level;
+    if (document.user.preview.checked)
+      score = Math.floor(score / 2 + 0.5);
+    cs += score;
+    if (cs > lev[level] && level < 12)
+      level++;
+  }
+  else {
+    cs += 1;
+    if (cs > ((lev[level] / 10) * 3) && level < 12)
+      level++;
+  }
+
+  document.user.score.value = cs;
+  document.user.level.value = level;
+
+  interval = 300 - (20 * level);
+
+}
+
+function step() {
+  if (block[0] != -1) {
+    move_down();
+    id = setTimeout('step()', interval);
+  }
+  else {
+    if (newpiece(nextp)) {
+      nextp = rand(7);
+      nextc = rand(7);
+      preview();
+      id = setTimeout('step()', interval);
+    }
+    else {
+      c_color = rand(7);
+      for (var c = 0; c < (width * height); c++)
+        if (heap[c])
+          document.images['' + c].src = color[c_color].src;
+
+      for (var i = 0; i < 8; i++)
+        document.images['preview' + i].src = color[0].src;
+
+      document.user.b.value = ' New Game ';
+      running= 0;
+      block = null;
+    }
+  }
+}
+
+function newpiece(flag) {
+  var w = (flag) ? flag : rand(7)
+  var m = rand(width - 3);
+
+  switch (w) {
+    case 1 :
+      block[0] =  8;
+      block[1] = 18;
+      block[2] = 28;
+      block[3] = 38;
+      break;
+    case 2 :
+      block[0] =  7;
+      block[1] =  8;
+      block[2] =  9;
+      block[3] = 17;
+      break;
+    case 3 :
+      block[0] =  7;
+      block[1] =  8;
+      block[2] =  9;
+      block[3] = 19;
+      break;
+    case 4 :
+      block[0] =  8;
+      block[1] = 17;
+      block[2] = 18;
+      block[3] = 28;
+      break;
+    case 5 :
+      block[0] =  7;
+      block[1] = 17;
+      block[2] = 18;
+      block[3] = 28;
+      break;
+    case 6 :
+      block[0] =  8;
+      block[1] = 17;
+      block[2] = 18;
+      block[3] = 27;
+      break;
+    case 7 :
+      block[0] =  7;
+      block[1] =  8;
+      block[2] = 17;
+      block[3] = 18;
+  }
+
+  for (var i = 0; i < 4; i++) {
+    block[i] -= m;
+
+    if (heap[block[i]]) return(0);
+  }
+
+  if (flag) {
+    c_color = nextc;
+    for (var i = 0; i < 4; i++)
+      document.images['' + block[i]].src = color[c_color].src;
+  }
+
+  return(w);
+}
+
+function preview() {
+  var c = color[nextc].src;
+  for (var i = 0; i < 8; i++)
+    document.images['preview' + i].src = color[0].src;
+
+  if (!document.user.preview.checked) return(0);
+
+  if (nextp != 5) document.images['preview0'].src = c;
+  document.images['preview1'].src= c;
+  if (nextp < 6) document.images['preview2'].src = c;
+  if (nextp == 1) document.images['preview3'].src = c;
+  if (nextp == 2 || nextp == 5 || nextp == 7)
+    document.images['preview4'].src = c;
+  if (nextp > 3) document.images['preview5'].src = c;
+  if (nextp % 3 == 0) document.images['preview6'].src = c;
+
+  return(1);
+}
+
+function newgame() {
+  if (!running) {
+    if (!paused) {
+      document.user.score.value = 0;
+      document.user.level.value = 1;
+      block = new Array(3);
+      for (var i = 0; i < 4; i++)
+        block[i] = -1;
+
+      for (var c = 0; c < (width * height); c++) {
+        document.images['' + c].src = color[0].src;
+        heap[c] = 0;
+      }
+      nextc = rand(7);
+      newpiece(rand(7));
+      nextp = rand(7);
+      nextc = rand(7);
+      preview(nextp);
+      level = 1;
+      interval = 300;
+    }
+    running = 1;
+    paused = 0;
+    document.user.b.value = ' Pause ';
+    id = setTimeout('step()', interval * 2);
+  }
+  else {
+    running = 0;
+    paused = 1;
+    document.user.b.value = ' Continue ';
+    clearTimeout(id);
+  }
+}
+
+function help() {
+  alert("Keys:\tUse the keypad (make sure the 'Num Lock' is on) -\n\tMove left= 4, right= 6, down= 2\n\tRotate clockwise= 8, anticlockwise= 5\n\nScoring:\tIf 'Scoring' is on, then you get points for each piece\n\tand each row that you fill, depending on the height\n\tof that row and your current level.\n\tIf 'Scoring' is off, then you just score 1 point for each\n\trow filled.\n\nTo Play:\tFill as many rows as you can by guiding the various\n\tpieces falling from the top into suitable positions at\n\tthe bottom.\n\tAs your score increases, so does the rate at which\n\tthe pieces fall...\n\n\tTo quit a game, simply press the down key for a\n\twhile.\n");
+}
+
+function rand(n) {
+  return Math.ceil(Math.random() * n);
+}
+
+function makeArray(n) {
+  this.length = n;
+  for (i = 0; i < n; i++)
+    this[i] = new Image();
+
+  return this;
+}
+
+if (navigator.appName == 'Netscape' && !document.getElementById) {
+  window.captureEvents(Event.KEYPRESS);
+  window.onKeyPress = keyPress;
+}
+//--></script>
+
+</head>
+
+<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#888888" alink="#ff0000" onKeyPress="keyPress(window.event, event)">
+
+<center>
+
+<font face="Arial, Helvetica, sans-serif">
+
+<script language="JavaScript"><!--
+
+var output = '';
+output += '<form name="user">';
+output += '<table align="center" cellspacing="0" cellpadding="0" border="0">\n';
+
+output += '<tr><td colspan="3" align="center"><h1>Tetris</h1></td></tr>\n';
+output += '<tr><td bgcolor="#333300" rowspan="7"><table cellpadding="8" border="0">\n';
+output += '<tr><td><table bgcolor="#000033" cellspacing="0" cellpadding="0" border="0">\n';
+for (y = 0; y < height; y++) {
+  for (x = 0; x < width; x++) {
+    if (x == 0)
+      output += '<tr>';
+    output += '<td><img src="images/blank.gif"';
+    output += ' name="'+((y*width)+x)+'" width="'+tilex+'" height="'+tiley+'" alt="" border="0"></td>';
+    if (x == width-1)
+      output += '</tr>\n';
+  }
+}
+output+= '</table></td></tr></table></td><td rowspan="7">&nbsp;&nbsp;&nbsp;</td>\n';
+
+output += '<td bgcolor="#333300" valign="middle" align="center">';
+output += '<table bgcolor="#000033" cellspacing="0" cellpadding="0" border="0">\n';
+output += '<tr><td>&nbsp;</td>'
+for (var i = 0; i < 8; i++) {
+  output += '<td><img src="images/blank.gif" name="preview'+i+'" ';
+  output += 'width="'+tilex+'" height="'+tiley+'" alt="" border="0"></td>';
+  if (i == 3)
+    output += '<td>&nbsp;</td></tr>\n<tr><td>&nbsp;</td>';
+}
+output += '<td>&nbsp;</td></tr>\n';
+output += '</table></td></tr>\n';
+
+output += '<tr bgcolor="#333300"><td align="center"><font color="#ffffff">Score:</font>&nbsp;';
+output += '<input type="text" size="4" name="score" value="0" onFocus="blur()"></td></tr>\n';
+output += '<tr bgcolor="#333300"><td align="center"><font color="#ffffff">Level:</font>&nbsp;';
+output += '<input type="text" size="2" name="level" value="1" onFocus="blur()"></td></tr>\n';
+output += '<tr bgcolor="#333300"><td align="center">&nbsp;<input type="button" name="b"';
+output += ' VALUE=" New Game " onClick="newgame()" onFocus="blur()">&nbsp;</td></tr>\n';
+output += '<tr bgcolor="#333300"><td align="center"><font color="#ffffff">Preview?</font>&nbsp;';
+output += '<input type="checkbox" size="2" name="preview" CHECKED onFocus="blur()"></td></tr>\n';
+output += '<tr bgcolor="#333300"><td align="center"><font color="#ffffff">Scoring?</font>&nbsp;';
+output += '<input type="checkbox" size="2" name="scoring" CHECKED onFocus="blur()"></td></tr>\n';
+output += '<tr bgcolor="#333300"><td><img src="images/blank.gif" alt="" width="120" height="1"></td></tr>\n';
+
+output += '</table></form>\n';
+
+output += '<b><a href="javascript:help()">INSTRUCTIONS</a></b>\n';
+
+document.write(output);
+preload();
+//--></script>
+
+</font>
+
+</center>
+
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<html>
+
+<head>
+<title>Contact List</title>
+</head>
+
+<body>
+
+<form name="contactForm" onSubmit="doSearch();return false">
+
+<textarea name="data" cols="76" rows="10">
+Black    ,Tom   ,Mr  ,Tom@xxx.com        ,555 9444
+Bloggs   ,Joe   ,Mr  ,Joe.Bloggs@xxx.com ,555 9753
+Brown    ,Adam  ,Mr  ,Adam_Brown@xxx.com ,555 6655
+Brown    ,John  ,Mr  ,John.Brown@xxx.com ,555 8567
+Clerk    ,Admin ,    ,Admin.Clerk@xxx.com,555 0000
+Doe      ,Jane  ,Mrs ,Jane.Doe@xxx.com   ,555 2875
+Doe      ,John  ,Mr  ,John.Doe@xxx.com   ,555 4094
+Egg      ,Bad   ,Miss,Bad.Egg@xxx.com    ,555 6345
+Einstein ,Albert,Mr  ,a.e@xxx.com        ,555 5845
+Jones    ,Tom   ,Mr  ,t.j@xxx.com        ,555 3949
+Smith    ,John  ,Mr  ,John_Smith@xxx.com ,555 4321
+T        ,Cue   ,Miss,cutie@xxx.com      ,555 4984
+</textarea>
+
+<br>
+
+<select name="item" onChange="contacts = doFormat(this);doSort()">
+<option selected>Last Name</option>
+<option>First Name</option>
+<option>Salutation</option>
+<option>Email Address</option>
+<option>Phone Number</option>
+</select>
+
+<input type="button" onClick="doSort()" value="Sort">
+<input type="button" onClick="doReverse()" value="Reverse">
+<input type="text" name="search"> -
+<input type="button" onClick="doSearch()" value="Search">
+<input type="button" onClick="doReset()" value="Reset">
+</form>
+
+<script language="JavaScript"><!--
+function replace(string,text,by) {
+  var strLength = string.length;
+  var txtLength = text.length;
+
+  if ((strLength == 0) || (txtLength == 0))
+    return string;
+
+  var i = string.indexOf(text);
+
+  if (i == -1)
+    return string;
+
+  var newstr = string.substring(0,i) + by;
+
+  newstr +=
+    replace(string.substring(i+txtLength,strLength),text,by);
+
+  return newstr;
+}
+
+var search = '';
+var item;
+var rawdata = replace(document.contactForm.data.value,',','\t');
+document.contactForm.data.value = rawdata;
+
+var contacts = rawdata.split('\r\n');
+
+function doFormat(what) {
+  item = what.selectedIndex;
+  var output = '';
+  var contacts = rawdata.split('\r\n');
+  for (var i=0; i<contacts.length; i++) {
+    if (contacts[i].length != 0) {
+      var splitString = contacts[i].split('\t');
+      output += splitString[item];
+      for (var j=0; j<splitString.length; j++) {
+        if (j != item)
+          output += '\t' + splitString[j];
+      }
+      output += '\r\n';
+    }
+  }
+
+  return output.split('\r\n').sort();
+}
+
+function redisplay() {
+  var output = '';
+  for (var i=0; i<contacts.length; i++) {
+    if (contacts[i].length != 0)
+      if (contacts[i].toLowerCase().indexOf(search) > -1)
+        output += contacts[i] + '\r\n';
+  }
+  document.contactForm.data.value = output;
+}
+
+function doSort() {
+  contacts.sort();
+  redisplay();
+}
+
+function doReverse() {
+  contacts.reverse();
+  redisplay();
+}
+
+function doSearch() {
+  search = document.contactForm.search.value.toLowerCase();
+  redisplay();
+}
+
+function doReset() {
+  document.contactForm.search.value = '';
+  document.contactForm.item.selectedIndex = 0;
+  search = '';
+  contacts = rawdata.split('\r\n');
+  redisplay();
+}
+//--></script>
+
+</body>
+</html>

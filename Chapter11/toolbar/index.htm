@@ -1,0 +1,228 @@
+<html>
+
+<head>
+
+<title>Toolbar Menu</title>
+
+<script language="JavaScript" src="dom.js"></script>
+
+<script language="JavaScript"><!--
+var timer, closing = true;
+
+function closeMenu() {
+  closing = true;
+  timer = setTimeout('closeMenuAll()',500);
+}
+
+function keepOpen() {
+  closing = false;
+  clearTimeout(timer);
+}
+
+function closeMenuAll() {
+  if (window.DOMObjects && closing) {
+    for (var i=0; i<DOMObjects.length; i++) {
+      if (DOMObjects[i].id != 'toolbar')
+        DOMElementHide(DOMObjects[i]);
+    }
+  }
+}
+
+function openMenu(menu, x, y) {
+  if (window.DOMObjects) {
+    for (var i=0; i<DOMObjects.length; i++)
+      if (DOMObjects[i].id != 'toolbar' && DOMObjects[i].id != menu)
+        DOMElementHide(DOMObjects[i]);
+
+    keepOpen();
+
+    DOMElementSetLeft(DOMObjects[menu],xOffset + x);
+    DOMElementSetTop(DOMObjects[menu],yOffset + y);
+    DOMElementShow(DOMObjects[menu]);
+  }
+}
+
+var xOffset = yOffset = 0;
+
+function start() {
+  if (window.DOMObjects)
+    DOMInitialize('span');
+
+  if (window.DOMObjects) {
+    xOffset = DOMElementGetOffsetLeft(DOMObjects['toolbar']);
+    yOffset = DOMElementGetOffsetTop(DOMObjects['toolbar']);
+  }
+}
+//--></script>
+
+<style><!--
+.l { position: absolute; visibility: hidden; display: block; background-color:#000000; }
+.v { position: absolute; visibility: visible; display: block; }
+.t { background-color: #cccccc; border-color: #000000; }
+a.m { color: #000000; font-family: Arial; text-decoration: none; }
+//--></style>
+
+</head>
+
+<body onLoad="start()" topmargin="5" leftmargin="5"
+  marginwidth="5" marginheight="5">
+
+<table width="400" height="67" border="0" align="center"><tr><td><a href="http://www.irt.org"><img src="banner.gif" width="468" height="67" border="0"></a></td></tr></table>
+
+<span id="toolbar" class="v" style="top: 77; left: 5;">
+<a href="http://tech.irt.org/articles.htm" onMouseOver="openMenu('menu1',0,20)" onMouseOut="closeMenu()"><img src="menu1.gif" width="100" height="20" border="0"></a
+><a href="http://developer.irt.org/faqs.htm" onMouseOver="openMenu('menu2',100,20)" onMouseOut="closeMenu()"><img src="menu2.gif" width="100" height="20" border="0"></a
+><a href="http://www.irt.org/software/index.htm" onMouseOver="openMenu('menu3',200,20)" onMouseOut="closeMenu()"><img src="menu3.gif" width="100" height="20" border="0"></a
+><a href="http://www.irt.org/games/index.htm" onMouseOver="openMenu('menu4',300,20)" onMouseOut="closeMenu()"><img src="menu4.gif" width="100" height="20" border="0"></a>
+</span>
+
+<br><br>
+
+<span id="menu1" class="l">
+<layer onMouseOver="keepOpen()" onMouseOut="closeMenu()">
+<table border="1" cellspacing="0" cellpadding="0"><tr><td>
+<table class="t" border="0" cellspacing="0" onMouseOut="closeMenu()" onMouseOver="keepOpen()"><tr><td>
+<a class="m" href="http://tech.irt.org/articles/cgi.htm">CGI & Perl</a><br>
+<a class="m" href="http://tech.irt.org/articles/css.htm">CSS</a><br>
+<a class="m" href="http://tech.irt.org/articles/database.htm">Database</a><br>
+<a class="m" href="http://tech.irt.org/articles/design.htm">Design</a><br>
+<a class="m" href="http://tech.irt.org/articles/dhtml.htm">DHTML</a><br>
+<a class="m" href="http://tech.irt.org/articles/commerce.htm">E-Commerce</a><br>
+<a class="m" href="http://tech.irt.org/articles/emacs.htm">GNU Emacs</a><br>
+<a class="m" href="http://tech.irt.org/articles/graphics.htm">Graphics</a><br>
+<a class="m" href="http://tech.irt.org/articles/html.htm">HTML</a><br>
+<a class="m" href="http://tech.irt.org/articles/java.htm">Java</a><br>
+<a class="m" href="http://tech.irt.org/articles/script.htm">JavaScript</a><br>
+<a class="m" href="http://tech.irt.org/articles/linux.htm">Linux & Apache</a><br>
+<a class="m" href="http://tech.irt.org/articles/markup.htm">Markup Languages</a><br>
+<a class="m" href="http://tech.irt.org/articles/vbscript.htm">VBScript</a><br>
+<a class="m" href="http://tech.irt.org/articles/www.htm">World Wide Web</a><br>
+<a class="m" href="http://tech.irt.org/articles/xml.htm">XML</a>
+</td></tr></table>
+</td></tr></table></layer></span>
+
+<span id="menu2" class="l">
+<layer onMouseOver="keepOpen()" onMouseOut="closeMenu()">
+<table border="1" cellspacing="0" cellpadding="0"><tr><td>
+<table class="t" border="0" cellspacing="0" onMouseOut="closeMenu()" onMouseOver="keepOpen()"><tr><td>
+<a class="m" href="http://developer.irt.org/script/asp.htm">Active Server Pages</a><br>
+<a class="m" href="http://developer.irt.org/script/cgi.htm">CGI & Perl FAQ</a><br>
+<a class="m" href="http://developer.irt.org/script/css.htm">CSS</a><br>
+<a class="m" href="http://developer.irt.org/script/fusion.htm">ColdFusion</a><br>
+<a class="m" href="http://developer.irt.org/script/dhtml.htm">DHTML</a><br>
+<a class="m" href="http://developer.irt.org/script/html.htm">HTML</a><br>
+<a class="m" href="http://developer.irt.org/script/java.htm">Java</a><br>
+<a class="m" href="http://developer.irt.org/script/script.htm">JavaScript</a><br>
+<a class="m" href="http://developer.irt.org/script/linux.htm">Linux</a><br>
+<a class="m" href="http://developer.irt.org/script/vbscript.htm">VBScript</a><br>
+<a class="m" href="http://developer.irt.org/script/vrml.htm">VRML</a><br>
+<a class="m" href="http://developer.irt.org/script/xml.htm">XML</a><hr>
+<a class="m" href="http://www.irt.org/utility/answer.htm">Send An Answer</a><hr>
+<a class="m" href="http://www.irt.org/utility/question.htm">Ask A Question</a>
+</td></tr></table>
+</td></tr></table></layer></span>
+
+<span id="menu3" class="l">
+<layer onMouseOver="keepOpen()" onMouseOut="closeMenu()">
+<table border="1" cellspacing="0" cellpadding="0"><tr><td>
+<table class="t" border="0" cellspacing="0" onMouseOut="closeMenu()" onMouseOver="keepOpen()"><tr><td>
+<a class="m" href="http://www.irt.org/software/all.htm">All Reviews</a><br>
+<a class="m" href="http://www.irt.org/software/e-comm.htm">E-Commerce</a><br>
+<a class="m" href="http://www.irt.org/software/free.htm">Freeware/Shareware</a><br>
+<a class="m" href="http://www.irt.org/software/graphics.htm">Graphics</a><br>
+<a class="m" href="http://www.irt.org/software/multim.htm">Multimedia</a><br>
+<a class="m" href="http://www.irt.org/software/prog.htm">Programming</a><br>
+<a class="m" href="http://www.irt.org/software/webed.htm">Web Editors</a><hr>
+<a class="m" href="http://www.irt.org/software/download.htm">Downloads</a>
+</td></tr></table>
+</td></tr></table></layer></span>
+
+<span id="menu4" class="l">
+<layer onMouseOver="keepOpen()" onMouseOut="closeMenu()">
+<table border="1" cellspacing="0" cellpadding="0"><tr><td>
+<table class="t" border="0" cellspacing="0" onMouseOut="closeMenu()" onMouseOver="keepOpen()"><tr><td>
+<a class="m" href="http://www.irt.org/games/js/index.htm">WebGames Warehouse</a><br>
+<a class="m" href="http://www.irt.org/games/chall/index.htm">Design Challenges</a><br>
+<a class="m" href="http://www.irt.org/games/howto/index.htm">Coding Techniques</a><hr>
+<a class="m" href="http://www.irt.org/games/license.htm">WebGames License</a>
+</td></tr></table>
+</td></tr></table></layer></span>
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt.
+</p>
+
+<p>
+Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem.
+</p>
+
+<p>
+Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga.
+</p>
+
+<p>
+Et harum quidem rerum facilis est et expedita distinctio.
+</p>
+
+<p>
+Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus asperiores repellat.
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+<p>
+Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt. Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem. Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga. Et harum quidem rerum facilis est et
+expedita distinctio. Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae.
+</p>
+
+</body>
+</html>

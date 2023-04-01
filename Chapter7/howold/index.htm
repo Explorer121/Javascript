@@ -1,0 +1,41 @@
+<html>
+
+<head>
+
+<title>How Old</title>
+
+<script src="current.js" language="JavaScript"></script>
+<script src="howold.js" language="JavaScript"></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+if (window.formatFullDate && window.HowOld) {
+  var day   = 4;
+  var month = 1;
+  var year  = 1965;
+
+  document.write(
+    'Birthday - ' + formatFullDate(day, month, year) + '<br>'
+  );
+
+  var today = new Date();
+  var Day   = today.getDate();
+  var Month = today.getMonth()+1;
+  var Year  = today.getFullYear();
+
+  document.write(
+    'Today - ' + formatFullDate(Day, Month, Year) + '<br>'
+  );
+
+  document.write(
+    'Age - ' + HowOld(day,month,year,Day,Month,Year)
+  );
+}
+//--></script>
+
+</body>
+
+</html>

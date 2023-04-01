@@ -1,0 +1,38 @@
+<html>
+<body>
+
+<script language="JavaScript"><!--
+function goSearch(form) {
+  parent.vhref = form.vhref.checked;
+  parent.vdesc = form.vdesc.checked;
+  parent.vtech = form.vtech.checked;
+  parent.vdate = form.vdate.checked;
+  parent.searchtext = form.searchtext.value;
+  parent.results.location.href = "results.htm";
+}
+//--></script>
+
+<center>
+
+<form name="form1" onSubmit="goSearch(this);return false">
+
+<input name="searchtext" value="">
+
+<input type="submit" value="Search">
+
+<i>
+Display URL: <input type="checkbox" name="vhref" checked>
+
+Description: <input type="checkbox" name="vdesc" checked>
+
+Techniques: <input type="checkbox" name="vtech" checked>
+
+Date: <input type="checkbox" name="vdate" checked>
+</i>
+
+</form>
+
+</center>
+
+</body>
+</html>

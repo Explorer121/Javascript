@@ -1,0 +1,47 @@
+<html>
+<body>
+
+<center>
+
+<form name="form1"
+  onSubmit="return parent.goTo(document.form1.select1)">
+
+<input type="button" value=" << "
+  onClick="parent.goFirst();
+           document.form1.select1.selectedIndex = parent.n">
+
+<input type="button" value="  <  "
+  onClick="parent.goBack();
+           document.form1.select1.selectedIndex = parent.n">
+
+<input type="button" value="  >  "
+  onClick="parent.goForward();
+           document.form1.select1.selectedIndex = parent.n">
+
+<input type="button" value=" >> "
+  onClick="parent.goLast();
+           document.form1.select1.selectedIndex = parent.n">
+
+<select name="select1">
+
+<script language="JavaScript"><!--
+for (var i=0; i < parent.item; i++)
+  document.write('<option>' +
+                 parent.myLink[i].text +
+                 '<\/option>');
+//--></script>
+
+</select>
+
+<input type="submit" value="Go">
+
+</form>
+
+<script language="JavaScript"><!--
+document.form1.select1.selectedIndex = parent.n;
+//--></script>
+
+</center>
+
+</body>
+</html>

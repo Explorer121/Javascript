@@ -1,0 +1,35 @@
+<html>
+
+<head>
+
+<title>Examining the plugins array</title>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+for (var i = 0; i < navigator.plugins.length; i++) {
+    var output = '';
+
+    output += '<strong>Name of Plugin:</strong> ';
+    output += navigator.plugins[i].name;
+
+    output += '<br><strong>File name:</strong> ';
+    output += navigator.plugins[i].filename;
+
+    output += '<br><strong>Description:</strong> ';
+    output += navigator.plugins[i].description;
+
+    for (var j = 0; j < navigator.plugins[i].length; j++) {
+        output += '<br>' + navigator.plugins[i][j].type;
+    }
+
+    output += '<hr>';
+    document.write(output);
+}
+//--></script>
+
+</body>
+
+</html>

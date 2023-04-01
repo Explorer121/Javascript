@@ -1,0 +1,140 @@
+<html>
+
+<head>
+<title>Regular Expressions</title>
+
+<script language="JavaScript1.2"><!--
+isFirstName = /^[A-Za-z\-]+$/;
+isLastName  = /^[A-Za-z'\-]+$/;
+isPhone     = /^(\+\d+ )?(\(\d+\) )?[\d ]+$/;
+isAge       = /^[1-9]\d{0,2}$/;
+
+isAge       = /^(1[0-2]\d|\d{1,2})$/;
+
+isMoney     = /^\d+\.\d{2}$/;
+
+function isEmail(s) {
+  return (isEmail1.test(s) && isEmail2.test(s));
+}
+
+isEmail1    = /^\w+([\.\-]\w+)*\@\w+([\.\-]\w+)*\.\w+$/;
+isEmail2    = /^.*@[^_]*$/;
+
+ip = '(25[0-5]|2[0-4]\\d|1\\d\\d|\\d\\d|\\d)';
+ipdot = ip + '\\.';
+isIPaddress = new RegExp('^'+ipdot+ipdot+ipdot+ip+'$');
+
+isCCvisa       = /^4\d{14,15}$/;
+isCCmastercard = /^5[1-5]\d{14}$/;
+isCCamex       = /^3[47]\d{13}$/;
+isCCdinerscard = /^(30[0-5]|360|380)\d{11}$/;
+isCCdiscover   = /^6011\d{12}$/;
+isCCenroute    = /^(2014|2149)\d{11}$/;
+isCCjcb        = /^$((2131|1800)\d{11})|(3\d{15})/;
+
+function isCC(s) {
+  s = s.replace(/\s/g,'');
+  if (isCCvisa.test(s))       return isLUHN(s);
+  if (isCCmastercard.test(s)) return isLUHN(s);
+  if (isCCamex.test(s))       return isLUHN(s);
+  if (isCCdinerscard.test(s)) return isLUHN(s);
+  if (isCCdiscover.test(s))   return isLUHN(s);
+  if (isCCenroute.test(s))    return true;
+  if (isCCjcb.test(s))        return isLUHN(s);
+  return isLUHN(s);
+}
+
+function isLUHN(s) {
+  var x = '';
+  var l = s.length;
+  var t = 0;
+  for (var i=0; i<l; i++)
+    if ((l-i)%2) x+=s.charAt(i); else x+=''+s.charAt(i)*2;
+  for (var i=0; i<x.length; i++)
+    t += x.charAt(i) - 0;
+  return !(t%10);
+}
+
+function validate(what) {
+  var message = '';
+
+  if (!isFirstName.test(what.firstname.value))
+    message += '* a valid first name\n';
+
+  if (!isLastName.test(what.lastname.value))
+    message += '* a valid last name\n';
+
+  if (!isPhone.test(what.phone.value))
+    message += '* a valid phone number\n';
+
+  if (!isAge.test(what.age.value))
+    message += '* a valid age\n';
+
+  if (!isMoney.test(what.price.value))
+    message += '* a valid price\n';
+
+  if (!isIPaddress.test(what.ipaddress.value))
+    message += '* a valid IP address\n';
+
+  if (!isEmail(what.email.value))
+    message += '* a valid email address\n';
+
+  if (!isCC(what.creditcard.value))
+    message += '* a valid credit card number\n';
+
+  if (message == '')
+    alert("Data validated successfully!")
+  else
+    alert('Please enter:\n' + message);
+}
+//--></script>
+
+</head>
+
+<body>
+
+<form>
+
+<table>
+<tr>
+<td>First Name:</td>
+<td><input type="text" name="firstname"></td>
+<td>e.g. Emma-Jane</td>
+</tr><tr>
+<td>Last Name:</td>
+<td><input type="text" name="lastname"></td>
+<td>e.g. Mc'Douglas-Jones</td>
+</tr><tr>
+<td>Phone Number:</td>
+<td><input type="text" name="phone"></td>
+<td>e.g. +44 (0) 1234 567890</td>
+</tr><tr>
+<td>Age:</td>
+<td><input type="text" name="age"></td>
+<td>e.g. 42</td>
+</tr><tr>
+<td>Price:</td>
+<td><input type="text" name="price"></td>
+<td>e.g. 9.99</td>
+</tr><tr>
+<td>IP Address:</td>
+<td><input type="text" name="ipaddress"></td>
+<td>e.g. 255.255.255.255</td>
+</tr><tr>
+<td>Email Address:</td>
+<td><input type="text" name="email"></td>
+<td>e.g. e_jane@24x7x365.com</td>
+</tr><tr>
+<td>CC#:</td>
+<td><input type="text" name="creditcard"></td>
+<td>e.g. 4111 1111 1111 1111 or 5500 0000 0000 0004</td>
+</tr><tr>
+<td><input type="BUTTON" VALUE="Validate"
+  onClick="if (validate) validate(this.form)"</td>
+</tr>
+</table>
+
+</form>
+
+</body>
+</html>

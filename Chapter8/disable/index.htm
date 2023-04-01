@@ -1,0 +1,55 @@
+<html>
+
+<head>
+<title>Disabling Form Fields</title>
+
+<script language="JavaScript"><!--
+function ableForm(fRef, disable) {
+  if (document.getElementById || document.all) {
+    for (var i=0; i<fRef.elements.length; i++) {
+      fRef.elements[i].disabled = disable;
+    }
+  }
+}
+
+function toggleForm(fRef) {
+  if (document.getElementById || document.all) {
+    for (var i=0; i<fRef.elements.length; i++) {
+      var disable = fRef.elements[i].disabled;
+      fRef.elements[i].disabled = !disable;
+    }
+  }
+}
+//--></script>
+
+</head>
+
+<body>
+
+<form name="data">
+<table>
+<tr><td>Button</td><td><input name="button" type="button" value="Button"></td></tr>
+<tr><td>Checkbox</td><td><input name="checkbox" type="checkbox"></td></tr>
+<tr><td>File</td><td><input name="file" type="file"></td></tr>
+<tr><td>Password</td><td><input name="password" type="password"></td></tr>
+<tr><td>Radio</td><td><input name="radio" type="radio"><input name="radio" type="radio"></td></tr>
+<tr><td>Select object</td><td><select name="select"><option>1<option>2<option>3</select></td></tr>
+<tr><td>Text</td><td><input name="text" type="text"></td></tr>
+<tr><td>Textarea</td><td><textarea name="textarea"></textarea></td></tr>
+<tr><td>Reset</td><td><input name="reset" type="reset"></td></tr>
+<tr><td>Submit</td><td><input name="submit" type="submit"></td></tr>
+</table>
+</form>
+
+<form>
+<input type="button" value="Toggle Form"
+  onClick="toggleForm(document.data)">
+<input type="button" value="Suspend Form"
+  onClick="ableForm(document.data,true)">
+<input type="button" value="Resume Form"
+  onClick="ableForm(document.data,false)">
+</form>
+
+</body>
+
+</html>

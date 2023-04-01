@@ -1,0 +1,327 @@
+<html>
+
+<head>
+
+<title>mypage.com</title>
+
+<script language="JavaScript" src="dom.js"></script>
+<script language="JavaScript" src="cookie.js"></script>
+
+<script language="JavaScript"><!--
+var myPage = false;
+var item = new Array();
+
+function toggle(i) {
+  if (myPage) {
+    var src = document.images[i+'-a'].src;
+
+    if (src.indexOf('shrink.gif') > -1)
+      shrink(i);
+    else
+      expand(i);
+  }
+
+  return false;
+}
+
+function kill(i) {
+  if (myPage) {
+    document.images[i+'-b'].src = 'close.gif';
+    item[i] = 'closed';
+    setPrefs();
+    hide(i);
+  }
+
+  return false;
+}
+
+function expand(i) {
+  document.images[i+'-a'].src = 'shrink.gif';
+  item[i] = 'open';
+  setPrefs();
+  show(i+'-f');
+}
+
+function shrink(i) {
+  document.images[i+'-a'].src = 'open.gif';
+  item[i] = 'small';
+  setPrefs();
+  hide(i+'-f');
+}
+
+function start() {
+  if (document.images && window.Cookie && window.frames.length > 0) {
+    myPage = true;
+    getPrefs();
+  }
+}
+
+function hide(i) {
+  if (document.getElementById)
+    DOMElementHide(document.getElementById(i));
+  else if (document.all)
+    DOMElementHide(document.all(i));
+}
+
+function show(i) {
+  if (document.getElementById)
+    DOMElementShow(document.getElementById(i));
+  else if (document.all)
+    DOMElementShow(document.all(i));
+}
+
+function getNthParm(string,parm,nth) {
+  if (!string) return '';
+  var count = 1;
+  var startPos = 0 + string.indexOf(parm + '=');
+  while (startPos > -1) {
+    startPos = startPos + parm.length + 1;
+    var endPos = 0 + string.indexOf(';',startPos);
+    if (endPos == -1)
+      endPos = string.length;
+    if (count == nth)
+      return unescape(string.substring(startPos,endPos));
+    startPos = 0 + string.indexOf(parm + '=',endPos);
+    count++;
+  }
+  return '';
+}
+
+function getPrefs() {
+  var myCookie = getCookie('mypage.com');
+
+  for (var i=0; i<document.images.length; i++) {
+    var src = document.images[i].src;
+
+    if (src.indexOf('dot-a.gif') > -1) {
+      var name = document.images[i].name;
+      name = name.substring(0,name.length-2);
+      var pref = 'open';
+
+      if (myCookie)
+        pref = getNthParm(unescape(myCookie),name,1);
+
+      if (pref == 'open')        expand(name);
+      else if (pref == 'small')  shrink(name);
+      else if (pref == 'closed') kill(name);
+    }
+    else if (src.indexOf('dot-b.gif') > -1)
+      document.images[i].src = 'close.gif';
+  }
+}
+
+function setPrefs() {
+  var myCookie = '';
+
+  for (var i in item)
+    myCookie += i + '=' +item[i] + ';';
+
+  var today = new Date()
+  var expires = new Date(today.getTime() + Cookie.year);
+  setCookie('mypage.com',escape(myCookie), expires);
+}
+
+function resetPrefs() {
+  if (myPage) {
+    deleteCookie('mypage.com');
+
+    for (var i in item) {
+      document.images[i+'-a'].src = 'dot-a.gif';
+      if (item[i] == 'closed')
+        show(i);
+    }
+
+    getPrefs();
+  }
+}
+//--></script>
+
+<style><!--
+.item { margin: 5px; }
+
+table {
+  border-style: none;
+  padding: 0px;
+}
+
+th {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: arial;
+  font-weight: bold;
+  font-size: 10pt;
+  padding: 2px;
+}
+
+.t1 { background-color: #ff0000; }
+.t2 { background-color: #ee0000; }
+.t3 { background-color: #dd0000; }
+.t4 { background-color: #cc0000; }
+.t5 { background-color: #bb0000; }
+.t6 { background-color: #aa0000; }
+.t7 { background-color: #990000; }
+.t8 { background-color: #880000; }
+.t9 { background-color: #770000; }
+
+iframe { display: none; }
+//--></style>
+
+</head>
+
+<body onLoad="start()">
+
+<table width="200" cellpadding="0" cellspacing="0" border="0"><tr><td valign="top">
+
+
+
+
+<table class="item" id="x1" width="200" cellspacing="0" cellpadding="0" border="0"><tr>
+<th class="t1" align="left">Heading One</th>
+<th class="t1" align="right"
+><a href="#" onClick="return toggle('x1')"><img src="dot-a.gif" name="x1-a" width="16" height="14" border="0"></a
+><a href="#" onClick="return kill('x1')"><img src="dot-b.gif" name="x1-b" width="16" height="14" border="0"></a
+></th></tr>
+<tr><td colspan="2">
+<iframe src="x1.htm" id="x1-f" width="100%" height="250"></iframe>
+</td></tr></table>
+
+
+
+
+
+<table class="item" id="x2" width="200" cellspacing="0" cellpadding="0" border="0"><tr>
+<th class="t2" align="left">Heading Two</td>
+<th class="t2" align="right"
+><a href="#" onClick="return toggle('x2')"><img src="dot-a.gif" name="x2-a" width="16" height="14" border="0"></a
+><a href="#" onClick="return kill('x2')"><img src="dot-b.gif" name="x2-b" width="16" height="14" border="0"></a
+></th></tr>
+<tr><td colspan="2">
+<iframe src="x2.htm" id="x2-f" width="100%" height="250"></iframe>
+</td></tr></table>
+
+
+
+
+
+<table class="item" id="x3" width="200" cellspacing="0" cellpadding="0" border="0"><tr>
+<th class="t3" align="left">Heading Three</td>
+<th class="t3" align="right"
+><a href="#" onClick="return toggle('x3')"><img src="dot-a.gif" name="x3-a" width="16" height="14" border="0"></a
+><a href="#" onClick="return kill('x3')"><img src="dot-b.gif" name="x3-b" width="16" height="14" border="0"></a
+></th></tr>
+<tr><td colspan="2">
+<iframe src="x3.htm" id="x3-f" width="100%" height="250"></iframe>
+</td></tr></table>
+
+
+
+
+
+</td><td valign="top">
+
+
+
+
+
+
+<table class="item" id="x4" width="200" cellspacing="0" cellpadding="0" border="0"><tr>
+<th class="t4" align="left">Heading Four</td>
+<th class="t4" align="right"
+><a href="#" onClick="return toggle('x4')"><img src="dot-a.gif" name="x4-a" width="16" height="14" border="0"></a
+><a href="#" onClick="return kill('x4')"><img src="dot-b.gif" name="x4-b" width="16" height="14" border="0"></a
+></th></tr>
+<tr><td colspan="2">
+<iframe src="x4.htm" id="x4-f" width="100%" height="250"></iframe>
+</td></tr></table>
+
+
+
+
+
+<table class="item" id="x5" width="200" cellspacing="0" cellpadding="0" border="0"><tr>
+<th class="t5" align="left">Heading Five</td>
+<th class="t5" align="right"
+><a href="#" onClick="return toggle('x5')"><img src="dot-a.gif" name="x5-a" width="16" height="14" border="0"></a
+><a href="#" onClick="return kill('x5')"><img src="dot-b.gif" name="x5-b" width="16" height="14" border="0"></a
+></th></tr>
+<tr><td colspan="2">
+<iframe src="x5.htm" id="x5-f" width="100%" height="250"></iframe>
+</td></tr></table>
+
+
+
+
+
+<table class="item" id="x6" width="200" cellspacing="0" cellpadding="0" border="0"><tr>
+<th class="t6" align="left">Heading Six</td>
+<th class="t6" align="right"
+><a href="#" onClick="return toggle('x6')"><img src="dot-a.gif" name="x6-a" width="16" height="14" border="0"></a
+><a href="#" onClick="return kill('x6')"><img src="dot-b.gif" name="x6-b" width="16" height="14" border="0"></a
+></th></tr>
+<tr><td colspan="2">
+<iframe src="x6.htm" id="x6-f" width="100%" height="250"></iframe>
+</td></tr></table>
+
+
+
+
+
+</td><td valign="top">
+
+
+
+
+
+
+<table class="item" id="x7" width="200" cellspacing="0" cellpadding="0" border="0"><tr>
+<th class="t7" align="left">Heading Seven</td>
+<th class="t7" align="right"
+><a href="#" onClick="return toggle('x7')"><img src="dot-a.gif" name="x7-a" width="16" height="14" border="0"></a
+><a href="#" onClick="return kill('x7')"><img src="dot-b.gif" name="x7-b" width="16" height="14" border="0"></a
+></th></tr>
+<tr><td colspan="2">
+<iframe src="x7.htm" id="x7-f" width="100%" height="250"></iframe>
+</td></tr></table>
+
+
+
+
+
+<table class="item" id="x8" width="200" cellspacing="0" cellpadding="0" border="0"><tr>
+<th class="t8" align="left">Heading Eight</td>
+<th class="t8" align="right"
+><a href="#" onClick="return toggle('x8')"><img src="dot-a.gif" name="x8-a" width="16" height="14" border="0"></a
+><a href="#" onClick="return kill('x8')"><img src="dot-b.gif" name="x8-b" width="16" height="14" border="0"></a
+></th></tr>
+<tr><td colspan="2">
+<iframe src="x8.htm" id="x8-f" width="100%" height="250"></iframe>
+</td></tr></table>
+
+
+
+
+
+<table class="item" id="x9" width="200" cellspacing="0" cellpadding="0" border="0"><tr>
+<th class="t9" align="left">Heading Nine</td>
+<th class="t9" align="right"
+><a href="#" onClick="return toggle('x9')"><img src="dot-a.gif" name="x9-a" width="16" height="14" border="0"></a
+><a href="#" onClick="return kill('x9')"><img src="dot-b.gif" name="x9-b" width="16" height="14" border="0"></a
+></th></tr>
+<tr><td colspan="2">
+<iframe src="x9.htm" id="x9-f" width="100%" height="250"></iframe>
+</td></tr></table>
+
+
+
+
+</td></tr></table>
+
+<form>
+<input type="button" value="Reset" onClick="resetPrefs()">
+</form>
+
+<iframe style="display:block" src="blank.htm" width="0" height="0" frameborder="0"></iframe>
+
+</body>
+
+</html>

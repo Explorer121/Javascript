@@ -1,0 +1,40 @@
+<html>
+
+<head>
+
+<title>Image Popup</title>
+
+<script language="JavaScript"><!--
+var img = opener.filename;
+
+function resizeMe() {
+  var width = document.images['img1'].width;
+  var height = document.images['img1'].height;
+
+  if (document.all) {
+    width += 10; height += 25;
+  }
+
+  self.resizeTo(width, height);
+
+  if (window.screen)
+    self.moveTo(
+      (screen.availWidth - width)/2,
+      (screen.availHeight - height)/2
+    );
+}
+//--></script>
+
+</head>
+
+<body topmargin="0" leftmargin="0"
+  marginwidth="0" marginheight="0"
+  onLoad="if (document.images) resizeMe();">
+
+<script language="JavaScript"><!--
+document.write('<img name="img1" src="' + img + '">');
+//--></script>
+
+</body>
+
+</html>

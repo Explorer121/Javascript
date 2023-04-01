@@ -1,0 +1,59 @@
+<html>
+
+<head>
+
+<title>Count Down</title>
+
+<script src="countdown.js" language="JavaScript"></script>
+
+<script language="JavaScript"><!--
+var time1 = new Date(2100, 0, 1);
+var time2 = new Date(2000, 0, 1);
+var time3 = new Date(3000, 0, 1);
+var time4 = new Date(document.lastModified);
+
+function autoUpdate() {
+  if (window.countdown && window.countup) {
+    var dif1 = countdown(time1);
+    if (document.timeForm.field1.value != dif1)
+      document.timeForm.field1.value = dif1;
+
+    var dif2 = countup(time2);
+    if (document.timeForm.field2.value != dif2)
+      document.timeForm.field2.value = dif2;
+
+    var dif3 = countdown(time3);
+    if (document.timeForm.field3.value != dif3)
+      document.timeForm.field3.value = dif3;
+
+    var dif4 = countup(time4);
+    if (document.timeForm.field4.value != dif4)
+      document.timeForm.field4.value = dif4;
+
+    setTimeout('autoUpdate()',500)
+  }
+}
+//--></script>
+
+</head>
+
+<body onLoad="autoUpdate()">
+
+<form name="timeForm" onSubmit="return false;">
+<input type="text" name="field1" value="" size="42">
+till 1st January 2100
+<br>
+<input type="text" name="field2" value="" size="42">
+since 1st January 2000
+<br>
+<input type="text" name="field3" value="" size="42">
+till 1st January 3000
+<br>
+<input type="text" name="field4" value="" size="42">
+since last updated
+
+</form>
+
+</body>
+
+</html>

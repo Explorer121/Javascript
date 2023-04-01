@@ -1,0 +1,97 @@
+<html>
+
+<head>
+
+<title>Random Banner Adverts</title>
+
+<script language = 'JavaScript'><!--
+function Banner(href, src, text) {
+  this.href = href;
+  this.src = src;
+  this.text = text;
+}
+
+function setBanner(href, src, text) {
+  myBanner[bannerItems++] = new Banner(href, src, text);
+}
+
+var random = lastrandom = -1;
+
+function rndInteger(n) {
+  return Math.floor(Math.random() * n);
+}
+
+function bannerReplace() {
+  while (random == lastrandom)
+    random = rndInteger(bannerItems);
+
+  document.images['banner'].src   = myBanner[random].src;
+  document.links[bannerLink].href = myBanner[random].href;
+  bannerStatus = myBanner[random].text;
+
+  setTimeout('bannerReplace()',1000);
+
+  lastrandom = random;
+}
+
+var bannerLink = -1;
+var bannerStatus = 'Advert';
+
+function startBanners() {
+  for (var i=0; i<document.links.length; i++) {
+    if (document.links[i].href == 'javascript:bannerWait()') {
+      bannerLink = i;
+      break;
+    }
+  }
+
+  if (document.images && bannerLink != -1)
+    bannerReplace();
+}
+
+function bannerWait() {
+  alert('Please wait');
+}
+
+var bannerItems = 0;
+var myBanner = new Array();
+
+setBanner('http://tech.irt.org/articles/script2.htm','banner1.gif','Events');
+setBanner('http://tech.irt.org/articles/script3.htm','banner2.gif','Location');
+setBanner('http://tech.irt.org/articles/script4.htm','banner3.gif','Source');
+setBanner('http://tech.irt.org/articles/script5.htm','banner4.gif','Windows');
+setBanner('http://tech.irt.org/articles/script6.htm','banner5.gif','Mail');
+setBanner('http://tech.irt.org/articles/script7.htm','banner6.gif','Date and Time');
+setBanner('http://tech.irt.org/articles/script8.htm','banner7.gif','Forms');
+setBanner('http://tech.irt.org/articles/script9.htm','banner8.gif','Images');
+setBanner('http://tech.irt.org/articles/script10.htm','banner9.gif','Password');
+setBanner('http://tech.irt.org/articles/script11.htm','banner10.gif','Cookies');
+//--></script>
+
+</head>
+
+<body onLoad="startBanners()">
+
+<a href="dummy.htm" name="banner"
+  onMouseOver="window.status='';return true"
+  onMouseOut="window.status='';return true"
+><img src="banner1.gif" width="400" height="40" alt="Static Advert"></a>
+
+<br>
+
+<a href="javascript:bannerWait()" name="banner"
+  onMouseOver="window.status=bannerStatus;return true"
+  onMouseOut="window.status='';return true"
+><img src="banner1.gif" name="banner" width="400" height="40" alt="Random Advert"></a>
+
+<br>
+
+<a href="dummy.htm" name="banner"
+  onMouseOver="window.status=bannerStatus;return true"
+  onMouseOut="window.status='';return true"
+><img src="banner1.gif" width="400" height="40" alt="Static Advert"></a>
+
+
+</body>
+
+</html>

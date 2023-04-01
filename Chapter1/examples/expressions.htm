@@ -1,0 +1,40 @@
+<html>
+
+<head>
+<title>Expressions</title>
+</title>
+
+</head>
+
+<body>
+
+<form onsubmit="return myFunction()">
+<h1>Expressions in JavaScript</h1>
+<div>First No. : <input type="number" id="first" /></div>
+<div>Second No. : <input type="number" id="second" /></div>
+<div>Result. : <input type="number" id="result" disabled/></div>
+</form>
+<p id="values"></p>
+
+<script language="JavaScript"><!--
+
+var Fx = document.getElementById("first");
+
+var Fy = document.getElementById("second");
+
+var Fz = document.getElementById("result");
+
+const log = document.getElementById('values');
+
+Fx.addEventListener('input', inputData)
+
+function inputData(e) {
+     console.log(e.currentTarget)
+     log.textContent = e.data;
+}
+
+//--></script>
+
+</body>
+
+</html>

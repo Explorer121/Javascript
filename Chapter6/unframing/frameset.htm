@@ -1,0 +1,76 @@
+<html>
+
+<script language="JavaScript"><!--
+var key = 'ergi87143548_';
+
+var menu = 'menu.htm';
+var title = 'title.htm';
+var main = 'main.htm';
+
+function getParm(string,parm) {
+  var startPos = 0 + string.indexOf(parm + '=');
+  if (startPos > -1) {
+    startPos = startPos + parm.length + 1;
+    var endPos = 0 + string.indexOf('&',startPos);
+    if (endPos == -1)
+      endPos = string.length;
+    return unescape(string.substring(startPos,endPos));
+  }
+  return '';
+}
+
+var s = location.search;
+
+var tmp;
+tmp = getParm(s, 'menu'); if (tmp != '') menu = tmp;
+tmp = getParm(s, 'title'); if (tmp != '') title = tmp;
+tmp = getParm(s, 'main'); if (tmp != '') main = tmp;
+
+function loadtop(url) {
+  if (document.images)
+    top.location.replace(url);
+  else
+    top.location.href = url;
+}
+
+function checkframed() {
+  if (top != self) loadtop(self.location.href);
+}
+
+function synchronize(menu, title) {
+  if (window[key +'menu'].location.href.indexOf(menu) == -1)
+    window[key +'menu'].location.href = menu;
+  if (window[key +'title'].location.href.indexOf(title) == -1)
+    window[key +'title'].location.href = title;
+}
+
+setTimeout('checkframed()',10000);
+
+document.write(
+  '<frameset onLoad="checkframed()" cols="150,*">' +
+  '<frame name="' + key + 'menu" src="' + menu + '">' +
+  '<frameset rows="150,*">' +
+  '<frame name="' + key + 'title" src="' + title + '">' +
+  '<frame name="' + key + 'main" src="'+ main + '">' +
+  '</frameset>' +
+  '</frameset>'
+);
+//--></script>
+
+<noscript>
+<frameset cols="150,*">
+<frame name="ergi87143548_menu" src="menu.htm">
+<frameset rows="150,*">
+<frame name="ergi87143548_title" src="title.htm">
+<frame name="ergi87143548_main" src="main.htm">
+</frameset>
+</frameset>
+</noscript>
+
+<body>
+<p>
+This page uses frames, but your browser does not support them
+</p>
+</body>
+
+</html>

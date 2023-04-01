@@ -1,0 +1,39 @@
+<html>
+
+<head>
+
+<title>What Zodiac Sign are You?</title>
+
+<script src="current.js" language="JavaScript"></script>
+<script src="zodiac.js" language="JavaScript"></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+if (window.formatFullDate && window.Zodiac) {
+  var today = new Date();
+  var day   = today.getDate();
+  var month = today.getMonth() + 1;
+  var year  = today.getFullYear();
+
+  var star = starSign(day,month);
+
+  document.write(
+    'Today - ' + formatFullDate(day,month,year) + '<br>'
+  );
+
+  document.write(
+    myZodiac[star].sign + ' - ' +
+    myZodiac[star].symbol +
+    '<br>(' + starDateRange(day,month,year) + ')<br>' +
+    'Birthstone ' + myZodiac[star].birthstone +
+    ' Symbolizes ' + myZodiac[star].quality
+  );
+}
+//--></script>
+
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<html>
+
+<head>
+<title>Image Popup</title>
+</head>
+
+<body topmargin="0" leftmargin="0"
+  marginwidth="0" marginheight="0">
+
+<script language="JavaScript"><!--
+document.write('<img src="' + opener.display.src + '">');
+
+if (window.screen)
+  self.moveTo(
+    (screen.availWidth - opener.display.width)/2,
+    (screen.availHeight - opener.display.height)/2
+  );
+//--></script>
+
+</body>
+
+</html>

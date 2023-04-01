@@ -1,0 +1,86 @@
+<html>
+
+<head>
+
+<title>Image Popup</title>
+
+<script language="JavaScript"><!--
+var popup = new Object();
+popup.closed = true;
+
+function openPopup(file,width,height) {
+  if (!popup.closed) popup.close();
+  popup = window.open(file, 'wName',
+    'width=' + width + ',height=' + height + ',resizable');
+}
+
+var display = null;
+
+function loadUsingImage(what) {
+  var i = what.options[what.selectedIndex].value;
+
+  if (document.images && i != '') {
+    what.selectedIndex = 0;
+    display = new Image(image[i].width,image[i].height);
+    display.src = image[i].src;
+    display.onload =
+      openPopup('popup.htm',display.width,display.height);
+  }
+}
+
+var filename = null
+
+function loadUsingName(what) {
+  filename = what.options[what.selectedIndex].value;
+
+  if (document.images && filename != '') {
+    what.selectedIndex = 0;
+    openPopup('resize.htm',100,100);
+  }
+}
+
+var image = new Array();
+
+if (document.images) {
+  image[0] = new Image(378,475);
+  image[0].src = 'book.gif';
+
+  image[1] = new Image(595,231);
+  image[1].src = 'irt.png';
+
+  image[2] = new Image(400,400);
+  image[2].src = 'lake.jpg';
+
+  image[3] = new Image(591,221);
+  image[3].src = 'survey.gif';
+}
+//--></script>
+
+</head>
+
+<body>
+
+<form>
+<select onChange="loadUsingImage(this)">
+<option value="">Select:
+<option value="0">Instant ASP book cover
+<option value="1">irt.org Logo
+<option value="2">Picture of a Lake
+<option value="3">Server survey
+</select>
+
+<br>
+
+<select onChange="loadUsingName(this)">
+<option value="">Select:
+<option value="book.gif">Instant ASP book cover
+<option value="irt.png">irt.org Logo
+<option value="lake.jpg">Picture of a Lake
+<option value="survey.gif">Server survey
+</select>
+
+</form>
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+a {
+  text-decoration: none;
+  color: green;
+  font-weight: bold;
+  font-size: 14pt;
+}
+
+h1 {
+  font-family: Sans Serif;
+  color: gray;
+  font-size: 48pt;
+}
+
+code {
+  font-family: Verdana;
+  font-style: italic;
+  color: white;
+  background: blue;
+  font-size: 8pt;
+}

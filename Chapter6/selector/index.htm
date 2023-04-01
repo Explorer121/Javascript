@@ -1,0 +1,75 @@
+<html>
+
+<head>
+
+<title>Popup Date Selector</title>
+
+<script langauge="JavaScript"><!--
+function y2k(num) {
+  return (num < 1000) ? num + 1900 : num;
+}
+
+function pad(num, size) {
+  num = '' + num;
+  while (num.length < size) num = '0' + num;
+  return num;
+}
+
+function restart() {
+  whichFormField.value = '' + pad(day, 2) +
+    '/' + pad(month, 2) + '/' + year;
+
+  popupCalendar.close();
+}
+
+function cal(field) {
+  if (popupCalendar && !popupCalendar.closed) return;
+
+  whichFormField = field;
+
+  if (field.value.length == 10) {
+    day   = field.value.substring(0,2) - 0;
+    month = field.value.substring(3,5) - 0;
+    year  = field.value.substring(6,10) - 0;
+  }
+
+  popupCalendar = window.open(
+    'cal.htm',
+    'myname',
+    'resizable=no,width=350,height=270'
+  );
+
+  if (popupCalendar.opener == null)
+    popupCalendar.opener = self;
+}
+
+var today = new Date();
+var day   = today.getDate();
+var month = today.getMonth() + 1;
+var year  = y2k(today.getYear());
+
+var whichFormField;
+var popupCalendar;
+//--></script>
+
+</head>
+
+<body>
+
+<form>
+<input type="text" name="date1" size="10" onFocus="this.blur()">
+<input type="button" value="Date" onClick="cal(this.form.date1)">
+<br>
+<input type="text" name="date2" size="10" onFocus="this.blur()">
+<input type="button" value="Date" onClick="cal(this.form.date2)">
+<br>
+<input type="text" name="date3" size="10" onFocus="this.blur()">
+<input type="button" value="Date" onClick="cal(this.form.date3)">
+<br>
+<input type="text" name="date4" size="10" onFocus="this.blur()">
+<input type="button" value="Date" onClick="cal(this.form.date4)">
+</form>
+
+</body>
+
+</html>

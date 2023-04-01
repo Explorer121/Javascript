@@ -1,0 +1,68 @@
+<html>
+
+<head>
+<script language="JavaScript"><!--
+var scrollingText =
+  "Authoring Tool Accessibility Guidelines 1.0, " +
+  "XHTML 1.0: The Extensible HyperText Markup Language, " +
+  "HTML 4.01 Specification, " +
+  "XSL Transformations (XSLT) Version 1.0, " +
+  "XML Path Language (XPath) Version 1.0, " +
+  "Associating Style Sheets with XML documents, " +
+  "Web Content Accessibility Guidelines 1.0, " +
+  "Resource Description Framework (RDF) Model, " +
+  "WebCGM Profile, " +
+  "Namespaces in XML, " +
+  "Document Object Model (DOM) Level 1, " +
+  "Synchronized Multimedia Integration Language (SMIL) 1.0, " +
+  "PICS Signed Labels (DSig) 1.0 Specification, " +
+  "Cascading Style Sheets, level 2 (CSS2) Specification, " +
+  "Extensible Markup Language (XML) 1.0 Specification, " +
+  "PICSRules 1.1 Specification, " +
+  "HTML 3.2 Reference Specification, " +
+  "Cascading Style Sheets (CSS1) Level 1 Specification, " +
+  "PICS 1.1 Rating Services and Rating Systems, " +
+  "PICS 1.1 Label Distribution, " +
+  "PNG (Portable Network Graphics) Specification, " +
+  " ";
+
+var scrolling = false;
+
+var timer;
+
+function scrollText() {
+  document.scrolling.textbox.value = scrollingText;
+
+  scrollingText = scrollingText.substring(1) +
+                  scrollingText.substring(0,1);
+
+  timer = setTimeout('scrollText()',100);
+}
+
+function startScroll() {
+  if (!scrolling) {
+    scrolling = true;
+    scrollText();
+  }
+}
+
+function stopScroll() {
+  if (scrolling)
+    clearTimeout(timer);
+
+  scrolling = false;
+}
+//--></script>
+</head>
+
+<body onLoad="startScroll()">
+
+<form name="scrolling" onSubmit="return false">
+<input name="textbox" type="text" size="40" value="">
+<input type="button" value=" # " onClick="stopScroll()">
+<input type="button" value=" > " onClick="startScroll()">
+</form>
+
+</body>
+
+</html>

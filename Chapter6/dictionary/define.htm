@@ -1,0 +1,84 @@
+<html>
+
+<head>
+<title>Dictionary Popup</title>
+</head>
+
+<body onBlur="window.focus()" topmargin="0" leftmargin="0">
+
+<script language="JavaScript"><!--
+function Def(word, type, def) {
+  this.word = word;
+  this.type = type;
+  this.def  = def
+}
+
+function setDef(word, type, def) {
+  myDef[item++] = new Def(word, type, def);
+}
+
+var item = 0;
+
+var myDef = new Array();
+
+var word = unescape(window.location.search.substring(1));
+
+var letter = word.substring(0,1);
+
+document.write(
+  '<script language="JavaScript" src="' + letter + '.js">' +
+  '<\/script>'
+);
+//--></script>
+
+<script language="JavaScript"><!--
+var found = false;
+
+for (var i=0; i<item || !found; i++) {
+  if (word.indexOf(myDef[i].word) != -1) {
+    found = true;
+
+    var output = '';
+
+    output +=
+      '<table width="100%" height="100%">' +
+      '<tr><td valign="top">' +
+      '<h1>' + myDef[i].word + '</h1>' +
+      '<p><em>' + myDef[i].type + '</em></p>' +
+      '<p>' + myDef[i].def + '</p>' +
+      '</td></tr>';
+
+    if (item <= 1) output += '</table>';
+
+    else if (i != 0 && i == item - 1) output +=
+      '<tr><td align="left">' +
+      '<a href="define.htm?' + myDef[i-1].word + '">prev</a>' +
+      '</td></tr></table>';
+
+    else if (i < item - 1) output +=
+      '<tr><td align="right">' +
+      '<a href="define.htm?' + myDef[i+1].word + '">next</a>' +
+      '</td></tr></table>';
+
+    else output +=
+      '<tr><td><table width="100%"><tr><td align="left">' +
+      '<a href="define.htm?' + myDef[i-1].word + '">prev</a>' +
+      '</td><td align="right">' +
+      '<a href="define.htm?' + myDef[i+1].word + '">next</a>' +
+      '</td></tr></table></td></tr></table>';
+
+    document.write(output);
+    break;
+  }
+}
+
+if (!found)
+  document.write(
+    '<h1>' + word + '</h1>' +
+    '<p>Definition not found</p>'
+  );
+//--></script>
+
+</body>
+
+</html>

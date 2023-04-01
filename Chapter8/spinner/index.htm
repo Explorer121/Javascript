@@ -1,0 +1,58 @@
+<html>
+
+<head>
+<title>Date Spinner</title>
+
+<script src="current.js" language="JavaScript"></script>
+
+<script language="JavaScript"><!--
+var date = new Date();
+var milliseconds = date.getTime();
+
+function prevDay() {
+  milliseconds -= 86400000;
+  formatDate();
+}
+
+function nextDay() {
+  milliseconds += 86400000;
+  formatDate();
+}
+
+function formatDate() {
+  date = new Date(milliseconds);
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+  document.date.spinner.value =
+    year + '-' + padout(month) + '-' + padout(day);
+}
+//--></script>
+
+</head>
+
+<body onLoad="formatDate()">
+
+<map name="spinner-map">
+<area shape="rect" coords="0,0,18,10"
+  href="javascript:nextDay()"
+  onMouseOver="self.status='';return true">
+<area shape="rect" coords="0,12,18,23"
+  href="javascript:prevDay()"
+  onMouseOver="self.status='';return true">
+</map>
+
+<p>
+
+<form name="date">
+<input name="spinner" type="text" size="10" value="9999-99-99"
+><a href="JavaScript:" onMouseOver="self.status='';return true"
+><img src="date.gif"  border="0" width="19" height="24"
+  align="top" usemap="#spinner-map" alt="Click"></a>
+</form>
+
+</p>
+
+</body>
+
+</html>

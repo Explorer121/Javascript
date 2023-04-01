@@ -1,0 +1,78 @@
+<html>
+
+<head>
+
+<title></title>
+
+<script language="JavaScript"><!--
+var current = 0;
+
+function sendEmail() {
+  if (document.controlForm.selectName[current].selected) {
+    document.emailForm.action =
+      'mailto:' +
+      document.controlForm.selectName[current].value +
+      '?subject=' +
+      document.controlForm.subject.value;
+    document.controlForm.to.value =
+      document.controlForm.selectName[current].value;
+    current++;
+    if (current < document.controlForm.selectName.length)
+      setTimeout('document.emailForm.mysubmit.click()',5000);
+    else current = 0;
+  }
+  else {
+    current++;
+    if (current < document.controlForm.selectName.length)
+      document.emailForm.mysubmit.click();
+    else current = 0;
+  }
+}
+//--></script>
+
+</head>
+
+<body>
+
+<form name="controlForm">
+<p>
+Select:
+<br>
+<select multiple name="selectName">
+<option value="martin@irt.org">martin@irt.org
+<option value="martin.webb@irt.org">martin.webb@irt.org
+<option value="irt@irt.org">irt@irt.org
+</select>
+</p>
+
+<p>
+To:
+<br>
+<input type="text" name="to" size="72" onFocus="this.blur()">
+</p>
+
+<p>
+Subject:
+<br>
+<input type="text" name="subject" size="72">
+</p>
+
+</form>
+
+<form name="emailForm" action="" method="POST"
+  enctype="text/plain" onSubmit="sendEmail()">
+<p>
+Contents:
+<br>
+<textarea name="content" cols="72" ROWS="10"></textarea>
+</p>
+
+<p>
+<input type="submit" name="mysubmit" value="Send Email">
+<input type="reset" value="Reset">
+</p>
+</form>
+
+</body>
+
+</html>

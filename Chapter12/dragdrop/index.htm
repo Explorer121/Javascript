@@ -1,0 +1,229 @@
+<html>
+
+<head>
+
+<title>Drag and Drop Shopping Cart</title>
+
+<script language="JavaScript" src="dom.js"></script>
+
+<script language="JavaScript"><!--
+var code = anti = null;
+var fRef;
+var id = 'cart';
+var dndPrefix = 'DND-';
+var dndAnti = 'dnd-';
+
+var catalog = new Array();
+var products = new Array();
+
+function product(code, name, src, width, height) {
+  this.code = code;
+  this.name = name;
+  this.src = src;
+  this.width = width;
+  this.height = height;
+  this.miniWidth = Math.floor(width/3);
+  this.miniHeight = Math.floor(height/3);
+}
+
+function addProduct(code, name, src, width, height) {
+  catalog[code] = new product(code, name, src, width, height);
+}
+
+addProduct('fby', 'Furby',          'furby.gif',      132, 150);
+addProduct('hlc', 'Helicopter',     'helicopter.gif', 150, 141);
+addProduct('pln', 'Paddle Lounge',  'lounge.gif',     150, 109);
+addProduct('mul', 'Multipack',      'multipack.jpg',  150, 116);
+addProduct('rbk', 'Rubik\'s Cube',  'rubik.gif',       90,  88);
+addProduct('ssp', 'Silver Speeder', 'speeder.jpg',    150,  99);
+
+if (document.layers) {
+  window.captureEvents(Event.MOUSEDOWN | Event.MOUSEUP);
+  window.onmousedown=down, window.onmouseup=up;
+}
+
+function down(e) {
+  if (window.DOMObjects) {
+    var name = DOMEventGetName(e);
+
+    if (name && name.indexOf(dndPrefix) == 0) {
+      code = name.substring(dndPrefix.length);
+      return false;
+    }
+
+    if (name && name.indexOf(dndAnti) == 0) {
+      anti = name.substring(dndAnti.length);
+      return false;
+    }
+  }
+}
+
+function up(e) {
+  if (window.DOMObjects) {
+    var x = DOMEventGetOffsetX(e);
+    var y = DOMEventGetOffsetY(e);
+
+    var x1 = DOMElementGetOffsetLeft(DOMObjects[id]);
+    var y1 = DOMElementGetOffsetTop(DOMObjects[id]);
+
+    var x2 = x1 + DOMElementGetWidth(DOMObjects[id]);
+    var y2 = y1 + DOMElementGetHeight(DOMObjects[id]);
+
+    if (x>=x1 && x<=x2 && y>=y1 && y<=y2) {
+      if (code && !products[code]) {
+        addOption(fRef, 'cart', catalog[code].name, code);
+        refresh();
+      }
+    }
+    else if (anti) {
+      select(anti);
+      deleteOptions(fRef, 'cart', false);
+      refresh();
+    }
+    code = anti = null;
+  }
+}
+
+function addOption(fRef, sName, sText, sValue) {
+  var def = false;
+  var sel = false;
+  var optionName = new Option(sText, sValue, def, sel);
+  var length = fRef[sName].length;
+  fRef[sName].options[length] = optionName;
+  fRef[sName].options[length].selected = false;
+  products[sValue] = sValue;
+}
+
+function deleteOptions(fRef, sName, force) {
+  var length = fRef[sName].options.length;
+  for (var i=0; i<fRef[sName].options.length; i++) {
+    if (fRef[sName].options[i].selected || force) {
+      if (products[fRef[sName].options[i].value])
+        products[fRef[sName].options[i].value] = null;
+      fRef[sName].options[i] = null;
+      length--;
+      i--;
+    }
+  }
+}
+
+function deleteOption(fRef, sName) {
+  var i = fRef[sName].selectedIndex;
+  if (products[fRef[sName].options[i].value])
+    products[fRef[sName].options[i].value] = null;
+  fRef[sName].options[i] = null;
+}
+
+function highlight() {
+  for (var i=1; i<fRef.cart.length; i++)
+    fRef.cart[i].selected = true;
+}
+
+function select(sValue) {
+  for (var i=1; i<fRef.cart.length; i++)
+    fRef.cart[i].selected =
+      (catalog[fRef.cart[i].value].code == sValue);
+}
+
+function remove() {
+  fRef['cart'].options[0].selected = false;
+  deleteOptions(fRef, 'cart', false);
+  refresh();
+}
+
+function wipe() {
+  highlight();
+  remove();
+}
+
+function refresh() {
+  var output = '';
+
+  for (var i in products)
+    if (products[i] != null)
+      output += '<img src="' + catalog[products[i]].src +
+      '" name="' + dndAnti + catalog[products[i]].code +
+      '" width="' + catalog[products[i]].miniWidth +
+      '" height="' + catalog[products[i]].miniHeight + '">';
+
+  if (output != '')
+    output =
+    '</td><td>' +
+    '<table bgcolor="#ffffff" border="0" cellpadding="10" cellspacing="0"><tr><td>' +
+    output +
+    '</td></tr></table>';
+
+
+  var html =
+    '<table bgcolor="#ff6666" border="0" cellpadding="10" cellspacing="0"><tr><td>' +
+    '<img src="cart.gif" width="121" height="150">' +
+    output +
+    '</td></tr></table>';
+
+  DOMElementSetInnerHTML(DOMObjects[id],html)
+}
+
+function start() {
+  if (window.DOMObjects)
+    DOMInitialize('span');
+
+  if (document.layers)
+    fRef = document.content.document.shopping;
+  else
+    fRef = document.shopping;
+
+  wipe();
+}
+//--></script>
+
+<style><!--
+.a { position: absolute; }
+h2, p { font-family: arial; }
+option { width: 200; }
+//--></style>
+
+</head>
+
+<body onLoad="start()" onMouseDown="down(event)"
+  onMouseUp="up(event)" onDrop="up(event)"
+  onDragOver="window.event.returnValue = false">
+
+<h2>Drag 'n Drop Shopping Cart</h2>
+
+<span class="a" id="cart">
+<table bgcolor="#ff6666" border="0" cellpadding="10" cellspacing="0"><tr><td valign="top">
+<img src="cart.gif" width="121" height="150">
+</td></tr></table>
+</span>
+
+<div id="content" class="a" style="top: 250px; left: 8px;">
+
+<table><tr><td>
+<form name="shopping" action="next.htm" onSubmit="highlight()">
+<select name="cart" multiple size="7">
+<option value="">Shopping Cart Contents:</option>
+</select>
+</td><td valign="top">
+<input type="button" value="Remove" onClick="remove()"><br><br>
+<input type="button" value="Reset" onClick="wipe()"><br><br>
+<input type="submit" value="Submit">
+</form>
+</td></tr></table>
+
+<script language="JavaScript"><!--
+var output = '';
+
+for (var i in catalog)
+  output += '<img src="' + catalog[i].src +
+            '" name="' + dndPrefix + i +
+            '" width="' + catalog[i].width +
+            '" height="' + catalog[i].height + '">';
+
+document.write(output);
+//--></script>
+
+</div>
+
+</body>
+
+</html>

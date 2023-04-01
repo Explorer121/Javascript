@@ -1,0 +1,269 @@
+<html>
+
+<head>
+
+<title>Today's the Day</title>
+
+<link rel="stylesheet" href="calendar.css" type="text/css">
+<link rel="stylesheet" href="today.css" type="text/css">
+
+<script src="calendar.js" language="JavaScript"></script>
+<script src="chinese.js" language="JavaScript"></script>
+<script src="countdown.js" language="JavaScript"></script>
+<script src="current.js" language="JavaScript"></script>
+<script src="easter.js" language="JavaScript"></script>
+<script src="july4th.js" language="JavaScript"></script>
+<script src="monday.js" language="JavaScript"></script>
+<script src="saturday.js" language="JavaScript"></script>
+<script src="timeofday.js" language="JavaScript"></script>
+<script src="validate.js" language="JavaScript"></script>
+<script src="zodiac.js" language="JavaScript"></script>
+
+<script language="JavaScript"><!--
+function getParm(string,parm) {
+  var startPos = 0 + string.indexOf(parm + '=');
+  if (startPos > -1) {
+    startPos = startPos + parm.length + 1;
+    var endPos = 0 + string.indexOf('&',startPos);
+    if (endPos == -1)
+      endPos = string.length;
+    return unescape(string.substring(startPos,endPos));
+  }
+  return '';
+}
+
+function changeDay(day, month, year) {
+  location.href =
+    'index.htm?day=' + day +
+    '&month=' + month + '&year=' + year;
+}
+
+if (window.formatFullDate) {
+  var today = new Date();
+  var day   = today.getDate();
+  var month = today.getMonth() + 1;
+  var year  = today.getFullYear();
+
+  var s = location.search;
+
+  var tmp;
+  tmp = getParm(s, 'day');   if (tmp != '') day   = tmp - 0;
+  tmp = getParm(s, 'month'); if (tmp != '') month = tmp - 0;
+  tmp = getParm(s, 'year');  if (tmp != '') year  = tmp - 0;
+}
+//--></script>
+
+<script src="birthday.js" language="JavaScript"></script>
+
+<title>Today</title>
+
+</head>
+
+<body>
+
+<p>
+
+<script language="JavaScript"><!--
+
+if (window.isValidDate && isValidDate(day, month, year)) {
+
+  if (window.updateClock && document.images) {
+    var time = new Date();
+
+    var s1 = time.getSeconds() % 10;
+    var s10 = Math.floor(time.getSeconds() / 10);
+    var m1 = time.getMinutes() % 10;
+    var m10 = Math.floor(time.getMinutes() / 10);
+    var h1 = time.getHours() % 10;
+    var h10 = Math.floor(time.getHours() / 10);
+
+    document.write(
+   '<img src="'+h10+'.gif" name="h10" height="48" width="48">'+
+   '<img src="'+h1+'.gif" name="h1" height="48" width="48">' +
+   '<img src="sep.gif" height="48" width="24">' +
+   '<img src="'+m10+'.gif" name="m10" height="48" width="48">'+
+   '<img src="'+m1+'.gif" name="m1" height="48" width="48">' +
+   '<img src="sep.gif" height="48" width="24">' +
+   '<img src="'+s10+'.gif" name="s10" height="48" width="48">'+
+   '<img src="'+s1+'.gif" name="s1" height="48" width="48">' +
+   '<br>'
+    );
+
+    setTimeout("updateClock()",500);
+  }
+
+  if (window.setEvent) {
+    setEvent(nthDay(third,mon,jan,year),jan,
+      'Martin Luther King Day');
+    setEvent(nthDay(first,sun,apr,year),apr,
+      'Daylight Savings time begins');
+    setEvent(nthDay(second,sun,may,year),may,'Mother\'s Day');
+    setEvent(nthDay(third,sat,may,year),may,'Armed Forces Day');
+    setEvent(nthDay(fourth,thu,nov,year),nov,'Thanksgiving Day');
+    setEvent(nthDay(fifth,wed,dec,year),dec,
+      '5th Wednesday in December');
+    setEvent(nthDay(last,sun,oct,year),oct,
+      'Daylight Savings Time ends');
+    setEvent(nthDay(third,mon,feb,year),feb,'President\'s Day');
+    setEvent(nthDay(first,mon,may,year),may,
+      'May Day Bank Holiday (United Kingdom)');
+    setEvent(nthDay(last,mon,may,year),may,
+      'Spring Bank Holiday (United Kingdom)');
+    setEvent(nthDay(last,mon,may,year),may,'Memorial Day');
+    setEvent(nthDay(third,sun,jun,year),jun,'Father\'s Day');
+    setEvent(nthDay(last,mon,aug,year),aug,
+      'Late Summer Holiday (United Kingdom)');
+    setEvent(nthDay(first,mon,sep,year),sep,'Labor Day');
+    setEvent(nthDay(second,mon,oct,year),oct,'Columbus Day');
+  }
+
+  if (window.Easter && window.setEvent) {
+    var easter = new Easter(year);
+    setEvent(easter.day,easter.month,'Easter Sunday');
+    var when = new addDays(easter.day,easter.month,year,-63);
+    setEvent(when.day,when.month,'Septuagesima Sunday');
+    var when = new addDays(easter.day,easter.month,year,-56);
+    setEvent(when.day,when.month,'Sexagesima Sunday');
+    var when = new addDays(easter.day,easter.month,year,-49);
+    setEvent(when.day,when.month,'Shrove Sunday');
+    var when = new addDays(easter.day,easter.month,year,-47);
+    setEvent(when.day,when.month,'Shrove Tuesday');
+    var when = new addDays(easter.day,easter.month,year,-46);
+    setEvent(when.day,when.month,'Ash Wednesday');
+    var when = new addDays(easter.day,easter.month,year,-14);
+    setEvent(when.day,when.month,'Passion Sunday');
+    var when = new addDays(easter.day,easter.month,year,-7);
+    setEvent(when.day,when.month,'Palm Sunday');
+    var when = new addDays(easter.day,easter.month,year,-3);
+    setEvent(when.day,when.month,'Maundy Thursday');
+    var when = new addDays(easter.day,easter.month,year,-2);
+    setEvent(when.day,when.month,'Good Friday');
+    var when = new addDays(easter.day,easter.month,year,35);
+    setEvent(when.day,when.month,'Rogation Sunday');
+    var when = new addDays(easter.day,easter.month,year,39);
+    setEvent(when.day,when.month,'Ascension Day');
+    var when = new addDays(easter.day,easter.month,year,49);
+    setEvent(when.day,when.month,'Pentecost');
+    var when = new addDays(easter.day,easter.month,year,50);
+    setEvent(when.day,when.month,'Whitmundy');
+    var when = new addDays(easter.day,easter.month,year,56);
+    setEvent(when.day,when.month,'Trinity Sunday');
+    var when = new addDays(easter.day,easter.month,year,60);
+    setEvent(when.day,when.month,'Corpus Christi');
+    var when = new addDays(easter.day,easter.month,year,63);
+    setEvent(when.day,when.month,'Corpus Christi (US)');
+  }
+
+  if (window.formatFullDate) {
+    document.write(
+      '<div class="headline">' +
+      formatFullDate(day,month,year) +
+      '</div>'
+    );
+  }
+
+  if (window.childOfWeek) {
+    document.write(
+      '<div class="subheading">' +
+      childOfWeek(dayOfWeek(day,month,year)) +
+      '</div><br>'
+    );
+  }
+
+  if (window.showEvent && window.showBirthday) {
+    var events = showEvent(day,month);
+    if (events != '')
+      document.write(
+        '<center><div class="subsub">On this day:</div>' +
+        events + '</center><br>'
+      );
+
+    var births = showBirthday(day,month);
+    if (births != '')
+      document.write(
+        '<center><div class="subsub">Born on this day:</div>' +
+        births + '</center><br>'
+      );
+  }
+
+  if (window.CNY) {
+    var cny = new CNY(day,month,year);
+
+    document.write(
+      '<center>' +
+      '<img src="' + myChinese[cny.branch].animalImage +
+      '" width="48" height="48">' +
+      '<img src="' + stemImage1 +
+      '" width="48" height="48">' +
+      '<img src="' + stemImage2 +
+      '" width="48" height="48">' +
+      '<img src="' + myChinese[cny.stem].stemImage +
+      '" width="48" height="48">' +
+      '<img src="' + branchImage1 +
+      '" width="48" height="48">' +
+      '<img src="' + branchImage2 +
+      '" width="48" height="48">' +
+      '<img src="' + myChinese[cny.branch].branchImage +
+      '" width="48" height="48">' +
+      '<br>Chinese year of the ' + myChinese[cny.branch].animal +
+      '<br>(' +  cny.start + ' - ' + cny.end + ')<br>' +
+      '</center><br>'
+    );
+  }
+
+  if (window.Zodiac) {
+    var star = starSign(day,month);
+
+    document.write(
+      '<center>' +
+      myZodiac[star].sign + ' - ' +
+      myZodiac[star].symbol +
+      '<br>(' + starDateRange(day,month,year) + ')<br>' +
+      'Birthstone ' + myZodiac[star].birthstone +
+      ' Symbolizes ' + myZodiac[star].quality +
+      '</center><br>'
+    );
+  }
+
+  if (window.CalendarHead && window.CalendarMonth) {
+    size = '';
+    border = 'border="0"';
+    dow = new Array('S','M','T','W','T','F','S',
+                    'S','M','T','W','T','F');
+    moy = new Array(
+      'Jan','Feb','Mar','Apr','May','Jun',
+      'Jul','Aug','Sep','Oct','Nov','Dec'
+    );
+
+    var prevYear = nextYear = year
+    var prevMonth = month-1;
+    var nextMonth = month+1;
+
+    if (prevMonth<1) prevMonth=12, prevYear--;
+    if (nextMonth>12) nextMonth=1, nextYear++;
+
+    document.write(
+      '<center><table class="cal" border="0"><tr>' +
+      '<td valign="top">' +
+      CalendarHead(prevMonth,prevYear) +
+      CalendarMonth(prevMonth,prevYear,1) +
+      '</td><td>&nbsp;</td><td valign="top">' +
+      CalendarHead(month,year) +
+      CalendarMonth(month,year,1) +
+      '</td><td>&nbsp;</td><td valign="top">' +
+      CalendarHead(nextMonth,nextYear) +
+      CalendarMonth(nextMonth,nextYear,1) +
+      '</td></tr></table></center>'
+    );
+  }
+}
+else {
+  alert('Invalid date!');
+}
+//--></script>
+
+</p>
+
+</body>
+
+</html>

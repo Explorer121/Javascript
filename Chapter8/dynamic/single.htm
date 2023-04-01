@@ -1,0 +1,64 @@
+<html>
+
+<head>
+<title>Dynamic Drop Down Menus - Single</title>
+
+<script language="JavaScript"><!--
+function onChange(fRef, sName, tName, vName) {
+  var i = fRef[sName].selectedIndex;
+  fRef[tName].value = fRef[sName].options[i].text;
+  fRef[vName].value = fRef[sName].options[i].value;
+}
+
+function deleteOption(fRef, sName) {
+  var i = fRef[sName].selectedIndex;
+  fRef[sName].options[i] = null;
+}
+
+function addOption(fRef, sName, sText, sValue) {
+  var def = true;
+  var sel = true;
+  var optionName = new Option(sText, sValue, def, sel);
+  var length = fRef[sName].length;
+  fRef[sName].options[length] = optionName;
+}
+
+function replaceOption(fRef,sName,sText,sValue) {
+  var i = fRef[sName].selectedIndex;
+  fRef[sName].options[i].text = sText;
+  fRef[sName].options[i].value = sValue;
+}
+//--></script>
+
+</head>
+
+<body>
+
+<form>
+<select name="select1"
+  onChange="onChange(this.form, 'select1', 'text1', 'value1')">
+<option value="Option 0" selected>Entry 0
+<option value="Option 1">Entry 1
+<option value="Option 2">Entry 2
+<option value="Option 3">Entry 3
+<option value="Option 4">Entry 4
+<option value="Option 5">Entry 5
+</select>
+<br>
+<input name="text1" type="text" value=""> - text
+<br>
+<input name="value1" type="text" value=""> - value
+<br>
+<input type="button" value="Delete"
+  onClick="deleteOption(this.form, 'select1')">
+<input type="button" value="Add"
+  onClick="addOption(this.form, 'select1',
+    this.form['text1'].value, this.form['value1'].value)">
+<input type="button" value="Replace"
+  onClick="replaceOption(this.form, 'select1',
+    this.form['text1'].value, this.form['value1'].value)">
+</form>
+
+</body>
+
+</html>

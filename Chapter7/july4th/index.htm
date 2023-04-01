@@ -1,0 +1,53 @@
+<html>
+
+<head>
+
+<title>Born on the 4th of July</title>
+
+<script src="current.js" language="JavaScript"></script>
+<script src="july4th.js" language="JavaScript"></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+if (window.formatFullDate && window.setBirthday) {
+  var today = new Date();
+  var day   = today.getDate();
+  var month = today.getMonth()+1;
+  var year  = today.getFullYear();
+
+  var m = monthsOfYear[month-1].substring(0,3).toLowerCase();
+
+  document.write(
+    '<script src="birth' + m + '.js"><\/script>'
+  );
+}
+//--></script>
+
+<script language="JavaScript"><!--
+if (window.formatFullDate && window.setBirthday) {
+  document.write(
+    'Today: ' + formatFullDate(day, month, year) + '<br>'
+  );
+
+  var events = showEvent(day,month);
+  if (events != '')
+    document.write(
+      'On this day: ' +
+      events + '<br>'
+    );
+
+  var births = showBirthday(day,month);
+  if (births != '')
+    document.write(
+      'Born on this day: ' +
+      births + '<br>'
+    );
+}
+//--></script>
+
+</body>
+
+</html>

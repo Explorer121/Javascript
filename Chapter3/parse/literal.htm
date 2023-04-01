@@ -1,0 +1,11 @@
+<script language="JavaScript"><!--
+var string = 'a list of (key words) or "a phrase"';
+
+var re = /"[^"]*"|\([^(]*\)|\w+/g;
+
+var splitArray = string.match(re);
+
+for (var i=0; i<splitArray.length; i++) {
+  document.write(splitArray[i] + '<br>');
+}
+//--></script>

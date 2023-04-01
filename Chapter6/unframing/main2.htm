@@ -1,0 +1,92 @@
+<html>
+<head>
+
+<script language="JavaScript"><!--
+var frame = 'main';
+var key = 'ergi87143548_';
+var search = 'menu=menu2.htm&title=title2.htm&main=main2.htm';
+
+function loadtop(url) {
+  if (document.images)
+    top.location.replace(url);
+  else
+    top.location.href = url;
+}
+
+function getFullPath(s) {
+  if (s.indexOf('/') != -1)
+    return s.substring(0,s.lastIndexOf('/') + 1);
+  else
+    return s.substring(0,s.lastIndexOf('\\') + 1);
+}
+
+function redirect() {
+  loadtop(
+    self.location.protocol + '//' + self.location.host +
+    getFullPath(self.location.pathname) + 'frameset.htm?' +
+    search
+  );
+}
+
+function checkforframe() {
+  if (document.images && document.layers)
+    if (self.innerHeight == 0 && self.innerWidth == 0)
+      return;
+
+  if (top == self) redirect();
+  else if (this.name.indexOf(key) == -1 ||
+           this.name.indexOf(frame) == -1) redirect();
+  else parent.synchronize('menu2.htm', 'title2.htm');
+}
+//--></script>
+
+</head>
+
+<body onLoad="checkforframe()">
+
+<h2>Main 2</h2>
+
+<p>
+This is the <em>main2.htm</em> document.
+</p>
+
+<p>
+<a href="main.htm">main.htm</a>
+<a href="main1.htm">main1.htm</a>
+main2.htm
+<a href="main3.htm">main3.htm</a>
+</p>
+
+<p>
+Attempt to load the following as the <em>top</em> window:
+<br>
+<a href="main.htm" target="_top">main.htm</a>
+<a href="main1.htm" target="_top">main1.htm</a>
+<a href="main2.htm" target="_top">main2.htm</a>
+<a href="main3.htm" target="_top">main3.htm</a>
+<br>
+<a href="menu.htm" target="_top">menu.htm</a>
+<a href="menu1.htm" target="_top">menu1.htm</a>
+<a href="menu2.htm" target="_top">menu2.htm</a>
+<a href="menu3.htm" target="_top">menu3.htm</a>
+<br>
+<a href="title.htm" target="_top">title.htm</a>
+<a href="title1.htm" target="_top">title1.htm</a>
+<a href="title2.htm" target="_top">title2.htm</a>
+<a href="title3.htm" target="_top">title3.htm</a>
+</p>
+
+<p>
+Attempt to load the following in this window:
+<br>
+<a href="frameset.htm?menu=menu.htm&title=title.htm&main=main.htm">frameset.htm?menu=menu.htm&title=title.htm&main=main.htm</a>
+<br>
+<a href="frameset.htm?menu=menu1.htm&title=title1.htm&main=main1.htm">frameset.htm?menu=menu1.htm&title=title1.htm&main=main1.htm</a>
+<br>
+<a href="frameset.htm?menu=menu2.htm&title=title2.htm&main=main2.htm">frameset.htm?menu=menu2.htm&title=title2.htm&main=main2.htm</a>
+<br>
+<a href="frameset.htm?menu=menu3.htm&title=title3.htm&main=main3.htm">frameset.htm?menu=menu3.htm&title=title3.htm&main=main3.htm</a>
+</p>
+
+</body>
+</html>

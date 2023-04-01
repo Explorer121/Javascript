@@ -1,0 +1,92 @@
+<html>
+
+<head>
+
+<title>Builder</title>
+
+<style><!--
+select { width: 300; }
+input { text-align: right; }
+h1, td, p { font-family: Arial; }
+.l { position: absolute; visibility: hidden; display: block; }
+//--></style>
+
+<script language="JavaScript" src="builder.js"></script>
+
+<script language="JavaScript" src="database.js"></script>
+
+<script language="JavaScript" src="dom.js"></script>
+
+<script language="JavaScript" src="money.js"></script>
+
+</head>
+
+<script language="JavaScript"><!--
+var form = new Form('form', 'nextpage.htm');
+
+var input = output = name = value = equal = ampersand = '';
+
+if (location.search.length > 0)
+  input = location.search.substring(1);
+
+input = input.replace(/\+/g,' ');
+
+while (input.length > 0) {
+  equal = input.indexOf('=');
+  name = unescape(input.substring(0,equal));
+  input = input.substring(input.indexOf('=')+1);
+
+  ampersand = input.indexOf('&');
+  value = input.substring(0,ampersand);
+  input = input.substring(input.indexOf('&')+1);
+
+  if (value == '' && ampersand == -1) {
+    value = input;
+    input = '';
+  }
+
+  value = unescape(value);
+  value = value.replace(/&/g,'&amp');
+  value = value.replace(/</g,'&lt;');
+  value = value.replace(/>/g,'&gt;');
+
+  if (value != '--') {
+    var price = selects[name].add(value);
+    form.add(name, price);
+  }
+}
+
+function start() {
+  if (window.DOMObjects)
+    DOMInitialize('div');
+
+  if (window.form && window.total)
+    total(document.forms[form.name]);
+}
+//--></script>
+
+<body onLoad="start()">
+
+<h1>Confirm selection</h1>
+
+<center>
+
+<script language="JavaScript"><!--
+if (window.form) document.write(showString(form));
+//--></script>
+
+</center>
+
+<div id="dynamicArea" class="l" style="width: 100%;">
+<form name="outputForm">
+<table>
+<tr><td>Monthly</td><td><input type="text" name="monthly" size="10"></td></tr>
+<tr><td>Setup</td><td><input type="text" name="setup" size="10"></td></tr>
+<tr><td>Total</td><td><input type="text" name="total" size="10"></td></tr>
+</table>
+</form>
+</div>
+
+</body>
+
+</html>

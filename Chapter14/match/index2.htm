@@ -1,0 +1,207 @@
+<html>
+
+<head>
+
+<title>Icon Match 2</title>
+
+<script language="JavaScript"><!--
+var running = 0;
+var count
+
+var tiles = 6;
+var sets = 4;
+var howmany = 21;
+var width = 6;
+var height = 7;
+var board = new Array(width * height);
+var sel = -1;
+var delay = 750;
+var player = 1;
+
+function preload() {
+  if (document.images) {
+    tile = new makeArray(tiles * sets + 1);
+    tile[0].src= 'images/tileup.gif';
+    for (var s = 1; s <= sets; s++) {
+      for (var t = 1; t <= tiles; t++) {
+        tile[((s-1) * tiles) + t].src = 'images/' + s + '_' + t + '.gif';
+      }
+    }
+    stu = new makeArray(2);
+    stu[0].src = 'images/blank.gif';
+    stu[1].src = 'images/notblank.gif';
+
+  }
+  else alert('Sorry, this game needs to run on a browser\nwhich supports images');
+}
+
+function select(pos) {
+  if (!running) return;
+
+  if (sel >= 0) {
+
+    if (document.images['' + pos].src == tile[0].src) {
+
+      document.images['' + pos].src = tile[board[pos]].src;
+
+      if (board[pos] == board[sel]) {
+        running = 0;
+        setTimeout('clear(' + sel + ',' + pos + ',1)', delay);
+        setTimeout('document.user.score' + player + '.value++', delay+10);
+        count++;
+        if (count == howmany)
+          setTimeout('gameover()', delay+10);
+      }
+      else {
+        running = 0;
+        setTimeout('clear(' + sel + ',' + pos + ',0)', delay);
+        setTimeout('swap_player()', delay+10);
+      }
+      sel = -1;
+    }
+
+  }
+  else if (document.images[pos].src != stu[0].src) {
+    document.images['' + pos].src = tile[board[pos]].src;
+    sel = pos;
+  }
+}
+
+function clear(posA, posB, flag) {
+  var clear = (flag) ? stu[0].src : tile[0].src
+  document.images['' + posA].src = clear;
+  document.images['' + posB].src = clear;
+  running= 1;
+}
+
+function gameover() {
+  var one = document.user.score1.value * 1;
+  var two = document.user.score2.value * 1;
+  if (one> two)
+    alert("Congratulations, player 1!");
+  else
+    alert("Congratulations, player 2!");
+}
+
+function newgame() {
+  for (var i = 0; i < (width * height); i++) {
+    board[i] = 0;
+    document.images['' + i].src = tile[0].src;
+  }
+
+  var temp = new Array(tiles * sets + 1);
+  for (var i = 0; i < tiles * sets + 1; i++)
+    temp[i] = 0;
+  var what = (rand(sets) * tiles) + rand(tiles) + 1;
+  var where = rand(width * height);
+
+  for (var i = 0; i < howmany; i++) {
+    while (temp[what])
+      what = (rand(sets) * tiles) + rand(tiles) + 1;
+    temp[what] = 1;
+    while (board[where])
+      where = rand(width * height);
+    board[where] = what;
+    while (board[where])
+      where = rand(width * height);
+    board[where] = what;
+  }
+
+  document.user.score1.value = 0;
+  document.user.score2.value = 0;
+  sel = -1;
+  count = 0;
+  running = 1;
+}
+
+function swap_player() {
+  document.images['p' + player].src = stu[0].src;
+  player = (3 - player);
+  document.images['p' + player].src = stu[1].src;
+}
+
+
+function help() {
+  alert('The aim of this memory game is to match up\nmore pairs of tiles than your opponent.');
+}
+
+
+function rand(n) {
+  return Math.floor(Math.random() * n);
+}
+
+function makeArray(n) {
+  this.length = n;
+  for (i = 0; i < n; i++)
+    this[i] = new Image();
+  return this;
+}
+
+function getParm(string,parm) {
+  var startPos = string.indexOf(parm + '=');
+  if (startPos > -1) {
+    startPos = startPos + 2;
+    var endPos = string.indexOf("&",startPos);
+    if (endPos == -1) endPos = string.length;
+    return unescape(string.substring(startPos,endPos));
+  }
+  return '';
+}
+//--></script>
+
+</head>
+
+<body bgcolor="#990000" text="#ffeeee" link="#ffcccc" vlink="#cc9999" alink="#000099">
+
+<center>
+
+<font face="Arial, Helvetica, sans-serif">
+
+<script language="JavaScript"><!--
+var output= '';
+output += '<form name="user">';
+output += '<table align="center" cellspacing="4" cellpadding="6" border="0">\n';
+output += '<tr><td align="center"><h1>Con Match 2</h1></td><td>&nbsp;</td></tr>\n';
+
+output += '<tr><td align="center"><table cellspacing="2" cellpadding="0" border="1">\n';
+for (y=0; y<height; y++) {
+  for (x=0; x<width; x++) {
+    if (x == 0) output+= '<tr>';
+    output += '<td><a href="javascript:select('+((y*width)+x)+')" onFocus="blur()">';
+    output += '<img src="images/tileup.gif" onDblClick="select('+((y*width)+x)+')"';
+    output += ' name="'+((y*width)+x)+'" width="40" height="40" alt="" border="0"></a></td>';
+    if (x == width-1) output += '</tr>\n';
+  }
+}
+output += '</table></td>\n';
+
+output += '<td bgcolor="#660000" valign="top" align=center><table cellpadding="2" cellspacing="0" border="0">\n';
+output += '<tr><td align="center"><b>Player 1</b></td></tr>';
+output += '<tr><td align="center"><img src="../common/notblank.gif"';
+output += ' name="p1" width="60" height="5" alt="" border="0"></td></tr>';
+output += '<tr><td align="center"><input type="text"';
+output += ' name="score1" size="2" value="0" onFocus="blur()"></td></tr>\n';
+output += '<tr><td align="center"><br><b>Player 2</b></td></tr>';
+output += '<tr><td align="center"><img src="../common/blank.gif"';
+output += ' name="p2" width="60" height="5" alt="" border="0"></td></tr>';
+output += '<tr><td align="center"><input type="text"';
+output += ' name="score2" size="2" value="0" onFocus="blur()"></td></tr>\n';
+
+output += '<tr><td align="center"><br><input type="button" value=" New Game "';
+output += ' onClick="newgame()" onFocus="blur()"></td></tr>\n';
+output += '<tr><td align="center"><br><b><a href="javascript:help()">INSTRUCTIONS</a>';
+output += '</b></td></tr></table></td></tr>\n';
+
+output += '</table></form>\n';
+document.write(output);
+preload();
+newgame();
+//--></script>
+
+</font>
+
+</center>
+
+</body>
+
+</html>

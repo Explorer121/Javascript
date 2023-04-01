@@ -1,0 +1,35 @@
+<html>
+
+<head>
+<title>Sample sorting</title>
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+function show() {
+  var string = myArray.join(' ');
+  document.write(string + '<br>');
+}
+
+var myArray = new Array(
+  'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet'
+);
+
+show();
+
+myArray.sort();
+show();
+
+function reverse(a, b) { return a<b; }
+myArray.sort(reverse)
+show();
+
+function length(a, b) { return a.length-b.length }
+myArray.sort(length)
+show();
+//--></script>
+
+</body>
+
+</html>

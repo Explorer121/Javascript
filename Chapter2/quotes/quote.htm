@@ -1,0 +1,31 @@
+<html>
+
+<head>
+<title>Random Quote of the Day</title>
+
+<script language="JavaScript"><!--
+function rndInteger(n) {
+  return Math.floor(Math.random() * n);
+}
+
+var today = new Date();
+var day = today.getDate();
+var file = 'quote' + day + '.js';
+
+document.write(
+  '<script language="JavaScript" src="' + file + '"><\/script>'
+);
+//--></script>
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+if (window.qs) {
+  var rnd = rndInteger(qs.length);
+  document.write(qs[rnd]);
+}
+//--></script>
+
+</body>
+</html>

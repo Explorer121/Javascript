@@ -1,0 +1,33 @@
+<html>
+
+<head>
+
+<title>Personality Test</title>
+
+<script language="JavaScript" src="dom.js"></script>
+<script language="JavaScript" src="personality.js"></script>
+
+<style><!--
+.l { position: absolute; display: block; }
+//--></style>
+
+<script language="JavaScript"><!--
+function start() {
+  if (window.DOMObjects) DOMInitialize('div');
+
+  if (window.DOMObjects && window.tallyScore && window.show)
+    show();
+}
+//--></script>
+
+<script language="JavaScript" src="questions.js"></script>
+
+</head>
+
+<body onLoad="start()">
+
+<div id="myDiv" class="l" style="left:100; top:30;"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+<html>
+
+<head>
+
+<title>Fading Images</title>
+
+<script language="JavaScript"><!--
+function Rollover() {
+  this.i = 0;
+  this.inFade = false;
+  this.outFade = false;
+  this.inTimeout = null;
+  this.outTimeout = null;
+}
+
+if (document.images) {
+  var image = new Array();
+  for (var i=0; i<6; i++) {
+    image[i] = new Image(50,50);
+    image[i].src = 'circle-' + i + '.gif';
+  }
+
+  var rollovers = new Array();
+  for (var i=0; i<14; i++) rollovers[i] = new Rollover();
+}
+
+function swapOn(name) {
+  if (document.images) {
+    clearTimeout(rollovers[name].outTimeout);
+    rollovers[name].inFade = true;
+    rollovers[name].outFade = false;
+    fadeIn(name);
+  }
+}
+
+function swapOff(name) {
+  if (document.images) {
+    clearTimeout(rollovers[name].inTimeout);
+    rollovers[name].outFade = true;
+    rollovers[name].inFade = false;
+    fadeOut(name);
+  }
+}
+
+function fadeIn(n) {
+  if (rollovers[n].inFade && rollovers[n].i<5) {
+    document.images['c' + n].src = image[++rollovers[n].i].src;
+    rollovers[n].inTimeout = setTimeout('fadeIn("'+n+'")',50);
+  }
+}
+
+function fadeOut(n) {
+  if (rollovers[n].outFade && rollovers[n].i>0) {
+    document.images['c' + n].src = image[--rollovers[n].i].src;
+    rollovers[n].outTimeout = setTimeout('fadeOut("'+n+'")',150);
+  }
+}
+//--></script>
+
+</head>
+
+<body>
+
+<table>
+<tr>
+<td>
+<a href="../../chapter1/" onMouseOver="swapOn(0)" onMouseOut="swapOff(0)"
+><img src="circle-0.gif" name="c0" width="50" height="50" alt="Introduction" border="0"
+><img src="chapter1.gif" width="200" height="50" alt="Introduction" border="0"
+></a>
+</td><td>
+<a href="../../chapter2/" onMouseOver="swapOn(1)" onMouseOut="swapOff(1)"
+><img src="circle-0.gif" name="c1" width="50" height="50" alt="Maths and Numbers" border="0"
+><img src="chapter2.gif" width="200" height="50" alt="Maths and Numbers" border="0"
+></a>
+</td></tr><tr><td>
+<a href="../../chapter3/" onMouseOver="swapOn(2)" onMouseOut="swapOff(2)"
+><img src="circle-0.gif" name="c2" width="50" height="50" alt="Strings and Regular Expressions" border="0"
+><img src="chapter3.gif" width="200" height="50" alt="Strings and Regular Expressions" border="0"
+></a>
+</td><td>
+<a href="../../chapter4/" onMouseOver="swapOn(3)" onMouseOut="swapOff(3)"
+><img src="circle-0.gif" name="c3" width="50" height="50" alt="Arrays and Objects" border="0"
+><img src="chapter4.gif" width="200" height="50" alt="Arrays and Objects" border="0"
+></a>
+</td></tr><tr><td>
+<a href="../../chapter5/" onMouseOver="swapOn(4)" onMouseOut="swapOff(4)"
+><img src="circle-0.gif" name="c4" width="50" height="50" alt="Location and Links" border="0"
+><img src="chapter5.gif" width="200" height="50" alt="Location and Links" border="0"
+></a>
+</td><td>
+<a href="../../chapter6/" onMouseOver="swapOn(5)" onMouseOut="swapOff(5)"
+><img src="circle-0.gif" name="c5" width="50" height="50" alt="Windows and Frames" border="0"
+><img src="chapter6.gif" width="200" height="50" alt="Windows and Frames" border="0"
+></a>
+</td></tr><tr><td>
+<a href="../../chapter7/" onMouseOver="swapOn(6)" onMouseOut="swapOff(6)"
+><img src="circle-0.gif" name="c6" width="50" height="50" alt="Date and Time" border="0"
+><img src="chapter7.gif" width="200" height="50" alt="Date and Time" border="0"
+></a>
+</td><td>
+<a href="../../chapter8/" onMouseOver="swapOn(7)" onMouseOut="swapOff(7)"
+><img src="circle-0.gif" name="c7" width="50" height="50" alt="Forms" border="0"
+><img src="chapter8.gif" width="200" height="50" alt="Forms" border="0"
+></a>
+</td></tr><tr><td>
+<a href="../../chapter9/" onMouseOver="swapOn(8)" onMouseOut="swapOff(8)"
+><img src="circle-0.gif" name="c8" width="50" height="50" alt="Images" border="0"
+><img src="chapter9.gif" width="200" height="50" alt="Images" border="0"
+></a>
+</td><td>
+<a href="../../chapter10/" onMouseOver="swapOn(9)" onMouseOut="swapOff(9)"
+><img src="circle-0.gif" name="c9" width="50" height="50" alt="Cookies" border="0"
+><img src="chapter10.gif" width="200" height="50" alt="Cookies" border="0"
+></a>
+</td></tr><tr><td>
+<a href="../../chapter11/" onMouseOver="swapOn(10)" onMouseOut="swapOff(10)"
+><img src="circle-0.gif" name="c10" width="50" height="50" alt="Dynamic HTML" border="0"
+><img src="chapter11.gif" width="200" height="50" alt="Dynamic HTML" border="0"
+></a>
+</td><td>
+<a href="../../chapter12/" onMouseOver="swapOn(11)" onMouseOut="swapOff(11)"
+><img src="circle-0.gif" name="c11" width="50" height="50" alt="Applications" border="0"
+><img src="chapter12.gif" width="200" height="50" alt="Applications" border="0"
+></a>
+</td></tr><tr><td>
+<a href="../../chapter13/" onMouseOver="swapOn(12)" onMouseOut="swapOff(12)"
+><img src="circle-0.gif" name="c12" width="50" height="50" alt="Utilities" border="0"
+><img src="chapter13.gif" width="200" height="50" alt="Utilities" border="0"
+></a>
+</td><td>
+<a href="../../chapter14/" onMouseOver="swapOn(13)" onMouseOut="swapOff(13)"
+><img src="circle-0.gif" name="c13" width="50" height="50" alt="Fun Stuff" border="0"
+><img src="chapter14.gif" width="200" height="50" alt="Fun Stuff" border="0"
+></a>
+</td></tr>
+</table>
+
+</body>
+
+</html>

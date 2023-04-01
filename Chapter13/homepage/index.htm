@@ -1,0 +1,30 @@
+<html>
+
+<head>
+
+<title>Make Home Page</title>
+
+<script language="JavaScript" src="homepage.js"></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+var page = top.location.href;
+
+if (window.setHomepage) {
+  if (document.layers || document.getElementById) {
+    document.write(
+      '<p>' +
+      '<a href="#" onClick="return setHomepage(this, page)">' +
+      'Make this page your Home Page</a>' +
+      '</p>'
+    );
+  }
+}
+//--></script>
+
+</body>
+
+</html>

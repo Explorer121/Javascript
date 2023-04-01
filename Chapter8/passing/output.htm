@@ -1,0 +1,102 @@
+<html>
+
+<head>
+<title>Passing data from one form to another</title>
+</head>
+
+<body>
+
+<form name="formname" action="output.htm">
+<table>
+<tr><td>Text</td><td><input type="text" name="textname"></td></tr>
+<tr><td>Textarea</td><td><textarea name="textareaname"></textarea></td></tr>
+<tr><td>Password</td><td><input type="password" name="passwordname"></td></tr>
+<tr><td>Select</td><td>
+<select name="selectname">
+<option value="a">First Choice
+<option value="b">Second Choice
+<option value="c">Third Choice
+</select>
+</td></tr>
+<tr><td>Multiple Select</td><td>
+<select multiple name="multipleselectname">
+<option value="x">First Choice
+<option value="y">Second Choice
+<option value="z">Third Choice
+</select>
+</td></tr>
+<tr><td>Checkbox</td><td><input type="checkbox" name="checkboxname"></td></tr>
+<tr><td>Radio</td><td>
+<input type="radio" name="radioname" value="yes" onClick="0">
+<input type="radio" name="radioname" value="no" onClick="0">
+</td></tr>
+<tr><td>Hidden</td><td><input type="hidden" name="hiddenname" value="hidden value"></td></tr>
+</table>
+<input type="submit">
+<input type="reset">
+</form>
+
+<script language="JavaScript"><!--
+function getNthParm(string,parm,nth) {
+  if (!string) return '';
+  var count = 1;
+  var startPos = 0 + string.indexOf(parm + '=');
+  while (startPos > -1) {
+    startPos = startPos + parm.length + 1;
+    var endPos = 0 + string.indexOf('&',startPos);
+    if (endPos == -1)
+      endPos = string.length;
+    if (count == nth)
+      return unescape(string.substring(startPos,endPos));
+    startPos = 0 + string.indexOf(parm + '=',endPos);
+    count++;
+  }
+  return '';
+}
+
+function reloadForm(fRef, passed) {
+  fRef.textname.value = getNthParm(passed,'textname',1);
+  fRef.textareaname.value = getNthParm(passed,'textareaname',1);
+  fRef.passwordname.value = getNthParm(passed,'passwordname',1);
+
+  fRef.checkboxname.checked = getNthParm(passed,'checkboxname',1);
+
+  var value = getNthParm(passed,'selectname',1);
+  if (value != '') {
+    for (var i=0; i<fRef.selectname.length; i++) {
+      if (fRef.selectname[i].value == value) {
+        fRef.selectname[i].selected = true;
+      }
+    }
+  }
+
+  for (var i=1; i<=fRef.multipleselectname.length; i++) {
+    var value = getNthParm(passed,'multipleselectname',i);
+    if (value != '') {
+      for (var j=0; j<fRef.multipleselectname.length; j++) {
+        if (fRef.multipleselectname[j].value == value) {
+          fRef.multipleselectname[j].selected = true;
+        }
+      }
+    }
+  }
+
+  var value = getNthParm(passed,'radioname',1);
+  if (value != '') {
+    for (var i=0; i<fRef.radioname.length; i++) {
+      if (fRef.radioname[i].value == value) {
+        fRef.radioname[i].checked = true;
+      }
+    }
+  }
+}
+
+var passed = location.search;
+passed = passed.substring(1);
+if (passed.length > 0)
+  reloadForm(document.formname, passed.replace(/\+/g,' '));
+//--></script>
+
+</body>
+
+</html>

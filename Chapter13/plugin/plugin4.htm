@@ -1,0 +1,36 @@
+<html>
+
+<head>
+
+<title>Examining the plugins array</title>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+function retrieveMimeType (suffix) {
+    for (var i = 0; i < navigator.mimeTypes.length; i++) {
+        var suffixes = navigator.mimeTypes[i].suffixes;
+        if (suffixes.indexOf(suffix) != -1 &&
+            navigator.mimeTypes[i].enabledPlugin)
+              return navigator.mimeTypes[i].enabledPlugin.name;
+    }
+    return '';
+}
+
+var suffix = 'swf';
+
+var plugin = retrieveMimeType (suffix);
+
+if (plugin != '')
+    document.write(
+      'The file type extension <strong>' + suffix + '</strong>' +
+      ' is supported by the <strong>' + plugin + '</strong> plugin.<br>'
+    );
+else
+    document.write(
+      'The file type extension <strong>' + suffix + '</strong>' +
+      ' is not supported.<br>'
+    )
+//--></script>

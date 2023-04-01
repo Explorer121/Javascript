@@ -1,0 +1,332 @@
+<html>
+
+<head>
+
+<title>Floating Tool Tips</title>
+
+<script language="JavaScript" src="dom.js"></script>
+
+<script language="JavaScript"><!--
+function show(id,e) {
+  if (window.DOMObjects) {
+    DOMElementShow(DOMObjects[id]);
+
+    var x = DOMEventGetOffsetX(e) + 50;
+    var y = DOMEventGetOffsetY(e) + 50;
+
+    var width = DOMElementGetWidth(DOMObjects[id]);
+    var innerWidth = DOMWindowGetInnerWidth();
+    var xOffset = DOMWindowGetXOffset();
+
+    var height = DOMElementGetHeight(DOMObjects[id]);
+    var innerHeight = DOMWindowGetInnerHeight();
+    var yOffset = DOMWindowGetYOffset();
+
+    if (x > innerWidth + xOffset - width)
+      x = innerWidth + xOffset - width - 25;
+
+    if (y > innerHeight + yOffset - height)
+      y = y - height - 75;
+
+    DOMElementSetLeft(DOMObjects[id], x);
+    DOMElementSetTop(DOMObjects[id], y);
+  }
+}
+
+function hide() {
+  if (DOMObjects && DOMObjects.length>0)
+    for (var i=0; i<DOMObjects.length; i++)
+      DOMElementHide(DOMObjects[i]);
+}
+
+function start() {
+  if (window.DOMObjects)
+    DOMInitialize('div');
+}
+//--></script>
+
+<style><!--
+.l { position: absolute; visibility: hidden; display: block; }
+//--></style>
+
+</head>
+
+<body onLoad="start()">
+
+<div id="myLayer1" class="l" style="width:350; height:75">
+<table bgcolor="#c0c0c0" width="350"><tr><td>
+<p>Scott's first Law:
+<br>No matter what goes wrong, it will probably look right.</p>
+</td></tr></table>
+</div>
+
+<div id="myLayer2" class="l" style="width:300; height:200">
+<table bgcolor="#c0c0c0" width="300"><tr><td>
+<p>Scott's second Law:
+<br>When an error has been detected and corrected, it will be found	to have been wrong in the first place.</p>
+<p>Corollary:
+<br>After the correction has been found in error, it will be impossible to fit the original quantity back into the equation.</p>
+</td></tr></table>
+</div>
+
+<div id="myLayer3" class="l" style="width:350; height:75">
+<table bgcolor="#c0c0c0" width="350"><tr><td>
+<p>Finagle's first Law:
+<br>If an experiment works, something has gone wrong.
+</p>
+</td></tr></table>
+</div>
+
+<div id="myLayer4" class="l" style="width:350; height:75">
+<table bgcolor="#c0c0c0" width="350"><tr><td>
+<p>Finagle's second Law:
+<br>No matter what the anticipated result, there will always be someone eager to (a) misinterpret it, (b) fake it, or (c) believe it happened according to his own pet theory.</p>
+</td></tr></table>
+</div>
+
+<div id="myLayer5" class="l" style="width:450; height:160">
+<table bgcolor="#c0c0c0" width="450"><tr><td>
+<p>Finagle's third Law:
+<br>In any collection of data, the figure most obviously correct, beyond all need of checking, is the mistake</p>
+<p>Corollaries:
+<br>1. Nobody whom you ask for help will see it.
+<br>2. The first person who stops by, whose advice you really don't want to hear, will see it immediately.</p>
+</td></tr></table>
+</div>
+
+<div id="myLayer6" class="l" style="width:150; height:100">
+<table bgcolor="#c0c0c0" width="150"><tr><td>
+<p>Finagle's fourth Law:
+<br>Once a job is fouled up, anything done to improve it only makes it worse.</p>
+</td></tr></table>
+</div>
+
+<div id="myLayer7" class="l" style="width:100; height:120">
+<table bgcolor="#c0c0c0" width="100"><tr><td>
+<p>Simon's Law:
+<br>Everything put together falls apart sooner or later.</p>
+</td></tr></table>
+</div>
+
+<div id="myLayer8" class="l" style="width:200; height:100">
+<table bgcolor="#c0c0c0" width="200"><tr><td>
+<p>Ginsberg's Theorem:
+<br>1. You can't win.
+<br>2. You can't break even.
+<br>3. You can't even quit the game.</p>
+</td></tr></table>
+</div>
+
+<div id="myLayer9" class="l" style="width:420; height:150">
+<table bgcolor="#c0c0c0" width="420"><tr><td>
+<p>Freeman's Commentary on Ginsberg's theorem:
+<br>Every major philosophy that attempts to make life seem meaningful is based on the negation of one part of Ginsberg's Theorem.  To wit:</p>
+<p>1. Capitalism is based on the assumption that you can win.
+<br>2. Socialism is based on the assumption that you can break even.
+<br>3. Mysticism is based on the assumption that you can quit the game.</p>
+</td></tr></table>
+</div>
+
+<table width="900"><tr><td>
+
+<p>
+<a href="#" onMouseOver="show('myLayer1',event)" onMouseOut="hide()">Sed</a>
+ut perspiciatis unde
+<a href="#" onMouseOver="show('myLayer2',event)" onMouseOut="hide()">omnis</a>
+iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt.
+</p>
+
+<p>
+Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem.
+</p>
+
+<p>
+Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum
+<a href="#" onMouseOver="show('myLayer3',event)" onMouseOut="hide()">fuga</a>.
+</p>
+
+<p>
+Et harum quidem rerum facilis est et expedita distinctio.
+</p>
+
+<p>
+Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+<a href="#" onMouseOver="show('myLayer4',event)" onMouseOut="hide()">necessitatibus</a>
+saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus asperiores repellat.
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+<a href="#" onMouseOver="show('myLayer5',event)" onMouseOut="hide()">accusantium</a>
+doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo.
+</p>
+
+<p>
+Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt. Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem. Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga.
+<a href="#" onMouseOver="show('myLayer6',event)" onMouseOut="hide()">Et</a>
+harum quidem rerum facilis est et
+expedita distinctio. Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae.
+</p>
+
+<p>
+Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis
+<a href="#" onMouseOver="show('myLayer7',event)" onMouseOut="hide()">voluptatibus maiores</a>
+alias consequatur aut perferendis doloribus asperiores repellat.
+</p>
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt. Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem. Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga. Et harum quidem rerum facilis est et
+expedita distinctio. Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus asperiores repellat.
+</p>
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt.
+</p>
+
+<p>
+Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem. Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga. Et harum quidem rerum facilis est et
+expedita distinctio.
+</p>
+
+<p>
+<a href="#" onMouseOver="show('myLayer8',event)" onMouseOut="hide()">Nam libero tempore, cum soluta nobis est</a>
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus.
+</p>
+
+<p>
+Temporibus autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus asperiores repellat.
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt. Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem.
+</p>
+
+<p>
+Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga. Et harum quidem rerum facilis est et
+expedita distinctio. Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus
+<a href="#" onMouseOver="show('myLayer9',event)" onMouseOut="hide()">asperiores repellat</a>.
+</p>
+
+</td></tr></table>
+
+</body>
+</html>

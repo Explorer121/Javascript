@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet type="text/css" href="catalog1.css"?>
+<?xml-stylesheet type="text/css" href="catalog2.css"?>
+<?xml-stylesheet type="text/css" href="catalog3.css"?>
+<?xml-stylesheet type="text/css" href="catalog4.css"?>
+
+<html xmlns:html="http://www.w3.org/1999/xhtml">
+
+<html:title>Book Catalog - XML the DOM and style sheets</html:title>
+
+<html:body>
+
+<html:div id="picker"></html:div>
+
+<html:script src="catalog.js"></html:script>
+
+<html:div>
+  <book>
+    <isbn>0072127309</isbn>
+    <title>Instant ASP Scripts</title>
+    <image>
+      <html:img src="0072127309.jpg" width="110" height="140" />
+    </image>
+    <synopsis>
+    Active Server Pages (ASP) technology represents, in most
+    cases, the best server-side scripting choice for intranets,
+    extranets, and public Web sites served by Windows NT and
+    Internet Information Server (IIS). Instant ASP Scripts
+    provides network administrators with a crash course in ASP
+    work along with a considerable library of ready-to-use
+    scripts.
+    </synopsis>
+    <authors>
+      <author>Buczek, Greg</author>
+    </authors>
+    <pages>928pp</pages>
+    <price>$49.99</price>
+    <publisher>Osborne McGraw-Hill</publisher>
+  </book>
+</html:div>
+
+<html:div>
+  <book>
+    <isbn>0072126019</isbn>
+    <title>Instant JavaServer Pages</title>
+    <image>
+      <html:img src="0072126019.jpg" width="110" height="140" />
+    </image>
+    <synopsis>
+    Featuring plenty of short, practical examples, Instant
+    JavaServer Pages is a worthwhile tutorial to getting started
+    with today's JSP programming. This no-frills text is filled
+    with useful tips and sample solutions for using JSPs
+    effectively in real Web sites.
+    </synopsis>
+    <authors>
+      <author>Tremblett, Paul</author>
+    </authors>
+    <pages>550pp</pages>
+    <price>$49.99</price>
+    <publisher>Osborne McGraw-Hill</publisher>
+  </book>
+</html:div>
+
+<html:div>
+  <book>
+    <isbn>0072124253</isbn>
+    <title>Instant Java Servlets</title>
+    <image>
+      <html:img src="0072124253.jpg" width="110" height="140" />
+    </image>
+    <synopsis>
+    Written with the busy Java Web developer in mind, Instant
+    Java Servlets offers an impressive mix of hands-on sample
+    code that will solve many common programming problems. This
+    practically minded guide to servlet and Java Server Pages
+    (JSPs) can be a valuable time-saver for anyone tackling
+    Java development for the first time.
+    </synopsis>
+    <authors>
+      <author>Hanna, Phil</author>
+    </authors>
+    <pages>816pp</pages>
+    <price>$49.99</price>
+    <publisher>Osborne McGraw-Hill</publisher>
+  </book>
+</html:div>
+
+<html:div>
+  <book>
+    <isbn>007212994x</isbn>
+    <title>Instant JavaScript</title>
+    <authors>
+      <author>Webb, Martin</author>
+      <author>Plungjan, Michel</author>
+      <author>Drakard, Keith</author>
+    </authors>
+    <pages>804pp</pages>
+    <price>$49.99</price>
+    <publisher>Osborne McGraw-Hill</publisher>
+  </book>
+</html:div>
+
+</html:body>
+
+</html>

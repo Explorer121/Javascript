@@ -1,0 +1,74 @@
+<html>
+
+<head>
+
+<title>Flash detection and embedding</title>
+
+<script language="JavaScript"><!--
+var ver = -1;
+var mac =
+  (navigator.appVersion.toLowerCase().indexOf('mac') != -1);
+
+if (navigator.appName == 'Netscape') {
+    if (navigator.plugins["Shockwave Flash 2.0"]) ver = 2;
+    else if (navigator.plugins["Shockwave Flash"]) {
+        var desc = navigator.plugins["Shockwave Flash"].description;
+        var verPos  = desc.lastIndexOf('.');
+        ver = parseInt(desc.substring(verPos - 1, verPos));
+    }
+}
+//--></script>
+
+<script language="VBScript"><!--
+Dim shockwave
+shockwave = "ShockwaveFlash.ShockwaveFlash."
+
+on error resume next
+
+if (NOT IsNull(CreateObject(shockwave & "2"))) Then ver=2
+if (NOT IsNull(CreateObject(shockwave & "3"))) Then ver=3
+if (NOT IsNull(CreateObject(shockwave & "4"))) Then ver=4
+if (NOT IsNull(CreateObject(shockwave & "5"))) Then ver=5
+//--></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+if (ver > -1) {
+    if (navigator.appName == 'Microsoft Internet Explorer') {
+        if (!mac)
+          document.write(
+            '<object classid="clsid:' +
+            'D27CDB6E-AE6D-11cf-96B8-444553540000"' +
+            ' width="640" height="480">' +
+            '<param name="movie" value="flash' +ver+ '.swf">' +
+            '<param name="play" value="true">' +
+            '<param name="loop" value="true">' +
+            '</object>'
+          );
+    }
+    else if (navigator.appName == 'Netscape') {
+        document.write(
+          '<embed src="flash' + ver + '.swf" width="640" height="480">'
+        );
+    }
+}
+else {
+    document.write(
+      '<a href="http://www.macromedia.com/go/getflashplayer/">' +
+      '<img src="get_flashplayer.gif" width="88" height="31" border="0"'+
+      ' alt="Download Flash"></a>'
+    );
+}
+//--></script>
+
+<noscript>
+<img src="sample.gif" width="640" height="480"
+  alt="A screenshot from the Flash movie">
+</noscript>
+
+</body>
+
+</html>

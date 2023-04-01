@@ -1,0 +1,34 @@
+<html>
+
+<head>
+<title>Dictionary Popup</title>
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+function d(what) {
+  myFloater = window.open(
+    'define.htm' + '?' + escape(what),
+    'myWindow',
+    'width=300,height=300'
+  )
+
+  return false;
+}
+//--></script>
+
+<p>
+You can
+<a href="#" onClick="return d('connect')">connect</a> a
+<a href="#" onClick="return d('telephone line')">telephone line</a> to a
+<a href="#" onClick="return d('computer')">computer</a> using a
+<a href="#" onClick="return d('modem')">modem</a> to enable you to
+<a href="#" onClick="return d('send')">send</a> electronic
+<a href="#" onClick="return d('messages')">messages</a>
+<a href="#" onClick="return d('around')">around</a> the world.
+</p>
+
+</body>
+
+</html>

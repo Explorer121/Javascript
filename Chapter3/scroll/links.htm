@@ -1,0 +1,189 @@
+<script language="JavaScript"><!--
+var textArray = new Array();
+var urlArray = new Array();
+
+var links = 0;
+
+var currentLink = -1;
+
+var string1 = string2 = string3 = '';
+
+var scrolling = false;
+
+var timer;
+
+function link(text, link) {
+  textArray[links] = text;
+  urlArray[links] = link;
+  links++;
+}
+
+link(
+  "Authoring Tool Accessibility Guidelines 1.0",
+  "http://www.w3.org/TR/ATAG10"
+);
+link(
+  "XHTML 1.0: The Extensible HyperText Markup Language",
+  "http://www.w3.org/TR/xhtml1"
+);
+link(
+  "HTML 4.01 Specification",
+  "http://www.w3.org/TR/html401"
+);
+link(
+  "XSL Transformations (XSLT) Version 1.0",
+  "http://www.w3.org/TR/xslt"
+);
+link(
+  "XML Path Language (XPath) Version 1.0",
+  "http://www.w3.org/TR/xpath"
+);
+link(
+  "Associating Style Sheets with XML documents",
+  "http://www.w3.org/TR/xml-stylesheet"
+);
+link(
+  "Web Content Accessibility Guidelines 1.0",
+  "http://www.w3.org/TR/WAI-WEBCONTENT"
+);
+link(
+  "Resource Description Framework (RDF) Model",
+  "http://www.w3.org/TR/REC-rdf-syntax"
+);
+link(
+  "WebCGM Profile",
+  "http://www.w3.org/TR/REC-WebCGM"
+);
+link(
+  "Namespaces in XML",
+  "http://www.w3.org/TR/REC-xml-names"
+);
+link(
+  "Document Object Model (DOM) Level 1",
+  "http://www.w3.org/TR/REC-DOM-Level-1"
+);
+link(
+  "Synchronized Multimedia Integration Language (SMIL) 1.0",
+  "http://www.w3.org/TR/REC-smil/"
+);
+link(
+  "PICS Signed Labels (DSig) 1.0 Specification",
+  "http://www.w3.org/TR/REC-DSig-label/"
+);
+link(
+  "Cascading Style Sheets, level 2 (CSS2) Specification",
+  "http://www.w3.org/TR/REC-CSS2"
+);
+link(
+  "Extensible Markup Language (XML) 1.0 Specification",
+  "http://www.w3.org/TR/REC-xml"
+);
+link(
+  "PICSRules 1.1 Specification",
+  "http://www.w3.org/TR/REC-PICSRules"
+);
+link(
+  "HTML 3.2 Reference Specification",
+  "http://www.w3.org/TR/REC-html32"
+);
+link(
+  "Cascading Style Sheets (CSS1) Level 1 Specification",
+  "http://www.w3.org/TR/REC-CSS1"
+);
+link(
+  "PICS 1.1 Rating Services and Rating Systems",
+  "http://www.w3.org/TR/REC-PICS-services"
+);
+link(
+  "PICS 1.1 Label Distribution",
+  "http://www.w3.org/TR/REC-PICS-labels"
+);
+link(
+  "PNG (Portable Network Graphics) Specification",
+  "http://www.w3.org/TR/REC-png"
+);
+
+function formatLink(text,link) {
+  return '<a href="' + link + '"' +
+         ' onMouseover="stopScroll()"' +
+         ' onMouseout="startScroll()">' +
+         text + '<\/a> ';
+}
+
+function prepareLinks() {
+  currentLink = ++currentLink % links;
+
+  string1 = textArray[currentLink];
+  string2 = '';
+  string3 = '';
+
+  var i=currentLink + 1;
+  while (i < links) {
+    string2 += formatLink(textArray[i], urlArray[i]);
+    i++;
+  }
+
+  var i = 0;
+  while (i<currentLink) {
+    string2 += formatLink(textArray[i], urlArray[i]);
+    i++;
+  }
+}
+
+prepareLinks();
+
+function update(what,output) {
+  if (document.all) {
+    document.all[what].innerHTML = output;
+  }
+  else if (document.layers) {
+    document.layers[what].document.open();
+    document.layers[what].document.write(output);
+    document.layers[what].document.close();
+  }
+}
+
+function scrollLinks() {
+  var scrollingText =
+    formatLink(string1, urlArray[currentLink]) +
+    string2 +
+    formatLink(string3, urlArray[currentLink]);
+
+  update('myDiv', scrollingText);
+
+  if (string1 != '') {
+    string3 += string1.substring(0,1);
+    string1 = string1.substring(1);
+  }
+  else {
+    prepareLinks();
+  }
+
+  timer = setTimeout('scrollLinks()',50);
+}
+
+function startScroll() {
+  if (!scrolling) {
+    scrolling = true;
+    scrollLinks();
+  }
+}
+
+function stopScroll() {
+  if (scrolling)
+    clearTimeout(timer);
+
+  scrolling = false;
+}
+//--></script>
+</head>
+
+<body onLoad="startScroll()">
+
+<div id="myDiv"
+  style="position:absolute; clip:rect(0px 1280px 20px 0px);">
+</div>
+
+</body>
+
+</html>

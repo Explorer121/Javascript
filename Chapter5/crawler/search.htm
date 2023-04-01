@@ -1,0 +1,59 @@
+<html>
+
+<head>
+<title>Searching...</title>
+</head>
+
+<body>
+
+<h1>Searching...</h1>
+
+<script language="JavaScript"><!--
+if (navigator.appName == "Netscape" &&
+    navigator.javaEnabled()) {
+  netscape.security.PrivilegeManager.enablePrivilege(
+    "UniversalBrowserRead"
+  );
+}
+
+var df = parent.dataFrame;
+var of = top.outputFrame;
+
+var url = df.location.href;
+var title = df.document.title;
+var links = df.document.links;
+var length = links.length;
+
+of.document.write('<p>');
+of.document.write('<b>SEARCHING:<\/b> ' + url + '<br>');
+of.document.write('<b>TITLE:<\/b> ' + title + '<br>');
+of.document.write('<b>CONTAINS:<\/b> ' + length + '<br>');
+of.document.write('<b>LINKS<\/b>:');
+of.document.write('<\/p>');
+
+top.inputFrame.addEntry(
+  url.toString(), title, length, true
+);
+
+of.document.write('<p>');
+
+for (var i=0; i<length; i++) {
+  of.document.write(i + ' : ' + links[i].href);
+  top.inputFrame.addEntry(links[i].href, '', 0, false);
+}
+
+document.write('<\/p>');
+
+if (navigator.appName == "Netscape" &&
+    navigator.javaEnabled()) {
+  netscape.security.PrivilegeManager.disablePrivilege(
+    "UniversalBrowserRead"
+  );
+}
+
+top.inputFrame.finishedSearch();
+//--></script>
+
+</body>
+
+</html>

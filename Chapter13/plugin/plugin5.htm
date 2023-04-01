@@ -1,0 +1,27 @@
+<html>
+
+<head>
+
+<title>Real-Audio G2 Detection</title>
+
+<script language=VBScript><!--
+Dim object
+object = "rmocx.RealPlayer G2 Control"
+on error resume next
+RealPlayerG2 = (NOT IsNull(CreateObject(object)))
+//--></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+if (window.RealPlayerG2)
+  document.write('RealPlayer found');
+else
+  document.write('RealPlayer NOT found');
+//--></script>
+
+</body>
+
+</html>

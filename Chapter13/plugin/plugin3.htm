@@ -1,0 +1,34 @@
+<html>
+
+<head>
+
+<title>Examining the plugins array</title>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+for (var i = 0; i < navigator.mimeTypes.length; i++) {
+    var output = '';
+    output += "<strong>Type of mime type:</strong> ";
+    output += navigator.mimeTypes[i].type;
+
+    output += "<br><strong>Suffixes:</strong> ";
+    output += navigator.mimeTypes[i].suffixes;
+
+    output += "<br><strong>Description:</strong> ";
+    output += navigator.mimeTypes[i].description;
+
+    if (navigator.mimeTypes[i].enabledPlugin)
+        output +=  navigator.mimeTypes[i].enabledPlugin.name;
+    else output += ' N/A';
+
+    output += "<hr>";
+    document.write(output);
+}
+//--></script>
+
+</body>
+
+</html>

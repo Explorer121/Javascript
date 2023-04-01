@@ -1,0 +1,120 @@
+<html>
+
+<head>
+<title>Reading the contents of a directory</title>
+
+<style><!--
+p, h1 { font-family: Arial; }
+a { font-family: monospace; font-size: small; }
+//--></style>
+
+<script language="JavaScript"><!--
+function getFileName(s) {
+  if (s.indexOf('/') != -1)
+    return s.substring(s.lastIndexOf('/') + 1, s.length);
+  else
+    return s.substring(s.lastIndexOf('\\') + 1, s.length);
+}
+
+function vetLinks(filter) {
+  var files = new Array();
+  var index = 0;
+
+  var length = parent.directory.document.links.length;
+
+  for (var i = 0; i < length ; i++) {
+    var link = parent.directory.document.links[i].href;
+    var file = getFileName(link);
+
+    for (var j = 0; j<filter.length; j++) {
+      if (file.indexOf(filter[j]) > -1) {
+        files[index++] = file;
+        break;
+      }
+    }
+  }
+
+  return files;
+}
+
+function showLinks(dir, files) {
+  for (var i = 0; i < files.length; i++)
+    document.write(
+      '<a href="' + dir + files[i] + '">' + files[i] + '</a>' +
+      '<br>'
+    );
+}
+
+function go(what) {
+  location.href =
+    what.options[what.options.selectedIndex].value;
+}
+
+function showOptions(dir, files) {
+  document.write('<form><select name="list">');
+
+  for (var i = 0; i < files.length; i++)
+    document.write(
+      '<option name="list" value="' + dir + files[i] + '">' +
+      files[i] + '<\/option>'
+    );
+  document.write(
+    '<\/select> <input type="button" value="go" ' +
+    'onClick="go(this.form.list)"><\/form>'
+  );
+}
+
+function show(img) {
+  if (document.images)
+    document.images['sports'].src = img;
+}
+
+function showImages(dir, files) {
+  for (var i = 0; i < files.length; i++)
+    if (files[i] != 'blank.gif')
+      document.write(
+        '<a href="' + dir + files[i] + '" ' +
+        'onMouseover="show(\'' + dir + files[i] + '\')" ' +
+        'onMouseout="show(\'blank.gif\')">' +
+        files[i].substring(0,files[i].indexOf('.')) + '</a> '
+      );
+}
+//--></script>
+</head>
+
+<body>
+
+<h1>Reading the contents of a directory</h1>
+
+<p>
+The following is a list of all the .txt files present in the
+current directory:
+</p>
+
+<script language="JavaScript"><!--
+var filter = new Array('.txt');
+var files = vetLinks(filter);
+showLinks(parent.directory.location.href, files);
+showOptions(parent.directory.location.href, files);
+//--></script>
+
+<p>
+The following is a list of all the images present in the
+current directory:
+</p>
+
+<p align="center">
+
+<script language="JavaScript"><!--
+var filter = new Array('.jpg', '.gif', '.png', '.jif');
+var files = vetLinks(filter);
+showImages(parent.directory.location.href, files);
+//--></script>
+
+<br><br>
+<img name="sports" src="blank.gif" width="320" height="240">
+</p>
+
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<html>
+
+<head>
+
+<title>Builder</title>
+
+<style><!--
+select { width: 300; }
+input { text-align: right; }
+h1, td, p { font-family: Arial; }
+.l { visibility: hidden; display: block; }
+//--></style>
+
+<script language="JavaScript" src="builder.js"></script>
+
+<script language="JavaScript" src="database.js"></script>
+
+<script language="JavaScript"><!--
+if (window.Select) {
+  var form = new Form('form', 'choice.htm');
+
+  selects['choice'].add('osNT4.0');
+  selects['choice'].add('osRH7.0');
+  selects['choice'].add('osRAQ4');
+  selects['choice'].add('osSOL7');
+  form.add('choice', 0);
+}
+//--></script>
+
+</head>
+
+<body>
+
+<h1>Select a server</h1>
+
+<center>
+
+<script language="JavaScript"><!--
+if (window.form) document.write(showHTML(form));
+//--></script>
+
+</center>
+
+</body>
+
+</html>

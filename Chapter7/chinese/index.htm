@@ -1,0 +1,48 @@
+<html>
+
+<head>
+
+<title>Chinese New Year</title>
+
+<script src="current.js" language="JavaScript"></script>
+<script src="chinese.js" language="JavaScript"></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+if (window.formatFullDate && window.CNY) {
+  var today = new Date();
+  var day   = today.getDate();
+  var month = today.getMonth() + 1;
+  var year  = today.getFullYear();
+
+  var cny = new CNY(day,month,year);
+
+  document.write(
+    '<img src="' + myChinese[cny.branch].animalImage +
+    '" width="48" height="48">' +
+    '<img src="' + stemImage1 +
+    '" width="48" height="48">' +
+    '<img src="' + stemImage2 +
+    '" width="48" height="48">' +
+    '<img src="' + myChinese[cny.stem].stemImage +
+    '" width="48" height="48">' +
+    '<img src="' + branchImage1 +
+    '" width="48" height="48">' +
+    '<img src="' + branchImage2 +
+    '" width="48" height="48">' +
+    '<img src="' + myChinese[cny.branch].branchImage +
+    '" width="48" height="48">' +
+    '<br>Chinese year of the ' + myChinese[cny.branch].animal +
+    ' (' + myChinese[cny.stem].stem + '-'  +
+    myChinese[cny.branch].branch + ')' +
+    '<br>(' +  cny.start + ' - ' + cny.end + ')'
+  );
+}
+//--></script>
+
+</body>
+
+</html>

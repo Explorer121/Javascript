@@ -1,0 +1,16 @@
+<html>
+
+<script language="JavaScript"><!--
+var output = '';
+
+output += '<frameset rows="100%,*" ' +
+  'onLoad="this.searchFrame.location = \'search.htm\'">' +
+  '<frame src="loading.htm" name="searchFrame">' +
+  '<frame src="' +
+  parent.inputFrame.document.inputForm.url.value +
+  '" name="dataFrame"><\/frameset>';
+
+document.write(output);
+//--></script>
+
+</html>

@@ -1,0 +1,71 @@
+<html>
+
+<head>
+
+<title>Filtering Data Input</title>
+
+<script language="JavaScript"><!--
+var filter1 = new Array(
+  /terrible/gi,   'nice',
+  /bad/gi,        'sweet',
+  /awful/gi,      'innocent',
+  /nasty/gi,      'lovely'
+);
+
+var filter2 = new Array(
+  /teh/gi,        'the',
+  /mispelt/gi,    'misspelt',
+  /isn;t/gi,      'isn\'t',
+  /wot/gi,        'what',
+  /dun/gi,        'done'
+);
+
+var filter3 = new Array(
+  /javascript/gi, 'JavaScript',
+  /(\W)re(\W)/gi, '$1Regular Expressions$2'
+);
+
+function filterText(text, filter) {
+  for (var i = 0 ; i < filter.length ; i +=2) {
+    text = text.replace(filter[i], filter[i+1]);
+  }
+  return text;
+}
+//--></script>
+</head>
+
+<body>
+
+<form>
+
+<textarea name="input" cols="70" rows="10" wrap="virtual">
+This text area is prefilled with a selection of bad, awful,
+nasty, terrible words in amongst some innoculous words. By
+pressing teh filter button teh bads words are replaced with
+good words. Not only can this be used to replace bad words
+but also words that are commonly mispelt or mistyped,
+abbreviated or in the wrong case. There isn;t a limit to
+wot can be dun. Even words that are in upper case (e.g. BAD,
+AWFUL, NASTY, or Bad, Awful, nASTY) will be replaced. This
+is all done using javascript and re
+</textarea>
+
+<br>
+
+<input type="button" value="Bad -&gt; Nice"
+  onClick="this.form.input.value=
+    filterText(this.form.input.value,filter1)">
+
+<input type="button" value="Spellings & typos"
+  onClick="this.form.input.value=
+    filterText(this.form.input.value,filter2)">
+
+<input type="button" value="Caps. & Abbs."
+  onClick="this.form.input.value=
+    filterText(this.form.input.value,filter3)">
+
+</form>
+
+</body>
+
+</html>

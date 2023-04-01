@@ -1,0 +1,138 @@
+<html>
+
+<head>
+
+<title>Personal Calendar</title>
+
+<link rel="stylesheet" href="calendar.css" type="text/css">
+
+<script language="JavaScript" src="calendar.js"></script>
+<script language="JavaScript" src="cookie.js"></script>
+
+<script language="JavaScript"><!--
+function pad(num, size) {
+  num = '' + num;
+  while (num.length < size) num = '0' + num;
+  return num;
+}
+
+function y2k(num) {
+  return (num < 1000) ? num + 1900 : num;
+}
+
+function getNthParm(string,parm,nth) {
+  if (!string) return '';
+  var count = 1;
+  var startPos = 0 + string.indexOf(parm + '=');
+  while (startPos > -1) {
+    startPos = startPos + parm.length + 1;
+    var endPos = 0 + string.indexOf('&',startPos);
+    if (endPos == -1)
+      endPos = string.length;
+    if (count == nth)
+      return unescape(string.substring(startPos,endPos));
+    startPos = 0 + string.indexOf(parm + '=',endPos);
+    count++;
+  }
+  return '';
+}
+
+var entries = new Array(31);
+
+function getPersonal(year,month) {
+  var monthValue;
+
+  if (window.Cookie)
+    monthValue = getCookie(year + pad(month,2));
+
+  if (monthValue == null) monthValue = '';
+  var dayValue;
+
+  for (var i=1; i<=31; i++) {
+    var start = monthValue.indexOf('@@' + i + '=');
+    var len = start + ('@@' + i + '=').length;
+    if (start == -1) dayValue = '';
+    else {
+      var end = monthValue.indexOf('@@',len);
+      if (end == -1) end = monthValue.length;
+      dayValue = monthValue.substring(len, end)
+    }
+    entries[i] = dayValue;
+  }
+}
+
+function changeMonth() {
+  location.href =
+    'index.htm?year=' + year + '&month=' + CalendarMonth;
+}
+
+function changeYear() {
+  location.href =
+    'index.htm?year=' + CalendarYear + '&month=' + month;
+}
+
+function changeDay() {
+  if (window.Cookie) {
+    day = CalendarDay;
+
+    var popupCookie =
+      window.open('cookie.htm','cookie','width=200,height=150');
+
+    if (popupCookie.opener == null)
+      popupCookie.opener = self;
+  }
+}
+//--></script>
+
+</head>
+
+<body>
+
+<center>
+
+<table><tr><td width="350" bgcolor="#C0C0C0">
+
+<script language="JavaScript"><!--
+var today = new Date();
+var day   = today.getDate();
+var month = today.getMonth() + 1;
+var year  = y2k(today.getYear());
+
+var search = location.search;
+
+if (search.length > 1) {
+  year = getNthParm(search, 'year', 1);
+  month = getNthParm(search, 'month', 1);
+}
+
+getPersonal(year,month);
+
+if (window.CalendarSelect)
+  document.write(CalendarSelect(month,year,0));
+//--></script>
+
+</td></tr>
+
+<tr><td>
+
+<script language="JavaScript"><!--
+var output = '';
+
+for (var i=1; i <= 31; i++) {
+  var dayValue = entries[i];
+
+  if (dayValue != '')
+    output += pad(i,2) + '/' + pad(month,2) + '/' + year +
+      ' - ' + dayValue + '<br>';
+}
+document.write('<p>' + output + '</p>');
+//--></script>
+
+</td></tr>
+</table>
+
+</center>
+
+</body>
+
+</html>

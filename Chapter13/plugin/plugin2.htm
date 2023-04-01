@@ -1,0 +1,35 @@
+<html>
+
+<head>
+
+<title>Examining the plugins array</title>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+function retrievePlugin(Plugin) {
+    for (var i = 0; i < navigator.plugins.length; i++) {
+        if (navigator.plugins[i].name == Plugin) {
+            return true;
+        }
+    }
+    return false;
+}
+
+var Plugin = 'Shockwave Flash';
+
+if (retrievePlugin(Plugin))
+    document.write(
+      'The Plugin <strong>' + Plugin + '</strong> is supported.<br>'
+    );
+else
+    document.write(
+      'The Plugin <strong>' + Plugin + '</strong> is not supported.<br>'
+    )
+//--></script>
+
+</body>
+
+</html>

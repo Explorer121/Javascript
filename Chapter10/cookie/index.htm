@@ -1,0 +1,36 @@
+<html>
+
+<head>
+
+<title>General Purpose JavaScript Cookie Routines</title>
+
+<script language="JavaScript" src="cookie.js"></script>
+
+</head>
+
+<body>
+
+<script language="JavaScript"><!--
+if (window.Cookie) {
+  var today = new Date()
+  var expires = new Date(today.getTime() + Cookie.year);
+
+  setCookie('myCookie', 'Hello World', expires);
+
+  setCookie('myOtherCookie', '1234567890.00', expires);
+
+  document.write(document.cookie + '<br>');
+
+  var myCookie = getCookie('myCookie');
+
+  document.write(myCookie + '<br>');
+
+  deleteCookie('myCookie');
+
+  document.write(document.cookie + '<br>');
+}
+//--></script>
+
+</body>
+
+</html>

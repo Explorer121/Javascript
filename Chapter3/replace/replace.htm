@@ -1,0 +1,62 @@
+<script language="JavaScript"><!--
+function replace(string,text,by) {
+  var strLength = string.length;
+  var txtLength = text.length;
+
+  if ((strLength == 0) || (txtLength == 0))
+    return string;
+
+  var i = string.indexOf(text);
+
+  if (i == -1)
+    return string;
+
+  var newstr = string.substring(0,i) + by;
+
+  newstr +=
+    replace(string.substring(i+txtLength,strLength),text,by);
+
+  return newstr;
+}
+//--></script>
+
+<script language="JavaScript"><!--
+var message1 = 'The status of this document is Draft.';
+
+document.write(replace(message1,'Draft','Issued') + '<br>');
+
+var message2 = '"quoted" text can be "useful"';
+
+document.write(replace(message2,'"','\'') + '<br>');
+//--></script>
+
+<script language="JavaScript"><!--
+var message3 = 'This message uses vowels';
+
+document.write(
+  replace(
+    replace(
+      replace(
+        replace(
+          replace(message3,'a','A'),
+        'e','E'),
+      'i','I'),
+    'o','O'),
+  'u','U')
+ + '<BR>'
+);
+//--></script>
+
+<script language="JavaScript"><!--
+function highlight(string,phrase) {
+  return replace(string,phrase,phrase.bold());
+}
+
+var message4 = 'JavaScript is extremely versatile';
+
+document.write(highlight(message4,'JavaScript') + '<br>');
+//--></script>
+
+<script language="JavaScript"><!--
+document.write(replace('oOoOoOoOoOoOoOo','o','') + '<br>');
+//--></script>

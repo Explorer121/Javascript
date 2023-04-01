@@ -1,0 +1,344 @@
+<html>
+
+<head>
+<title>Automated Links</title>
+
+<script language="JavaScript"><!--
+var imagelink = 0;
+
+var topImage  = '<img src="top.gif" border="0">';
+var lastImage = '<img src="last.gif" border="0">';
+var nextImage = '<img src="next.gif" border="0">';
+var endImage  = '<img src="end.gif" border="0">';
+
+function imagelinks(last) {
+  var output = '';
+
+  if (last) output += '<a name="end"><\/a>';
+
+  output += '<hr><p>';
+
+  if (imagelink != 0) {
+    output += '<a href="#top">' + topImage +'<\/a> ';
+    output += '<a href="#' + (imagelink-1) + '">' + lastImage + '<\/a> ';
+  }
+
+  output += '<a name="' + (imagelink++) + '"><\/a>';
+
+  if (!last) {
+    output += '<a href="#' + imagelink + '">' + nextImage +'<\/a> ';
+    output += '<a href="#end">' + endImage + '<\/a>';
+  }
+
+  output += '<\/p>';
+
+  document.write(output);
+}
+//--></script>
+
+</head>
+
+<body>
+
+<a name="top"></a>
+
+<script language="JavaScript">imagelinks();</script>
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt. Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem. Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga. Et harum quidem rerum facilis est et
+expedita distinctio. Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus asperiores repellat.
+</p>
+
+<script language="JavaScript">imagelinks();</script>
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt. Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem. Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga. Et harum quidem rerum facilis est et
+expedita distinctio. Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus asperiores repellat.
+</p>
+
+<script language="JavaScript">imagelinks();</script>
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt. Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem. Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga. Et harum quidem rerum facilis est et
+expedita distinctio. Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus asperiores repellat.
+</p>
+
+<script language="JavaScript">imagelinks();</script>
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt. Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem. Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga. Et harum quidem rerum facilis est et
+expedita distinctio. Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus asperiores repellat.
+</p>
+
+<script language="JavaScript">imagelinks();</script>
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt. Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem. Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga. Et harum quidem rerum facilis est et
+expedita distinctio. Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus asperiores repellat.
+</p>
+
+<script language="JavaScript">imagelinks();</script>
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt. Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem. Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga. Et harum quidem rerum facilis est et
+expedita distinctio. Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus asperiores repellat.
+</p>
+
+<script language="JavaScript">imagelinks();</script>
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt. Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem. Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga. Et harum quidem rerum facilis est et
+expedita distinctio. Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus asperiores repellat.
+</p>
+
+<script language="JavaScript">imagelinks();</script>
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt. Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem. Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga. Et harum quidem rerum facilis est et
+expedita distinctio. Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus asperiores repellat.
+</p>
+
+<script language="JavaScript">imagelinks(true);</script>
+
+<p>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque
+ipsa ab illo inventore veritatis et quasi architecto beatae
+vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+voluptas sit aspernatur aut odit aut fugit, sed quia
+onsequuntur magni dolores eos qui ratione voluptatem sequi
+nesciunt. Neque porro quisquam est qui do lorem ipsum quia
+dolor sit amet, consectetur, adipisci velit, sed quia
+nonnumquam eiusmodi tempora incidunt ut labore et dolore magnam
+aliquam quaerat voluptatem. Ut enim ad minima veniam, quia
+nostrum exercitationem ullam corporis suscipit laboriosam, nisi
+ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
+reprehenderit qui in ea voluptate velit esse quam nihil
+molestiae consequatur, vel illum qui dolorem eum fugiat quo
+voluptas nulla pariatur? At vero eos et accusamus et iusto odio
+dignissimos ducimus qui blanditiis praesentium voluptatum
+deleniti atque corrupti quos dolores et quas molestias
+excepturi sint occaccati cupiditate non provident, similique
+sunt in culpa qui officia deserunt mollitia animi, id est
+laborum et dolorum fuga. Et harum quidem rerum facilis est et
+expedita distinctio. Nam libero tempore, cum soluta nobis est
+eligendi optio cumque nihil impedit quo minus id quod maxime
+placeat facere possimus, omnis dolor repellendus. Temporibus
+autem quibusdam et aut officiis debitis aut rerum
+necessitatibus saepe eveniet ut et voluptates repudiandae sint
+et molestiae non recusandae. Itaque earum rerum hic tenetur a
+sapiente delectus ut aut reiciendis voluptatibus maiores alias
+consequatur aut perferendis doloribus asperiores repellat.
+</p>
+
+</body>
+
+</html>

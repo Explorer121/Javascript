@@ -1,0 +1,120 @@
+<html>
+
+<head>
+
+<title>Pick a color</title>
+
+<script language="JavaScript" src="dom.js"></script>
+
+<style><!--
+.l { position: absolute; display: block; }
+//--></style>
+
+<script language="JavaScript"><!--
+var locked = false;
+var bg = '#ffffff', fg = '#000000';
+var text =
+  'Move your mouse around to change colors<br>' +
+  'Click to lock color - click again to unlock';
+
+function updateColor(rgb) {
+  if (!locked) {
+
+    if (document.what.color[0].checked)
+      bg = rgb; else fg = rgb;
+
+    document.bgColor = bg;
+
+    if (window.DOMObjects) {
+	  var html =
+	    '<p align="center"><font color="' + fg + '">' +
+	    '<strong>' + text + '</strong><br>' +
+	    'foreground = ' + fg + ', background = ' + bg +
+	    '</font></p>';
+
+	  DOMElementSetInnerHTML(DOMObjects['dynamicArea'],html)
+    }
+  }
+  return true;
+}
+
+function toggleLock(col) {
+  locked =! locked;
+  return false;
+}
+
+
+function start() {
+  window.focus();
+
+  if (window.DOMObjects) DOMInitialize('div');
+}
+//--></script>
+
+</head>
+
+<body onLoad="start()">
+
+<center>
+
+<table border="3">
+<tr>
+
+<script language="JavaScript"><!--
+var count = 0;
+var output = '';
+
+for (var r = 0 ; r <= 255; r += 51) {
+  for (var g = 0; g <= 255; g += 51) {
+    for (var b = 0; b <= 255; b += 51) {
+      if (count == 18) {
+        document.write(output + '</tr>\n<tr>');
+        count = 0;
+        output = '';
+      }
+
+      var col = '#' +
+        ((r==0) ? '00' : r.toString(16).toUpperCase()) +
+        ((g==0) ? '00' : g.toString(16).toUpperCase()) +
+        ((b==0) ? '00' : b.toString(16).toUpperCase());
+
+      output +=
+        '<td bgcolor="' + col + '">' +
+        '<a href="#" onClick="return toggleLock(\''+col+'\')"' +
+        ' onMouseOver="return updateColor(\''+col+'\')">' +
+        '<img src="w.gif" height="20" width="20" border="0"></a></td>';
+
+      count++;
+    }
+  }
+}
+
+document.write(output);
+//--></script>
+
+</tr>
+<tr>
+<td colspan="18">
+<form name="what">
+<input type="radio" name="color" onClick="locked=false" checked>
+- Background
+<input type="radio" name="color" onClick="locked=false">
+- Foreground
+<input type="button" onClick="if (opener && opener.setColor) opener.setColor(fg,bg);self.close()" value="Done">
+</form>
+</td>
+</tr>
+</table>
+
+</center>
+
+<div id="dynamicArea" class="l" style="width: 100%;">
+<p align="center"><strong>
+Move your mouse around to change colors<br>
+Click to lock color - click again to unlock
+</strong></p>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<html>
+
+<head>Number Utilities</title>
+
+<script language="JavaScript"><!--
+function round(number,x) {
+  return Math.round(number * Math.pow(10,x)) / Math.pow(10,x);
+}
+
+function cents(amount) {
+  amount -= 0;
+
+  amount = round(amount, 2);
+
+  if (amount == 0)
+    amount = '.00';
+  else if (amount == Math.floor(amount))
+    amount += '.00';
+  else if (amount*10 == Math.floor(amount*10))
+    amount += '0';
+
+  return '' + amount;
+}
+
+function commas(integer) {
+  integer = '' + Math.round(integer);
+
+  if (integer.length > 3) {
+    var mod = integer.length%3;
+
+    var output = (mod > 0 ? (integer.substring(0,mod)) : '');
+
+    for (i=0 ; i < Math.floor(integer.length/3) ; i++) {
+      if ((mod ==0) && (i ==0))
+        output+= integer.substring(mod+3*i,mod+3*i+3);
+      else
+        output+= ',' + integer.substring(mod+3*i,mod+3*i+3);
+    }
+    return output;
+  }
+  return integer;
+}
+
+function monetary(amount) {
+  var integer = Math.floor(amount);
+  var floating = amount - integer;
+
+  return commas(integer) + cents(floating);
+}
+
+var numbers = new Array(
+  '','one','two','three','four','five','six','seven',
+  'eight','nine','ten','eleven','twelve','thirteen','fourteen',
+  'fifthteen','sixteen','seventeen','eighteen','nineteen',
+  '','','twenty','thirty','fourty','fifty','sixty', 'seventy',
+  'eighty','ninety'
+);
+
+function tu(u) {
+  var t = 0;
+  if (u>=20) t = (u - u % 10) / 10, u = u - (u - u % 10);
+  return numbers[t+20] + ((t>0 && u>0) ? '-' : '') + numbers[u];
+}
+
+function htu(number) {
+  var hs = (number - number % 100) / 100;
+  var tus = number - hs * 100;
+
+  return tu(hs) + (hs>0 ? ' hundred' : '') +
+         (tus>0 && hs>0 ? ' ':'') + tu(tus);
+}
+
+function monetaryString(input) {
+  var dollars = Math.floor(input - 0);
+  var cents = Math.floor(input*100 - dollars*100);
+
+  var billions = (dollars - dollars % 1000000000) / 1000000000;
+  dollars  -= billions * 1000000000;
+  var millions = (dollars - dollars % 1000000) / 1000000;
+  dollars  -= millions * 1000000;
+  var thousands = (dollars - dollars % 1000) / 1000;
+  dollars -= thousands * 1000;
+
+  var o = '';
+
+  o += HTU(billions, ' billion', ', ');
+  o += HTU(millions, ' million', ', ');
+  o += HTU(thousands, ' thousand', ', ');
+  o += HTU(dollars, ' dollars', ', ');
+  o += HTU(cents, ' cents', ' and ');
+
+  and = false;
+
+  return o.substring(0,1).toUpperCase() + o.substring(1);
+}
+
+var and = false;
+
+function HTU(number, text, add) {
+  if (number <= 0) return '';
+  var output = '';
+  if (and) output += add;
+  output += htu(number) + text;
+  and = true;
+  return output;
+}
+//--></script>
+
+</head>
+
+<body>
+
+<form>
+<input type="text" name="i">
+<br>
+<input type="text" name="o1">
+<br>
+<input type="button" value="Convert"
+  onClick="this.form.o1.value=monetary(this.form.i.value);
+    this.form.o2.value=monetaryString(this.form.i.value)">
+<br>
+<textarea name="o2" rows="5" cols="70" wrap="virtual">
+</textarea>
+</form>
+
+</body>
+</html>

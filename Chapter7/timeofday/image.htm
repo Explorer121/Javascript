@@ -1,0 +1,30 @@
+<html>
+
+<head>
+
+<title>Image Clock</title>
+
+<script src="timeofday.js" language="JavaScript"></script>
+
+</head>
+
+<body onLoad="if (window.updateClock) updateClock()">
+
+<script language="JavaScript"><!--
+if (document.images && window.updateClock) {
+  document.write(
+    '<img src="0.gif" name="h10" height="64" width="64">' +
+    '<img src="0.gif" name="h1" height="64" width="64">' +
+    '<img src="sep.gif" height="64" width="24">' +
+    '<img src="0.gif" name="m10" height="64" width="64">' +
+    '<img src="0.gif" name="m1" height="64" width="64">' +
+    '<img src="sep.gif" height="64" width="24">' +
+    '<img src="0.gif" name="s10" height="64" width="64">' +
+    '<img src="0.gif" name="s1" height="64" width="64">'
+  );
+}
+//--></script>
+
+</body>
+
+</html>

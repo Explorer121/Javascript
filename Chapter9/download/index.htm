@@ -1,0 +1,86 @@
+<html>
+
+<head>
+
+<title>Image % Download</title>
+
+<script language="JavaScript"><!--
+var count = 0;
+var percent = 0;
+var imagesLoaded = bodyLoaded = false;
+
+var popup = new Object();
+popup.closed = true;
+
+function imageLoad() {
+  percent = Math.floor(100 * (count+1) / image.length);
+
+  popup =
+    window.open('about:blank','wName','width=100,height=100');
+  popup.document.open();
+  popup.document.write('<br><h1><center><font face="arial">' + percent + '%</font></center></h1>');
+  popup.document.close();
+
+  count++;
+  if (count == image.length) {
+    if (bodyLoaded) start();
+    else imagesLoaded = true;
+  }
+}
+
+function rndInteger(n) {
+  return Math.floor(Math.random() * n);
+}
+
+function start() {
+  if (popup && !popup.closed) popup.close();
+  play();
+}
+
+function play() {
+  for (var i=0; i<image.length; i++) {
+    var no = image[i].no;
+    no = (++no) % image.length;
+    image[i].no = no;
+    document.images['image' + i].src = image[no].src;
+  }
+  setTimeout('play()',1);
+}
+
+var image = new Array(36);
+
+if (document.images) {
+  for (var i=0; i<image.length; i++) {
+    image[i] = new Image();
+    image[i].onload = imageLoad;
+    image[i].src = i +'.gif';
+    image[i].no = rndInteger(image.length);
+  }
+}
+//--></script>
+
+</head>
+
+<body onLoad="if (imagesLoaded) start(); else bodyLoaded = true">
+
+<script language="JavaScript"><!--
+var output = '<table cellpadding="0" cellspacing="0" border="0">';
+
+var i=0;
+
+for (var x=0; x<6; x++) {
+  output += '<tr><td>';
+  for (var y=0; y<6; y++)
+    output +=
+      '<img src="blank.gif" name="image' + (i++) + '" width="80" height="80">';
+  output += '</td></tr>';
+}
+
+output += '</table>';
+
+document.write(output);
+//--></script>
+
+</body>
+
+</html>
